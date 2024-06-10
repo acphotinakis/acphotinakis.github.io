@@ -21,10 +21,10 @@ const ListItem = ({
     <div className="my-0.5 text-xs">{year}</div>
     <div className="font-medium">
       <a href={link} target="_blank" rel="noreferrer">
-        {name}
+        {body}
       </a>
     </div>
-    <h3 className="mb-4 font-normal">{body}</h3>
+    <div className="font-medium">{name}</div>
   </li>
 );
 

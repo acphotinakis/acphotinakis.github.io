@@ -141,7 +141,11 @@ export interface SanitizedConfig {
   seo: SanitizedSEO;
   social: SanitizedSocial;
   resume: SanitizedResume;
+  languages: Array<string>;
   skills: Array<string>;
+  frameworksAndLibraries: Array<string>;
+  toolsAndTechnologies: Array<string>;
+  conceptsAndSkills: Array<string>;
   experiences: Array<SanitizedExperience>;
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;

@@ -26,10 +26,12 @@ import EducationCard from './education-card';
 import CertificationCard from './certification-card';
 import { GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './github-project-card';
-import ExternalProjectCard from './external-project-card';
+// import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
-import Footer from './footer';
+// import Footer from './footer';
 import PublicationCard from './publication-card';
+import TimelineComponent from './timeline';
+// import ExpCard from './exp-card';
 
 /**
  * Renders the GitProfile component.
@@ -218,10 +220,32 @@ const GitProfile = ({ config }: { config: Config }) => {
                       github={sanitizedConfig.github}
                       social={sanitizedConfig.social}
                     />
-                    {sanitizedConfig.skills.length !== 0 && (
+                    {sanitizedConfig.languages.length !== 0 && (
                       <SkillCard
                         loading={loading}
-                        skills={sanitizedConfig.skills}
+                        skills={sanitizedConfig.languages}
+                        name="Programming Languages"
+                      />
+                    )}
+                    {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
+                      <SkillCard
+                        loading={loading}
+                        skills={sanitizedConfig.frameworksAndLibraries}
+                        name="Frameworks & Libraries"
+                      />
+                    )}
+                    {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
+                      <SkillCard
+                        loading={loading}
+                        skills={sanitizedConfig.toolsAndTechnologies}
+                        name="Tools & Technologies"
+                      />
+                    )}
+                    {sanitizedConfig.conceptsAndSkills.length !== 0 && (
+                      <SkillCard
+                        loading={loading}
+                        skills={sanitizedConfig.conceptsAndSkills}
+                        name="Concepts & Skills"
                       />
                     )}
                     {sanitizedConfig.experiences.length !== 0 && (
@@ -262,7 +286,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                         publications={sanitizedConfig.publications}
                       />
                     )}
-                    {sanitizedConfig.projects.external.projects.length !==
+                    {/* {sanitizedConfig.projects.external.projects.length !==
                       0 && (
                       <ExternalProjectCard
                         loading={loading}
@@ -272,7 +296,14 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                         googleAnalyticId={sanitizedConfig.googleAnalytics.id}
                       />
-                    )}
+                    )} */}
+                    {/* {sanitizedConfig.blog.display && (
+                      <ExpCard
+                        loading={loading}
+                        googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                        blog={sanitizedConfig.blog}
+                      />
+                    )} */}
                     {sanitizedConfig.blog.display && (
                       <BlogCard
                         loading={loading}
@@ -280,19 +311,13 @@ const GitProfile = ({ config }: { config: Config }) => {
                         blog={sanitizedConfig.blog}
                       />
                     )}
+                    <div className="App">
+                      <TimelineComponent loading={loading} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            {sanitizedConfig.footer && (
-              <footer
-                className={`p-4 footer ${BG_COLOR} text-base-content footer-center`}
-              >
-                <div className="card compact bg-base-100 shadow">
-                  <Footer content={sanitizedConfig.footer} loading={loading} />
-                </div>
-              </footer>
-            )}
           </>
         )}
       </div>

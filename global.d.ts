@@ -383,7 +383,10 @@ interface Config {
    * Skill list
    */
   skills?: Array<string>;
-
+  frameworksAndLibraries?: Array<string>;
+  languages?: Array<string>;
+  conceptsAndSkills?: Array<string>;
+  toolsAndTechnologies?: Array<string>;
   /**
    * Experience list
    */
