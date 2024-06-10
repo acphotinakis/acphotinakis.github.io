@@ -1,6 +1,4 @@
-import React, { Fragment } from 'react';
 import { Chrono } from 'react-chrono';
-import LazyImage from '../lazy-image';
 import { skeleton } from '../../utils'; // Assuming skeleton utility is implemented
 
 const TimelineComponent = ({ loading }: { loading: boolean }) => {
