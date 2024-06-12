@@ -15,7 +15,6 @@ import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
 import HeadTagEditor from './head-tag-editor';
 import { DEFAULT_THEMES } from '../constants/default-themes';
-// import ThemeChanger from './theme-changer';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './avatar-card';
 import { Profile } from '../interfaces/profile';
@@ -25,14 +24,12 @@ import EducationCard from './education-card';
 import CertificationCard from './certification-card';
 import { GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './github-project-card';
-// import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
-// import Footer from './footer';
 import PublicationCard from './publication-card';
 import TimelineComponent from './timeline';
-// import ExpCard from './exp-card';
 import SkillsGrid from './skills-grid';
 import Logo from './logo';
+
 /**
  * Renders the GitProfile component.
  *
@@ -275,7 +272,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       />
                     )}
                     <div>
-                      <TimelineComponent loading={loading} />
+                      <TimelineComponent />
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { skeleton } from '../../utils';
 import { SanitizedConfig } from '../../interfaces/sanitized-config';
 import SkillCard from '../skill-card';

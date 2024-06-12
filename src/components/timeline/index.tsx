@@ -23,7 +23,10 @@ const cardItems = [
   },
 ];
 
-function determineClasses(indexes, cardIndex) {
+function determineClasses(
+  indexes: { currentIndex: number; nextIndex: number; previousIndex: number },
+  cardIndex: number,
+): string {
   if (indexes.currentIndex === cardIndex) {
     return 'active';
   } else if (indexes.nextIndex === cardIndex) {
@@ -34,7 +37,7 @@ function determineClasses(indexes, cardIndex) {
   return 'inactive';
 }
 
-const TimelineComponent = ({ loading }: { loading: boolean }) => {
+const TimelineComponent = () => {
   const [indexes, setIndexes] = useState({
     previousIndex: 0,
     currentIndex: 0,

@@ -1,3 +1,5 @@
+import { skeleton } from '../../utils';
+
 const SkillCard = ({
   loading,
   skills,
