@@ -1,5 +1,3 @@
-import { skeleton } from '../../utils';
-
 const SkillCard = ({
   loading,
   skills,
@@ -23,29 +21,33 @@ const SkillCard = ({
   };
 
   return (
-    <div className="card shadow-lg compact bg-base-100">
-      <div className="card-body">
-        <div className="mx-3">
-          <h5 className="card-title">
-            {loading ? (
-              skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
-            ) : (
-              <span className="text-base-content opacity-70">{name}</span>
-            )}
-          </h5>
-        </div>
-        <div className="p-3 flow-root">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
-            {loading
-              ? renderSkeleton()
-              : skills.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="text-xs inline-flex items-center font-bold leading-sm px-3 py-1 rounded-half border border-gray-300"
-                  >
-                    {skill}
-                  </div>
-                ))}
+    <div className="border-white border-1 font-mono">
+      <div className="card shadow-2xl compact text-white">
+        <div className="card-body">
+          <div className="mx-3">
+            <h5 className="card-title text-white">
+              {loading ? (
+                renderSkeleton() // Adjusted to call renderSkeleton function
+              ) : (
+                <span className="text-base-content opacity-100 text-white">
+                  {name}
+                </span>
+              )}
+            </h5>
+          </div>
+          <div className="p-3 flow-root">
+            <div className="-m-1 flex flex-wrap justify-center">
+              {loading
+                ? renderSkeleton() // Adjusted to call renderSkeleton function
+                : skills.map((skill, index) => (
+                    <div
+                      key={index}
+                      className="m-1 text-white text-xs inline-flex items-center font-mono leading-sm px-3 py-1 badge-primary rounded-full bg-inherit"
+                    >
+                      {skill}
+                    </div>
+                  ))}
+            </div>
           </div>
         </div>
       </div>

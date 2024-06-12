@@ -40,7 +40,7 @@ const ThemeChanger = ({
   };
 
   return (
-    <div className="card overflow-visible shadow-lg compact bg-base-100">
+    <div className="card overflow-visible shadow-2xl compact bg-base-100">
       <div className="flex-row items-center space-x-4 flex pl-6 pr-2 py-4">
         <div className="flex-1">
           <h5 className="card-title">

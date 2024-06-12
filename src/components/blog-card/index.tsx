@@ -38,7 +38,7 @@ const BlogCard = ({
     const array = [];
     for (let index = 0; index < blog.limit; index++) {
       array.push(
-        <div className="card shadow-lg compact bg-base-100" key={index}>
+        <div className="card shadow-2xl compact bg-base-100" key={index}>
           <div className="p-8 h-full w-full">
             <div className="flex items-center flex-col md:flex-row">
               <div className="avatar mb-5 md:mb-0">
@@ -95,7 +95,7 @@ const BlogCard = ({
     return articles && articles.length ? (
       articles.slice(0, blog.limit).map((article, index) => (
         <a
-          className="card shadow-lg compact bg-base-100 cursor-pointer"
+          className="card shadow-2xl compact bg-base-100 cursor-pointer"
           key={index}
           href={article.link}
           onClick={(e) => {
@@ -178,7 +178,7 @@ const BlogCard = ({
             className={`card compact bg-base-100 ${
               loading || (articles && articles.length)
                 ? 'shadow bg-opacity-40'
-                : 'shadow-lg'
+                : 'shadow-2xl'
             }`}
           >
             <div className="card-body">

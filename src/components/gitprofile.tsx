@@ -15,12 +15,11 @@ import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
 import HeadTagEditor from './head-tag-editor';
 import { DEFAULT_THEMES } from '../constants/default-themes';
-import ThemeChanger from './theme-changer';
+// import ThemeChanger from './theme-changer';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './avatar-card';
 import { Profile } from '../interfaces/profile';
 import DetailsCard from './details-card';
-import SkillCard from './skill-card';
 import ExperienceCard from './experience-card';
 import EducationCard from './education-card';
 import CertificationCard from './certification-card';
@@ -32,7 +31,8 @@ import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import TimelineComponent from './timeline';
 // import ExpCard from './exp-card';
-
+import SkillsGrid from './skills-grid';
+import Logo from './logo';
 /**
  * Renders the GitProfile component.
  *
@@ -181,9 +181,17 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   };
 
+  const divStyle = {
+    backgroundColor: 'rgb(139,146,154)',
+    backgroundSize: 'cover', // Adjust as needed
+    backgroundPosition: 'center', // Adjust as needed
+    width: '100%', // Example width
+    height: '100%', // Example height
+  };
+
   return (
     <HelmetProvider>
-      <div className="fade-in h-screen">
+      <div className="fade-in h-screen" style={divStyle}>
         {error ? (
           <ErrorPage
             status={error.status}
@@ -196,18 +204,16 @@ const GitProfile = ({ config }: { config: Config }) => {
               googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
               appliedTheme={theme}
             />
-            <div className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}>
+            <div
+              className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}
+              style={divStyle}
+            >
+              <div>
+                <Logo />
+              </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 rounded-box">
                 <div className="col-span-1">
                   <div className="grid grid-cols-1 gap-6">
-                    {!sanitizedConfig.themeConfig.disableSwitch && (
-                      <ThemeChanger
-                        theme={theme}
-                        setTheme={setTheme}
-                        loading={loading}
-                        themeConfig={sanitizedConfig.themeConfig}
-                      />
-                    )}
                     <AvatarCard
                       profile={profile}
                       loading={loading}
@@ -220,32 +226,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                       github={sanitizedConfig.github}
                       social={sanitizedConfig.social}
                     />
-                    {sanitizedConfig.languages.length !== 0 && (
-                      <SkillCard
+                    {sanitizedConfig.educations.length !== 0 && (
+                      <EducationCard
                         loading={loading}
-                        skills={sanitizedConfig.languages}
-                        name="Programming Languages"
-                      />
-                    )}
-                    {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
-                      <SkillCard
-                        loading={loading}
-                        skills={sanitizedConfig.frameworksAndLibraries}
-                        name="Frameworks & Libraries"
-                      />
-                    )}
-                    {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
-                      <SkillCard
-                        loading={loading}
-                        skills={sanitizedConfig.toolsAndTechnologies}
-                        name="Tools & Technologies"
-                      />
-                    )}
-                    {sanitizedConfig.conceptsAndSkills.length !== 0 && (
-                      <SkillCard
-                        loading={loading}
-                        skills={sanitizedConfig.conceptsAndSkills}
-                        name="Concepts & Skills"
+                        educations={sanitizedConfig.educations}
                       />
                     )}
                     {sanitizedConfig.experiences.length !== 0 && (
@@ -260,16 +244,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                         certifications={sanitizedConfig.certifications}
                       />
                     )}
-                    {sanitizedConfig.educations.length !== 0 && (
-                      <EducationCard
-                        loading={loading}
-                        educations={sanitizedConfig.educations}
-                      />
-                    )}
                   </div>
                 </div>
-                <div className="lg:col-span-2 col-span-1">
-                  <div className="grid grid-cols-1 gap-6">
+                <div className="lg:col-span-2 col-span-1" style={divStyle}>
+                  <div className="grid grid-cols-1 gap-6" style={divStyle}>
                     {sanitizedConfig.projects.github.display && (
                       <GithubProjectCard
                         header={sanitizedConfig.projects.github.header}
@@ -277,7 +255,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                         githubProjects={githubProjects}
                         loading={loading}
                         username={sanitizedConfig.github.username}
-                        googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                       />
                     )}
                     {sanitizedConfig.publications.length !== 0 && (
@@ -286,24 +263,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                         publications={sanitizedConfig.publications}
                       />
                     )}
-                    {/* {sanitizedConfig.projects.external.projects.length !==
-                      0 && (
-                      <ExternalProjectCard
-                        loading={loading}
-                        header={sanitizedConfig.projects.external.header}
-                        externalProjects={
-                          sanitizedConfig.projects.external.projects
-                        }
-                        googleAnalyticId={sanitizedConfig.googleAnalytics.id}
-                      />
-                    )} */}
-                    {/* {sanitizedConfig.blog.display && (
-                      <ExpCard
-                        loading={loading}
-                        googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                        blog={sanitizedConfig.blog}
-                      />
-                    )} */}
+                    <SkillsGrid
+                      loading={loading}
+                      sanitizedConfig={sanitizedConfig}
+                    />
                     {sanitizedConfig.blog.display && (
                       <BlogCard
                         loading={loading}
@@ -311,7 +274,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                         blog={sanitizedConfig.blog}
                       />
                     )}
-                    <div className="App">
+                    <div>
                       <TimelineComponent loading={loading} />
                     </div>
                   </div>

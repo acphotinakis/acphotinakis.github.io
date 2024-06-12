@@ -70,7 +70,7 @@
 //   };
 
 //   return (
-//     <div className="card shadow-lg compact bg-base-100">
+//     <div className="card shadow-2xl compact bg-base-100">
 //       <div className="card-body">
 //         <div className="mx-3">
 //           <h5 className="card-title">

@@ -59,21 +59,21 @@ const CertificationCard = ({
   };
 
   return (
-    <div className="card shadow-lg compact bg-base-100">
+    <div className="card shadow-2xl compact">
       <div className="card-body">
         <div className="mx-3">
           <h5 className="card-title">
             {loading ? (
               skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
             ) : (
-              <span className="text-base-content opacity-70">
-                Certification
+              <span className="text-base-content opacity-100 text-white">
+                Certifications
               </span>
             )}
           </h5>
         </div>
         <div className="text-base-content text-opacity-60">
-          <ol className="relative border-l border-base-300 border-opacity-30 my-2 mx-4">
+          <ol className="relative border-l border-base-300 border-opacity-30 my-2 mx-4 text-white">
             {loading ? (
               renderSkeleton()
             ) : (
