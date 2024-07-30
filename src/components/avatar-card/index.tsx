@@ -24,8 +24,6 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
   profile,
   loading,
   avatarRing,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  resumeFileUrl,
 }): JSX.Element => {
   return (
     <div className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-2 rounded-2xl">
