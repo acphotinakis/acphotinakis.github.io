@@ -91,6 +91,12 @@ export interface SanitizedEducation {
   to: string;
 }
 
+export interface SanitizedHonor {
+  honorName: string;
+  from: string;
+  to: string;
+}
+
 export interface SanitizedPublication {
   title: string;
   conferenceName?: string;
@@ -141,13 +147,21 @@ export interface SanitizedConfig {
   seo: SanitizedSEO;
   social: SanitizedSocial;
   resume: SanitizedResume;
+
   languages: Array<string>;
-  skills: Array<string>;
   frameworksAndLibraries: Array<string>;
   toolsAndTechnologies: Array<string>;
   conceptsAndSkills: Array<string>;
+
+  languagesLevel: Array<number>;
+  frameworksAndLibrariesLevel: Array<number>;
+  toolsAndTechnologiesLevel: Array<number>;
+  conceptsAndSkillsLevel: Array<number>;
+
+  skills: Array<string>;
   experiences: Array<SanitizedExperience>;
   educations: Array<SanitizedEducation>;
+  honors: Array<SanitizedHonor>;
   certifications: Array<SanitizedCertification>;
   publications: Array<SanitizedPublication>;
   googleAnalytics: SanitizedGoogleAnalytics;

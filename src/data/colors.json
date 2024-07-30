@@ -148,7 +148,7 @@
     "url": "https://github.com/trending?l=Bro"
   },
   "C": {
-    "color": "#555555",
+    "color": "#ccccff",
     "url": "https://github.com/trending?l=C"
   },
   "C#": {
@@ -171,7 +171,7 @@
     "color": null,
     "url": "https://github.com/trending?l=CartoCSS"
   },
-  "Ceylon": {
+  "XML": {
     "color": "#dfa535",
     "url": "https://github.com/trending?l=Ceylon"
   },
@@ -187,7 +187,7 @@
     "color": null,
     "url": "https://github.com/trending?l=ChucK"
   },
-  "Cirru": {
+  "SQL": {
     "color": "#ccccff",
     "url": "https://github.com/trending?l=Cirru"
   },
@@ -195,7 +195,7 @@
     "color": "#db901e",
     "url": "https://github.com/trending?l=Clarion"
   },
-  "Clean": {
+  "Bash Scripting": {
     "color": "#3F85AF",
     "url": "https://github.com/trending?l=Clean"
   },

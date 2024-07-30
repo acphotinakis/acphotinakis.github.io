@@ -75,19 +75,22 @@ const TimelineComponent = () => {
     opacity: 1,
     transform: 'scale(1) translateY(0)',
     boxShadow: '0 30px 20px rgba(0, 0, 0, 0.2)',
-    zIndex: 1,
+    zIndex: 2,
   };
 
   const nextCard: React.CSSProperties = {
     opacity: 1,
     zIndex: 0,
+    visibility: 'visible',
+    transform: 'scale(0.9) translateX(100px)',
   };
 
   const prevCard: React.CSSProperties = {
-    transform: 'scale(1.1) translateY(-50px)',
-    zIndex: 2,
-    opacity: 0,
-    visibility: 'hidden',
+    transform: 'scale(0.9) translateX(-100px)',
+    zIndex: 0,
+    opacity: 1,
+    visibility: 'visible',
+    marginRight: 100,
   };
 
   const cardStyle: React.CSSProperties = {

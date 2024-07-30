@@ -2,30 +2,36 @@
 
 const CONFIG = {
   github: {
-    username: 'acphotinakis', // Your GitHub org/user name. (This is the only required config)
+    username: 'acphotinakis',
   },
   base: '/',
   projects: {
     github: {
       display: true,
       header: 'Github Projects',
-      mode: 'automatic', // Mode can be: 'automatic' or 'manual'
+      mode: 'manual',
       automatic: {
-        sortBy: 'stars', // Sort projects by 'stars' or 'updated'
-        limit: 6, // How many projects to display.
+        sortBy: 'stars',
+        limit: 6,
         exclude: {
-          forks: false, // Forked projects will not be displayed if set to true.
+          forks: false,
           projects: ['acphotinakis/acphotinakis.github.io'],
         },
       },
       manual: {
         // Properties for manually specifying projects
-        projects: ['arifszn/gitprofile', 'arifszn/pandora'],
+        projects: [
+          'acphotinakis/SudokuSolver',
+          'acphotinakis/facebook-clone',
+          'acphotinakis/webfinvizapi',
+          'acphotinakis/DiskUsage',
+          'acphotinakis/Place-IP',
+          'acphotinakis/Keyboard-E-Store',
+        ],
       },
     },
     external: {
       header: 'My Projects',
-      // To hide the `External Projects` section, keep it empty.
       projects: [
         {
           title: 'Project Name',
@@ -66,7 +72,7 @@ const CONFIG = {
     behance: '',
     medium: '',
     dev: 'acphotinakis',
-    stackoverflow: '',
+    stackoverflow: '17283877/acp-8103',
     skype: '',
     telegram: '',
     website: '',
@@ -74,8 +80,7 @@ const CONFIG = {
     email: 'andrewcphotinakis@gmail.com',
   },
   resume: {
-    fileUrl:
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: '../acphotinakis.github.io/src/assets/Resume.pdf',
   },
   languages: [
     'Python',
@@ -87,7 +92,7 @@ const CONFIG = {
     'JavaScript',
     'XML',
     'SQL',
-    'Bash scripting',
+    'Bash Scripting',
   ],
   frameworksAndLibraries: [
     'Java (Spring Boot)',
@@ -124,6 +129,53 @@ const CONFIG = {
     'Software Engineering Principles',
     'Web Scraping',
   ],
+  languagesLevel: [
+    90, // Python
+    95, // Java
+    85, // C#
+    80, // C++
+    85, // C
+    70, // TypeScript
+    80, // JavaScript
+    95, // XML
+    85, // SQL
+    80, // Bash scripting
+  ],
+  frameworksAndLibrariesLevel: [
+    60, // Java (Spring Boot)
+    50, // Boost C++ Libraries
+    75, // Selenium
+    75, // PyTest
+    75, // JUnit
+    80, // Angular
+    80, // React
+  ],
+  toolsAndTechnologiesLevel: [
+    90, // Swagger
+    95, // Azure Data Factory
+    95, // Power Automate
+    95, // Azure Functions
+    95, // REST APIs
+    95, // SOAP APIs
+    90, // Git
+    80, // DLL Interfaces
+    50, // Wireshark
+    90, // Postman
+    60, // Valgrind
+    60, // GDB
+    60, // MongoDB
+  ],
+  conceptsAndSkillsLevel: [
+    100, // Object-Oriented Programming (OOP)
+    85, // API Development & Integration
+    85, // Data Processing & ETL
+    85, // Automated Testing
+    80, // Software Architecture & Design Patterns
+    80, // Parallel & Distributed Systems
+    70, // Data Mining
+    85, // Software Engineering Principles
+    90, // Web Scraping
+  ],
   skills: [
     'C#',
     'Python',
@@ -153,29 +205,6 @@ const CONFIG = {
     'Visual Studio Code',
     'Visual Studio',
     'JetBrains IDEs (e.g., IntelliJ IDEA)',
-    // 'Docker',
-    // 'JUnit',
-    // 'Valgrind',
-    // 'GDB',
-    // 'MongoDB',
-    // 'Object-Oriented Programming (OOP)',
-    // 'Web Development',
-    // 'API Development & Integration',
-    // 'Data Processing & ETL',
-    // 'Automated Testing',
-    // 'Version Control (Git)',
-    // 'Software Architecture & Design Patterns',
-    // 'Problem Solving',
-    // 'Critical Thinking',
-    // 'Project Management',
-    // 'UI/UX Design & Testing',
-    // 'Network Protocol Analysis',
-    // 'Database Management (NoSQL, JSON)',
-    // 'Machine Learning (basic coursework)',
-    // 'Financial Management & Economics (related coursework)',
-    // 'Parallel & Distributed Systems',
-    // 'Data Mining',
-    // 'Software Engineering Principles',
   ],
   experiences: [
     {
@@ -253,17 +282,37 @@ const CONFIG = {
       to: '2026',
     },
   ],
+  honors: [
+    {
+      honorName: 'RIT Presidential Scholar',
+      from: '2021',
+      to: '2026',
+    },
+    {
+      honorName: "Dean's List Fall '23",
+      from: '2023',
+      to: '2023',
+    },
+    {
+      honorName: "Dean's List Fall '22",
+      from: '2022',
+      to: '2022',
+    },
+    {
+      honorName: "Dean's List Spring '22",
+      from: '2022',
+      to: '2022',
+    },
+  ],
   publications: [],
-  // Display articles from your medium or dev account. (Optional)
   blog: {
-    source: 'dev', // medium | dev
-    username: 'arifszn', // to hide blog section, keep it empty
-    limit: 2, // How many articles to display. Max is 10.
+    source: 'dev',
+    username: '',
+    limit: 2,
   },
   googleAnalytics: {
-    id: '', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
+    id: '',
   },
-  // Track visitor interaction and behavior. https://www.hotjar.com
   hotjar: {
     id: '',
     snippetVersion: 6,
@@ -331,12 +380,7 @@ const CONFIG = {
     },
   },
 
-  // Optional Footer. Supports plain text or HTML.
-  footer: `Made with <a 
-      class="text-primary" href="https://github.com/arifszn/gitprofile"
-      target="_blank"
-      rel="noreferrer"
-    >GitProfile</a> and ❤️`,
+  footer: '',
 
   enablePWA: true,
 };

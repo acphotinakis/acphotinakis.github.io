@@ -29,6 +29,7 @@ import {
   SanitizedSocial,
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+import ToloBeach from '../../assets/tolo_beach.jpg';
 
 type Props = {
   profile: Profile | null;
@@ -73,7 +74,7 @@ const ListItem: React.FC<{
       <div
         className={`${
           skeleton ? 'flex-grow' : ''
-        } text-sm font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
+        } text-lg font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
         style={{
           wordBreak: 'break-word',
         }}
@@ -124,7 +125,7 @@ const OrganizationItem: React.FC<{
   };
 
   return (
-    <div className="flex justify-start py-2 px-1 items-center">
+    <div className="flex justify-start py-2 px-1 items-center text-black">
       <div className="flex-grow font-medium gap-2 flex items-center my-1">
         {icon} {title}
       </div>
@@ -170,9 +171,9 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
   };
 
   return (
-    <div className="card shadow-2xl compact font-mono">
-      <div className="card-body">
-        <div className="text-base-content text-opacity-100 text-white">
+    <div className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-2 rounded-2xl">
+      <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
+        <div className="text-base-content text-opacity-100 text-black flex flex-col items-center py-8 px-8 relative z-10">
           {loading || !profile ? (
             renderSkeleton()
           ) : (
@@ -372,6 +373,16 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
           )}
         </div>
       </div>
+      <div
+        className="bg-cover bg-center h-full rounded-r-2xl"
+        style={{
+          backgroundImage: `url(${ToloBeach})`,
+          backgroundSize: '100%',
+          backgroundPosition: 'center right',
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.5,
+        }}
+      ></div>
     </div>
   );
 };

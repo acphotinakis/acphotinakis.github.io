@@ -237,6 +237,12 @@ interface Education {
   to: string;
 }
 
+interface Honor {
+  honorName: string;
+  from: string;
+  to: string;
+}
+
 interface Publication {
   title: string;
   conferenceName?: string;
@@ -383,10 +389,14 @@ interface Config {
    * Skill list
    */
   skills?: Array<string>;
-  frameworksAndLibraries?: Array<string>;
   languages?: Array<string>;
-  conceptsAndSkills?: Array<string>;
+  frameworksAndLibraries?: Array<string>;
   toolsAndTechnologies?: Array<string>;
+  conceptsAndSkills?: Array<string>;
+  languagesLevel?: Array<number>;
+  frameworksAndLibrariesLevel?: Array<number>;
+  toolsAndTechnologiesLevel?: Array<number>;
+  conceptsAndSkillsLevel?: Array<number>;
   /**
    * Experience list
    */
@@ -401,6 +411,8 @@ interface Config {
    * Education list
    */
   educations?: Array<Education>;
+
+  honors?: Array<Honor>;
 
   /**
    * Publication list

@@ -19,16 +19,13 @@ import { BG_COLOR } from '../constants';
 import AvatarCard from './avatar-card';
 import { Profile } from '../interfaces/profile';
 import DetailsCard from './details-card';
-import ExperienceCard from './experience-card';
-import EducationCard from './education-card';
-import CertificationCard from './certification-card';
 import { GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './github-project-card';
+import EducationHonorCard from './education-honors-card';
+import CertExpCard from './certs-exp-card';
+import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
-import TimelineComponent from './timeline';
-import SkillsGrid from './skills-grid';
-import Logo from './logo';
 
 /**
  * Renders the GitProfile component.
@@ -81,6 +78,7 @@ const GitProfile = ({ config }: { config: Config }) => {
           headers: { 'Content-Type': 'application/vnd.github.v3+json' },
         });
         const repoData = repoResponse.data;
+        console.log(repoData);
 
         return repoData.items;
       }
@@ -178,17 +176,18 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   };
 
-  const divStyle = {
-    backgroundColor: 'rgb(139,146,154)',
-    backgroundSize: 'cover', // Adjust as needed
-    backgroundPosition: 'center', // Adjust as needed
-    width: '100%', // Example width
-    height: '100%', // Example height
+  const topStyle: React.CSSProperties = {
+    background: 'white',
+    width: '100%',
+    minHeight: '100vh', // Ensure the entire viewport is covered
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: -1, // Ensure the background stays behind the content
   };
-
   return (
     <HelmetProvider>
-      <div className="fade-in h-screen" style={divStyle}>
+      <div className="fade-in h-screen">
         {error ? (
           <ErrorPage
             status={error.status}
@@ -203,78 +202,73 @@ const GitProfile = ({ config }: { config: Config }) => {
             />
             <div
               className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}
-              style={divStyle}
+              style={topStyle}
             >
-              <div>
-                <Logo />
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 rounded-box">
-                <div className="col-span-1">
-                  <div className="grid grid-cols-1 gap-6">
-                    <AvatarCard
-                      profile={profile}
-                      loading={loading}
-                      avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
-                      resumeFileUrl={sanitizedConfig.resume.fileUrl}
-                    />
-                    <DetailsCard
-                      profile={profile}
-                      loading={loading}
-                      github={sanitizedConfig.github}
-                      social={sanitizedConfig.social}
-                    />
-                    {sanitizedConfig.educations.length !== 0 && (
-                      <EducationCard
+              <div className="flex flex-col gap-6 rounded-box">
+                <div className="flex flex-col gap-6">
+                  {/* <div>
+                    <Logo />
+                    </div> */}
+                  <AvatarCard
+                    profile={profile}
+                    loading={loading}
+                    avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
+                    resumeFileUrl={sanitizedConfig.resume.fileUrl}
+                  />
+                  <DetailsCard
+                    profile={profile}
+                    loading={loading}
+                    github={sanitizedConfig.github}
+                    social={sanitizedConfig.social}
+                  />
+                </div>
+                <div className="flex flex-col gap-6">
+                  {sanitizedConfig.educations.length !== 0 &&
+                    sanitizedConfig.honors.length !== 0 && (
+                      <EducationHonorCard
                         loading={loading}
                         educations={sanitizedConfig.educations}
+                        honors={sanitizedConfig.honors}
                       />
                     )}
-                    {sanitizedConfig.experiences.length !== 0 && (
-                      <ExperienceCard
+                  {sanitizedConfig.certifications.length !== 0 &&
+                    sanitizedConfig.experiences.length !== 0 && (
+                      <CertExpCard
                         loading={loading}
+                        certifications={sanitizedConfig.certifications}
                         experiences={sanitizedConfig.experiences}
                       />
                     )}
-                    {sanitizedConfig.certifications.length !== 0 && (
-                      <CertificationCard
-                        loading={loading}
-                        certifications={sanitizedConfig.certifications}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="lg:col-span-2 col-span-1" style={divStyle}>
-                  <div className="grid grid-cols-1 gap-6" style={divStyle}>
-                    {sanitizedConfig.projects.github.display && (
-                      <GithubProjectCard
-                        header={sanitizedConfig.projects.github.header}
-                        limit={sanitizedConfig.projects.github.automatic.limit}
-                        githubProjects={githubProjects}
-                        loading={loading}
-                        username={sanitizedConfig.github.username}
-                      />
-                    )}
-                    {sanitizedConfig.publications.length !== 0 && (
-                      <PublicationCard
-                        loading={loading}
-                        publications={sanitizedConfig.publications}
-                      />
-                    )}
-                    <SkillsGrid
+                  <SkillsGrid
+                    loading={loading}
+                    sanitizedConfig={sanitizedConfig}
+                  />
+                  {sanitizedConfig.projects.github.display && (
+                    <GithubProjectCard
+                      header={sanitizedConfig.projects.github.header}
+                      limit={sanitizedConfig.projects.github.automatic.limit}
+                      githubProjects={githubProjects}
                       loading={loading}
-                      sanitizedConfig={sanitizedConfig}
+                      username={sanitizedConfig.github.username}
                     />
-                    {sanitizedConfig.blog.display && (
-                      <BlogCard
-                        loading={loading}
-                        googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                        blog={sanitizedConfig.blog}
-                      />
-                    )}
-                    <div>
-                      <TimelineComponent />
-                    </div>
-                  </div>
+                  )}
+                  {sanitizedConfig.publications.length !== 0 && (
+                    <PublicationCard
+                      loading={loading}
+                      publications={sanitizedConfig.publications}
+                    />
+                  )}
+                  {sanitizedConfig.blog.display && (
+                    <BlogCard
+                      loading={loading}
+                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                      blog={sanitizedConfig.blog}
+                    />
+                  )}
+                  {/* <div>
+                    <TimelineComponent />
+                    <StockCard stockSymbol="AAPL" />
+                  </div> */}
                 </div>
               </div>
             </div>

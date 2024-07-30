@@ -89,6 +89,10 @@ export const getSanitizedConfig = (
       frameworksAndLibraries: config?.frameworksAndLibraries || [],
       toolsAndTechnologies: config?.toolsAndTechnologies || [],
       conceptsAndSkills: config?.conceptsAndSkills || [],
+      languagesLevel: config?.languagesLevel || [],
+      frameworksAndLibrariesLevel: config?.frameworksAndLibrariesLevel || [],
+      toolsAndTechnologiesLevel: config?.toolsAndTechnologiesLevel || [],
+      conceptsAndSkillsLevel: config?.conceptsAndSkillsLevel || [],
       skills: config?.skills || [],
       experiences:
         config?.experiences?.filter(
@@ -106,6 +110,10 @@ export const getSanitizedConfig = (
       educations:
         config?.educations?.filter(
           (item) => item.institution || item.degree || item.from || item.to,
+        ) || [],
+      honors:
+        config?.honors?.filter(
+          (item) => item.honorName || item.from || item.to,
         ) || [],
       publications: config?.publications?.filter((item) => item.title) || [],
       googleAnalytics: {
