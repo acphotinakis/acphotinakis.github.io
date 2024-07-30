@@ -25,9 +25,3 @@ dist-ssr
 src/finnhub.d.ts
 src/components/stock-card/index.tsx
 src/components/timeline/index.tsx
-src/assets/amsterdam.jpg
-src/assets/antwerp_building.jpg
-src/assets/landing.jpg
-src/assets/platanias.jpg
-src/assets/tolo_beach.jpg
-src/assets/Resume.pdf
