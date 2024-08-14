@@ -26,6 +26,7 @@ import CertExpCard from './certs-exp-card';
 import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
+import NavbarComp from './nav-bar';
 
 /**
  * Renders the GitProfile component.
@@ -179,11 +180,11 @@ const GitProfile = ({ config }: { config: Config }) => {
   const topStyle: React.CSSProperties = {
     background: 'white',
     width: '100%',
-    minHeight: '100vh', // Ensure the entire viewport is covered
+    minHeight: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: -1, // Ensure the background stays behind the content
+    zIndex: -1,
   };
   return (
     <HelmetProvider>
@@ -196,19 +197,10 @@ const GitProfile = ({ config }: { config: Config }) => {
           />
         ) : (
           <>
-            <HeadTagEditor
-              googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-              appliedTheme={theme}
-            />
-            <div
-              className={`p-4 lg:p-10 min-h-full ${BG_COLOR}`}
-              style={topStyle}
-            >
+            <NavbarComp />
+            <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
               <div className="flex flex-col gap-6 rounded-box">
                 <div className="flex flex-col gap-6">
-                  {/* <div>
-                    <Logo />
-                    </div> */}
                   <AvatarCard
                     profile={profile}
                     loading={loading}
@@ -220,6 +212,15 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
+                  <div
+                    className="iframe-container"
+                    style={{ height: '500px', overflow: 'hidden' }}
+                  >
+                    <iframe
+                      src="https://visitedplaces.com/embed/?map=world&projection=geoOrthographic&theme=dark-blue&water=1&graticule=0&names=1&duration=2000&placeduration=100&slider=0&autoplay=1&autozoom=none&autostep=1&home=US&places=My%20Home~US~1_0_0_103.5_-44.7*North%20America~CA~1.6_-100.6_44.4_100.6_-44.4*Europe~IE_IS_ES_GR_BE_NL~2.4_12.1_53.3_-12.1_-53.3"
+                      style={{ width: '100%', height: '500px', border: 'none' }}
+                    ></iframe>
+                  </div>
                 </div>
                 <div className="flex flex-col gap-6">
                   {sanitizedConfig.educations.length !== 0 &&
@@ -264,10 +265,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                       blog={sanitizedConfig.blog}
                     />
                   )}
-                  {/* <div>
-                    <TimelineComponent />
-                    <StockCard stockSymbol="AAPL" />
-                  </div> */}
                 </div>
               </div>
             </div>

@@ -171,7 +171,7 @@ const BlogCard = ({
   };
 
   return (
-    <div className="col-span-1 lg:col-span-2">
+    <div className="col-span-1 lg:col-span-2" id="blog-card">
       <div className="grid grid-cols-2 gap-6">
         <div className="col-span-2">
           <div

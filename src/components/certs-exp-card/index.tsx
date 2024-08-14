@@ -121,7 +121,10 @@ const CertExpCard = ({
   };
 
   return (
-    <div className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-2 rounded-2xl">
+    <div
+      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-1 md:grid-cols-2 rounded-2xl"
+      id="cert-exp-card"
+    >
       <div className="card-body">
         <div className="flex">
           <div className="flex-1">
@@ -130,7 +133,7 @@ const CertExpCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
                     Experience
                   </span>
                 )}
@@ -166,7 +169,7 @@ const CertExpCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
                     Certifications
                   </span>
                 )}

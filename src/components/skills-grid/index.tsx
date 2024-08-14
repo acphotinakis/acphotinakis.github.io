@@ -2,6 +2,48 @@ import { skeleton } from '../../utils';
 import { SanitizedConfig } from '../../interfaces/sanitized-config';
 import SkillCard from '../skill-card';
 
+// Define a union type for valid skill keys
+type SkillName =
+  | 'Python'
+  | 'Java'
+  | 'C#'
+  | 'C++'
+  | 'C'
+  | 'TypeScript'
+  | 'JavaScript'
+  | 'XML'
+  | 'SQL'
+  | 'Bash Scripting'
+  | 'Java (Spring Boot)'
+  | 'Boost C++ Libraries'
+  | 'Selenium'
+  | 'PyTest'
+  | 'JUnit'
+  | 'Angular'
+  | 'React'
+  | 'Swagger'
+  | 'Azure Data Factory'
+  | 'Power Automate'
+  | 'Azure Functions'
+  | 'REST APIs'
+  | 'SOAP APIs'
+  | 'Git'
+  | 'DLL Interfaces'
+  | 'Wireshark'
+  | 'Postman'
+  | 'Valgrind'
+  | 'GDB'
+  | 'MongoDB'
+  | 'Object-Oriented Programming (OOP)'
+  | 'API Development & Integration'
+  | 'Data Processing & ETL'
+  | 'Automated Testing'
+  | 'Software Architecture & Design Patterns'
+  | 'Parallel & Distributed Systems'
+  | 'Data Mining'
+  | 'Software Engineering Principles'
+  | 'Web Scraping';
+
 const SkillsGrid = ({
   loading,
   sanitizedConfig,
@@ -77,7 +119,7 @@ const SkillsGrid = ({
   };
 
   return (
-    <div className="col-span-1 lg:col-span-2 text-black">
+    <div className="col-span-1 lg:col-span-2 text-black" id="skills-grid">
       <div className="flex flex-col gap-6">
         <div className="card compact shadow bg-opacity-40">
           <div className="card-body text-black">
@@ -99,32 +141,38 @@ const SkillsGrid = ({
                   {sanitizedConfig.languages.length !== 0 && (
                     <SkillCard
                       loading={loading}
-                      skills={sanitizedConfig.languages}
-                      levels={sanitizedConfig.languagesLevel}
+                      skills={sanitizedConfig.languages as Array<SkillName>}
+                      // levels={sanitizedConfig.languagesLevel}
                       name="Programming Languages"
                     />
                   )}
                   {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
                     <SkillCard
                       loading={loading}
-                      skills={sanitizedConfig.frameworksAndLibraries}
-                      levels={sanitizedConfig.frameworksAndLibrariesLevel}
+                      skills={
+                        sanitizedConfig.frameworksAndLibraries as Array<SkillName>
+                      }
+                      // levels={sanitizedConfig.frameworksAndLibrariesLevel}
                       name="Frameworks & Libraries"
                     />
                   )}
                   {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
                     <SkillCard
                       loading={loading}
-                      skills={sanitizedConfig.toolsAndTechnologies}
-                      levels={sanitizedConfig.toolsAndTechnologiesLevel}
+                      skills={
+                        sanitizedConfig.toolsAndTechnologies as Array<SkillName>
+                      }
+                      // levels={sanitizedConfig.toolsAndTechnologiesLevel}
                       name="Tools & Technologies"
                     />
                   )}
                   {sanitizedConfig.conceptsAndSkills.length !== 0 && (
                     <SkillCard
                       loading={loading}
-                      skills={sanitizedConfig.conceptsAndSkills}
-                      levels={sanitizedConfig.conceptsAndSkillsLevel}
+                      skills={
+                        sanitizedConfig.conceptsAndSkills as Array<SkillName>
+                      }
+                      // levels={sanitizedConfig.conceptsAndSkillsLevel}
                       name="Concepts & Skills"
                     />
                   )}

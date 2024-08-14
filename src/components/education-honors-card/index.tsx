@@ -65,7 +65,10 @@ const EducationHonorCard = ({
   };
 
   return (
-    <div className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-2 rounded-2xl">
+    <div
+      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid md:grid-cols-2 rounded-2xl"
+      id="education-honor-card"
+    >
       <div
         className="bg-cover bg-center h-full rounded-l-2xl"
         style={{
@@ -84,7 +87,7 @@ const EducationHonorCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
                     Education
                   </span>
                 )}
@@ -111,7 +114,7 @@ const EducationHonorCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
                     Honors
                   </span>
                 )}

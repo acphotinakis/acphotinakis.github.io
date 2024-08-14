@@ -11,6 +11,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { styled, keyframes, css } from 'styled-components';
 import { getLanguageColor, skeleton } from '../../utils';
 import { GithubProject } from '../../interfaces/github-project';
+import SudokuImage from '../../assets/sudoku.png';
+import FacebookImage from '../../assets/facebook.jpg';
+import DiskUsageImage from '../../assets/parallel_computing.jpg';
+import PlaceIpImage from '../../assets/place_ip.jpg';
+import KeyboardEStoreImage from '../../assets/keyboard_e_store.jpg';
+import FinvizApiImage from '../../assets/finvizapi.jpg';
 
 const shakeAnimation = keyframes`
   0% { transform: translateX(0); }
@@ -70,6 +76,15 @@ const DownloadRepoIconButton = styled(IconButton)<{ isShaking: boolean }>`
     }
   }
 `;
+
+const imageMap = {
+  SudokuSolver: SudokuImage,
+  'facebook-clone': FacebookImage,
+  DiskUsage: DiskUsageImage,
+  'Place-IP': PlaceIpImage,
+  'Keyboard-E-Store': KeyboardEStoreImage,
+  webfinvizapi: FinvizApiImage,
+};
 
 const GithubProjectCard = ({
   header,
@@ -149,136 +164,159 @@ const GithubProjectCard = ({
       const downloadUrl = `https://github.com/acphotinakis/${projectName}/archive/refs/heads/main.zip`;
       window.open(downloadUrl, '_blank');
     };
+
     return (
       <>
-        {githubProjects.map((item, index) => (
-          <Card
-            key={index}
-            sx={{
-              display: 'flex',
-              backgroundColor: '#ffffff',
-              color: '#222222',
-              marginBottom: 2,
-              fontFamily: 'Roboto Mono, monospace',
-              opacity: 0.9,
-              boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-            }}
-          >
-            <Box
+        {githubProjects.map((item, index) => {
+          // Select image based on item.name
+          const imageUrl = imageMap[item.name] || 'path/to/default-image.jpg';
+
+          return (
+            <Card
+              key={index}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                width: '100%',
-                boxShadow: 'inherit',
+                backgroundColor: '#ffffff',
+                color: '#222222',
+                marginBottom: 2,
+                fontFamily: 'Roboto Mono, monospace',
+                opacity: 0.9,
+                boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
               }}
             >
-              <CardContent sx={{ flex: '1 0 auto' }}>
-                <Typography
-                  component="div"
-                  variant="h6"
-                  fontFamily="Roboto Mono, monospace"
-                  color="black"
-                >
-                  {item.name}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="black"
-                  component="div"
-                  fontFamily="Roboto Mono, monospace"
-                >
-                  {item.description}
-                </Typography>
-              </CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                <IconButton
-                  aria-label="previous"
-                  style={{
-                    color: 'rgb(75, 0, 130)',
-                    cursor: 'default',
-                  }}
-                >
-                  <SkipPreviousIcon style={{ color: 'inherit' }} />
-                </IconButton>
-                <GitHubIconButton
-                  aria-label="open github"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  isShaking={isShaking}
-                >
-                  <a href={item.html_url} target="_blank" rel="noreferrer">
-                    <GitHubIcon
-                      sx={{
-                        height: 38,
-                        width: 38,
-                        color: 'inherit',
-                      }}
-                    />
-                  </a>
-                </GitHubIconButton>
+              <div
+                style={{
+                  width: '100%',
+                  height: '200px',
+                  backgroundImage: `url(${imageUrl})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              ></div>
 
-                <IconButton
-                  aria-label="next"
-                  sx={{
-                    cursor: 'default',
-                  }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  boxShadow: 'inherit',
+                  padding: 2,
+                }}
+              >
+                <CardContent sx={{ flex: '1 0 auto' }}>
+                  <Typography
+                    component="div"
+                    variant="h6"
+                    fontFamily="Roboto Mono, monospace"
+                    color="black"
+                  >
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="black"
+                    component="div"
+                    fontFamily="Roboto Mono, monospace"
+                  >
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}
                 >
-                  <SkipNextIcon
+                  <IconButton
+                    aria-label="previous"
                     style={{
                       color: 'rgb(75, 0, 130)',
-                      fontFamily: 'Roboto Mono, monospace',
+                      cursor: 'default',
                     }}
-                  />
-                </IconButton>
+                  >
+                    <SkipPreviousIcon style={{ color: 'inherit' }} />
+                  </IconButton>
+                  <GitHubIconButton
+                    aria-label="open github"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    isShaking={isShaking}
+                  >
+                    <a href={item.html_url} target="_blank" rel="noreferrer">
+                      <GitHubIcon
+                        sx={{
+                          height: 38,
+                          width: 38,
+                          color: 'inherit',
+                        }}
+                      />
+                    </a>
+                  </GitHubIconButton>
 
-                <DownloadRepoIconButton
-                  aria-label="download"
-                  onClick={() => handleDownload(item.name)}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  isShaking={isShaking}
-                >
-                  <DownloadIcon />
-                </DownloadRepoIconButton>
-              </Box>
-              <div className="flex justify-between text-black text-sm text-base-content text-opacity-60 truncate">
-                <div>
-                  <span className="flex items-center ml-2 mb-2">
-                    <div
-                      className="w-3 h-3 rounded-full mr-1 opacity-100"
+                  <IconButton
+                    aria-label="next"
+                    sx={{
+                      cursor: 'default',
+                    }}
+                  >
+                    <SkipNextIcon
                       style={{
-                        backgroundColor: getLanguageColor(item.language),
-                      }}
-                    />
-                    <span
-                      style={{
-                        color: 'black',
+                        color: 'rgb(75, 0, 130)',
                         fontFamily: 'Roboto Mono, monospace',
                       }}
-                    >
-                      {item.language}
+                    />
+                  </IconButton>
+
+                  <DownloadRepoIconButton
+                    aria-label="download"
+                    onClick={() => handleDownload(item.name)}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    isShaking={isShaking}
+                  >
+                    <DownloadIcon />
+                  </DownloadRepoIconButton>
+                </Box>
+                <div className="flex justify-between text-black text-sm text-base-content text-opacity-60 truncate">
+                  <div>
+                    <span className="flex items-center ml-2 mb-2">
+                      <div
+                        className="w-3 h-3 rounded-full mr-1 opacity-100"
+                        style={{
+                          backgroundColor: getLanguageColor(item.language),
+                        }}
+                      />
+                      <span
+                        style={{
+                          color: 'black',
+                          fontFamily: 'Roboto Mono, monospace',
+                        }}
+                      >
+                        {item.language}
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
-              </div>
-            </Box>
-          </Card>
-        ))}
+              </Box>
+            </Card>
+          );
+        })}
       </>
     );
   };
 
   return (
-    <div className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl">
+    <div
+      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl"
+      id="github-project-card"
+    >
       <div className="grid grid-cols-2 gap-6">
         <div className="col-span-2">
-          <div className="card-body">
-            <div className="mx-3 flex items-center justify-between mb-2">
-              <h5 className="card-title">
+          <div className="card-body flex flex-col py-4 px-4 md:py-8 md:px-8 relative z-10">
+            <div className="flex items-center justify-between mb-4">
+              <h5 className="card-title text-black text-lg md:text-xl flex-1 justify-center">
                 {loading ? (
                   skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500">
                     {header}
                   </span>
                 )}
@@ -296,10 +334,8 @@ const GithubProjectCard = ({
                 </a>
               )}
             </div>
-            <div className="col-span-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-                {loading ? renderSkeleton() : renderProjects()}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {loading ? renderSkeleton() : renderProjects()}
             </div>
           </div>
         </div>
