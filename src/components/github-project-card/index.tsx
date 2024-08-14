@@ -77,10 +77,10 @@ const DownloadRepoIconButton = styled(IconButton)<{ isShaking: boolean }>`
   }
 `;
 
-const imageMap = {
-  SudokuSolver: SudokuImage,
-  'facebook-clone': FacebookImage,
+const imageMap: { [key: string]: string } = {
   DiskUsage: DiskUsageImage,
+  'facebook-clone': FacebookImage,
+  SudokuSolver: SudokuImage,
   'Place-IP': PlaceIpImage,
   'Keyboard-E-Store': KeyboardEStoreImage,
   webfinvizapi: FinvizApiImage,

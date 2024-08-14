@@ -13,7 +13,7 @@ import '../assets/index.css';
 import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
 import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
-import HeadTagEditor from './head-tag-editor';
+// import HeadTagEditor from './head-tag-editor';
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './avatar-card';
@@ -204,7 +204,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                   <AvatarCard
                     profile={profile}
                     loading={loading}
-                    avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
+                    // avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
                   />
                   <DetailsCard
                     profile={profile}
@@ -212,7 +212,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
-                  <div
+                  {/* <div
                     className="iframe-container"
                     style={{ height: '500px', overflow: 'hidden' }}
                   >
@@ -220,7 +220,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       src="https://visitedplaces.com/embed/?map=world&projection=geoOrthographic&theme=dark-blue&water=1&graticule=0&names=1&duration=2000&placeduration=100&slider=0&autoplay=1&autozoom=none&autostep=1&home=US&places=My%20Home~US~1_0_0_103.5_-44.7*North%20America~CA~1.6_-100.6_44.4_100.6_-44.4*Europe~IE_IS_ES_GR_BE_NL~2.4_12.1_53.3_-12.1_-53.3"
                       style={{ width: '100%', height: '500px', border: 'none' }}
                     ></iframe>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex flex-col gap-6">
                   {sanitizedConfig.educations.length !== 0 &&

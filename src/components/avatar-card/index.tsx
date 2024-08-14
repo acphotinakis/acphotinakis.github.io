@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react';
-import { FALLBACK_IMAGE } from '../../constants';
 import { Profile } from '../../interfaces/profile';
 import { skeleton } from '../../utils';
-import LazyImage from '../lazy-image';
 import AcropolisImage from '../../assets/acropolis.jpg';
-import ResumeFile from '../../assets/Resume.pdf';
-import PersonalImage from '../../assets/personal_pic_high_quality.png';
+// import ResumeFile from '../../assets/Resume.pdf';
 
 interface AvatarCardProps {
   profile: Profile | null;
   loading: boolean;
-  avatarRing: boolean;
+  // avatarRing: boolean;
   resumeFileUrl?: string;
 }
 
 const AvatarCard: React.FC<AvatarCardProps> = ({
   profile,
   loading,
-  avatarRing,
+  // avatarRing,
 }): JSX.Element => {
   const [animationState, setAnimationState] = useState<'typing' | 'deleting'>(
     'typing',

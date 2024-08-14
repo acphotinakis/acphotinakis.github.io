@@ -1,35 +1,14 @@
 import { Fragment } from 'react';
-import {
-  AiFillGithub,
-  AiFillInstagram,
-  AiFillMediumSquare,
-} from 'react-icons/ai';
-import { CgDribbble } from 'react-icons/cg';
-import {
-  FaBehanceSquare,
-  FaBuilding,
-  FaDev,
-  FaFacebook,
-  FaGlobe,
-  FaLinkedin,
-  FaMastodon,
-  FaReddit,
-  FaSkype,
-  FaStackOverflow,
-  FaTelegram,
-  FaYoutube,
-} from 'react-icons/fa';
-import { FaSquareThreads } from 'react-icons/fa6';
+import { AiFillGithub } from 'react-icons/ai';
+import { FaDev, FaGlobe, FaLinkedin, FaStackOverflow } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import { RiMailFill, RiPhoneFill } from 'react-icons/ri';
-import { SiResearchgate, SiTwitter, SiUdemy } from 'react-icons/si';
 import { Profile } from '../../interfaces/profile';
 import {
   SanitizedGithub,
   SanitizedSocial,
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
-import ToloBeach from '../../assets/tolo_beach.jpg';
 
 type Props = {
   profile: Profile | null;
