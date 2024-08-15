@@ -5,9 +5,11 @@ import { skeleton } from '../../utils';
 const PublicationCard = ({
   publications,
   loading,
+  id,
 }: {
   publications: SanitizedPublication[];
   loading: boolean;
+  id: string;
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -119,7 +121,7 @@ const PublicationCard = ({
 
   return (
     <Fragment>
-      <div className="col-span-1 lg:col-span-2" id="publication-card">
+      <div className="col-span-1 lg:col-span-2" id={id}>
         <div className="grid grid-cols-2 gap-6">
           <div className="col-span-2">
             <div className="card compact bg-base-100 shadow bg-opacity-40">

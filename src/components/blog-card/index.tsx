@@ -11,10 +11,12 @@ const BlogCard = ({
   loading,
   blog,
   googleAnalyticsId,
+  id,
 }: {
   loading: boolean;
   blog: SanitizedBlog;
   googleAnalyticsId?: string;
+  id?: string;
 }) => {
   const [articles, setArticles] = useState<Article[]>([]);
 
@@ -171,7 +173,7 @@ const BlogCard = ({
   };
 
   return (
-    <div className="col-span-1 lg:col-span-2" id="blog-card">
+    <div className="col-span-1 lg:col-span-2" id={id}>
       <div className="grid grid-cols-2 gap-6">
         <div className="col-span-2">
           <div

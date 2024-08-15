@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Profile } from '../../interfaces/profile';
 import { skeleton } from '../../utils';
 import AcropolisImage from '../../assets/acropolis.jpg';
@@ -9,28 +8,30 @@ interface AvatarCardProps {
   loading: boolean;
   // avatarRing: boolean;
   resumeFileUrl?: string;
+  id: string;
 }
 
 const AvatarCard: React.FC<AvatarCardProps> = ({
   profile,
   loading,
+  id,
   // avatarRing,
 }): JSX.Element => {
-  const [animationState, setAnimationState] = useState<'typing' | 'deleting'>(
-    'typing',
-  );
+  // const [animationState, setAnimationState] = useState<'typing' | 'deleting'>(
+  //   'typing',
+  // );
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimationState((prev) => (prev === 'typing' ? 'deleting' : 'typing'));
-    }, 3000); // Change every 3 seconds
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setAnimationState((prev) => (prev === 'typing' ? 'deleting' : 'typing'));
+  //   }, 3000); // Change every 3 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div
-      id="avatar-card"
+      id={id}
       className="card shadow-2xl compact italic w-full max-w-full shadow-2xl flex min-h-screen bg-gray-100"
       style={{
         backgroundImage: `url(${AcropolisImage})`,
@@ -41,28 +42,6 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
         height: '1000px',
       }}
     >
-      <style>
-        {`
-        @keyframes typing {
-          from { width: 0; }
-          to { width: 100%; }
-        }
-  
-        @keyframes deleting {
-          from { width: 100%; }
-          to { width: 0; }
-        }
-  
-        .typing-effect {
-          display: inline-block;
-          overflow: hidden;
-          white-space: nowrap;
-          border-right: 0.15em solid white; /* Cursor effect */
-          animation: typing 3s steps(30, end) infinite,
-                     deleting 3s steps(30, end) infinite;
-        }
-      `}
-      </style>
       <div className="grid grid-cols-1 gap-4 py-8 px-8 relative z-10 text-center mx-auto w-full opacity-90 mt-10">
         <div className="text-base-content opacity-100 text-white mt-10">
           <h5 className="font-bold text-2xl mt-10">
@@ -70,9 +49,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
               skeleton({ widthCls: 'w-48', heightCls: 'h-8' })
             ) : (
               <span
-                className={`text-base-content opacity-100 text-white typing-effect ${
-                  animationState === 'typing' ? 'typing' : 'deleting'
-                }`}
+                className={`text-base-content opacity-100 text-white typing-effect`}
                 style={{ fontSize: '60px', lineHeight: '1.2' }}
               >
                 {profile.name}

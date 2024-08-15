@@ -15,6 +15,7 @@ type Props = {
   loading: boolean;
   social: SanitizedSocial;
   github: SanitizedGithub;
+  id: string;
 };
 
 const ListItem: React.FC<{
@@ -70,7 +71,7 @@ const colorMap: Record<string, string> = {
  * @param {Object} github - The GitHub object.
  * @return {JSX.Element} The details card component.
  */
-const DetailsCard = ({ profile, loading, social, github }: Props) => {
+const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < 4; index++) {
@@ -92,7 +93,7 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
   return (
     <div
       className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl items-center"
-      id="details-card"
+      id={id}
     >
       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
         <div className="text-base-content text-opacity-100 text-black flex flex-col items-center py-8 px-8 relative z-10">
@@ -100,6 +101,17 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
             renderSkeleton()
           ) : (
             <Fragment>
+              <div className="mx-3 p-3">
+                <h5 className="card-title text-black text-lg md:text-xl">
+                  {loading ? (
+                    renderSkeleton()
+                  ) : (
+                    <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                      Contacts
+                    </span>
+                  )}
+                </h5>
+              </div>
               {profile.location && (
                 <ListItem
                   icon={<MdLocationOn />}

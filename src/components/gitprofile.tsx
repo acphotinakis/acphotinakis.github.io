@@ -177,6 +177,22 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   };
 
+  type CardSection = {
+    name: string;
+    id: string;
+  };
+
+  const cardSections: CardSection[] = [
+    { name: 'Home', id: 'home' },
+    { name: 'Contacts', id: 'contacts' },
+    { name: 'Education & Honors', id: 'education-honors' },
+    { name: 'Certifications & Experience', id: 'certifications-experience' },
+    { name: 'Skills', id: 'skills' },
+    { name: 'GitHub Projects', id: 'github-projects' },
+    { name: 'Publications', id: 'publications' },
+    { name: 'Blog', id: 'blog' },
+  ];
+
   const topStyle: React.CSSProperties = {
     background: 'white',
     width: '100%',
@@ -197,38 +213,40 @@ const GitProfile = ({ config }: { config: Config }) => {
           />
         ) : (
           <>
-            <NavbarComp />
+            <NavbarComp cardSections={cardSections} />
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
               <div className="flex flex-col gap-6 rounded-box">
                 <div className="flex flex-col gap-6">
                   <AvatarCard
                     profile={profile}
                     loading={loading}
-                    // avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
+                    id={
+                      cardSections.find((section) => section.name === 'Home')
+                        ?.id ?? 'home'
+                    }
                   />
                   <DetailsCard
                     profile={profile}
                     loading={loading}
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
+                    id={
+                      cardSections.find(
+                        (section) => section.name === 'Contacts',
+                      )?.id ?? 'contacts'
+                    }
                   />
-                  {/* <div
-                    className="iframe-container"
-                    style={{ height: '500px', overflow: 'hidden' }}
-                  >
-                    <iframe
-                      src="https://visitedplaces.com/embed/?map=world&projection=geoOrthographic&theme=dark-blue&water=1&graticule=0&names=1&duration=2000&placeduration=100&slider=0&autoplay=1&autozoom=none&autostep=1&home=US&places=My%20Home~US~1_0_0_103.5_-44.7*North%20America~CA~1.6_-100.6_44.4_100.6_-44.4*Europe~IE_IS_ES_GR_BE_NL~2.4_12.1_53.3_-12.1_-53.3"
-                      style={{ width: '100%', height: '500px', border: 'none' }}
-                    ></iframe>
-                  </div> */}
-                </div>
-                <div className="flex flex-col gap-6">
                   {sanitizedConfig.educations.length !== 0 &&
                     sanitizedConfig.honors.length !== 0 && (
                       <EducationHonorCard
                         loading={loading}
                         educations={sanitizedConfig.educations}
                         honors={sanitizedConfig.honors}
+                        id={
+                          cardSections.find(
+                            (section) => section.name === 'Education & Honors',
+                          )?.id ?? 'education-honors'
+                        }
                       />
                     )}
                   {sanitizedConfig.certifications.length !== 0 &&
@@ -237,11 +255,21 @@ const GitProfile = ({ config }: { config: Config }) => {
                         loading={loading}
                         certifications={sanitizedConfig.certifications}
                         experiences={sanitizedConfig.experiences}
+                        id={
+                          cardSections.find(
+                            (section) =>
+                              section.name === 'Certifications & Experience',
+                          )?.id ?? 'certifications-experience'
+                        }
                       />
                     )}
                   <SkillsGrid
                     loading={loading}
                     sanitizedConfig={sanitizedConfig}
+                    id={
+                      cardSections.find((section) => section.name === 'Skills')
+                        ?.id ?? 'skills'
+                    }
                   />
                   {sanitizedConfig.projects.github.display && (
                     <GithubProjectCard
@@ -250,12 +278,22 @@ const GitProfile = ({ config }: { config: Config }) => {
                       githubProjects={githubProjects}
                       loading={loading}
                       username={sanitizedConfig.github.username}
+                      id={
+                        cardSections.find(
+                          (section) => section.name === 'GitHub Projects',
+                        )?.id ?? 'github-projects'
+                      }
                     />
                   )}
                   {sanitizedConfig.publications.length !== 0 && (
                     <PublicationCard
                       loading={loading}
                       publications={sanitizedConfig.publications}
+                      id={
+                        cardSections.find(
+                          (section) => section.name === 'Publications',
+                        )?.id ?? 'publications'
+                      }
                     />
                   )}
                   {sanitizedConfig.blog.display && (
@@ -263,6 +301,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                       loading={loading}
                       googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                       blog={sanitizedConfig.blog}
+                      id={
+                        cardSections.find((section) => section.name === 'Blog')
+                          ?.id ?? 'blog'
+                      }
                     />
                   )}
                 </div>

@@ -47,9 +47,11 @@ type SkillName =
 const SkillsGrid = ({
   loading,
   sanitizedConfig,
+  id,
 }: {
   loading: boolean;
   sanitizedConfig: SanitizedConfig | Record<string, never>;
+  id: string;
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -119,7 +121,7 @@ const SkillsGrid = ({
   };
 
   return (
-    <div className="col-span-1 lg:col-span-2 text-black" id="skills-grid">
+    <div className="col-span-1 lg:col-span-2 text-black" id={id}>
       <div className="flex flex-col gap-6">
         <div className="card compact shadow bg-opacity-40">
           <div className="card-body text-black">

@@ -69,10 +69,12 @@ const CertExpCard = ({
   loading,
   certifications,
   experiences,
+  id,
 }: {
   loading: boolean;
   certifications: SanitizedCertification[];
   experiences: SanitizedExperience[];
+  id: string;
 }) => {
   const renderExperienceSkeleton = () => {
     const array = [];
@@ -122,12 +124,13 @@ const CertExpCard = ({
 
   return (
     <div
-      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid grid-cols-1 md:grid-cols-2 rounded-2xl"
-      id="cert-exp-card"
+      className="card shadow-2xl flex compact italic w-full max-w-full shadow-2xl items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      id={id}
     >
-      <div className="card-body">
+      <div className="card-body flex">
         <div className="flex">
-          <div className="flex-1">
+          {/* Experience Section */}
+          <div className="flex-1 text-lg md:text-base sm:text-sm">
             <div className="mx-3 text-black">
               <h5 className="card-title text-black">
                 {loading ? (
@@ -140,7 +143,7 @@ const CertExpCard = ({
               </h5>
             </div>
             <div className="text-base-content text-opacity-100">
-              <ol className="relative border-l border-black my-2 mx-4 text-black">
+              <ol className="relative border-l border-black my-2 mx-4 text-black items-center justify-between">
                 {loading ? (
                   renderExperienceSkeleton()
                 ) : (
@@ -163,7 +166,9 @@ const CertExpCard = ({
               </ol>
             </div>
           </div>
-          <div className="flex-1">
+
+          {/* Certifications Section */}
+          <div className="flex-1 text-lg md:text-base sm:text-sm">
             <div className="mx-3 text-black">
               <h5 className="card-title text-black">
                 {loading ? (
@@ -196,14 +201,16 @@ const CertExpCard = ({
           </div>
         </div>
       </div>
+
+      {/* Image Section */}
       <div
-        className="bg-cover bg-center h-full rounded-r-2xl"
+        className="bg-cover bg-center h-full rounded-r-2xl hidden md:block"
         style={{
           backgroundImage: `url(${PlataniasImage})`,
           backgroundPosition: 'center 40%',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.5,
+          opacity: 1.0,
         }}
       ></div>
     </div>

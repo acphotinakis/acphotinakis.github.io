@@ -92,12 +92,14 @@ const GithubProjectCard = ({
   loading,
   limit,
   username,
+  id,
 }: {
   header: string;
   githubProjects: GithubProject[];
   loading: boolean;
   limit: number;
   username: string;
+  id: string;
 }) => {
   const [isShaking, setIsShaking] = useState(false);
 
@@ -181,7 +183,7 @@ const GithubProjectCard = ({
                 color: '#222222',
                 marginBottom: 2,
                 fontFamily: 'Roboto Mono, monospace',
-                opacity: 0.9,
+                opacity: 1.0,
                 boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
               }}
             >
@@ -306,7 +308,7 @@ const GithubProjectCard = ({
   return (
     <div
       className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl"
-      id="github-project-card"
+      id={id}
     >
       <div className="grid grid-cols-2 gap-6">
         <div className="col-span-2">

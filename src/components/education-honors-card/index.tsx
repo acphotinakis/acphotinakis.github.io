@@ -28,7 +28,9 @@ const EducationListItem = ({
 
 const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
   <>
-    <div className="my-0.5 text-xs pt-2 text-black">{honorName}</div>
+    <div className="my-0.5 text-xs pt-2 text-lg md:text-base sm:text-sm text-black">
+      {honorName}
+    </div>
   </>
 );
 
@@ -36,10 +38,12 @@ const EducationHonorCard = ({
   loading,
   educations,
   honors,
+  id,
 }: {
   loading: boolean;
   educations: SanitizedEducation[];
   honors: SanitizedHonor[];
+  id: string;
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -66,22 +70,22 @@ const EducationHonorCard = ({
 
   return (
     <div
-      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl grid md:grid-cols-2 rounded-2xl"
-      id="education-honor-card"
+      className="card shadow-2xl flex compact italic w-full max-w-full shadow-2xl items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      id={id}
     >
       <div
-        className="bg-cover bg-center h-full rounded-l-2xl"
+        className="bg-cover bg-center h-full rounded-l-2xl hidden md:block"
         style={{
           backgroundImage: `url(${Amsterdam})`,
           backgroundPosition: 'center 40%',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.5,
+          opacity: 1.0,
         }}
       ></div>
       <div className="card-body ml-10">
         <div className="flex">
-          <div className="flex-1">
+          <div className="flex-1 text-lg md:text-base sm:text-sm">
             <div className="mx-3 text-white">
               <h5 className="card-title text-white">
                 {loading ? (
@@ -108,7 +112,7 @@ const EducationHonorCard = ({
               </ol>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 text-lg md:text-base sm:text-sm">
             <div className="mx-3 text-white">
               <h5 className="card-title text-white">
                 {loading ? (
