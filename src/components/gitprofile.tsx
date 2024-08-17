@@ -251,14 +251,14 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
-                  <OptionsPLTable
+                  {/* <OptionsPLTable
                     loading={loading}
                     id={
                       cardSections.find(
                         (section) => section.name === 'Stock Options Ledger',
                       )?.id ?? 'education-honors'
                     }
-                  />
+                  /> */}
                   {sanitizedConfig.certifications.length !== 0 &&
                     sanitizedConfig.experiences.length !== 0 && (
                       <CertExpCard

@@ -168,7 +168,7 @@ const GithubProjectCard = ({
     };
 
     return (
-      <div>
+      <>
         {githubProjects.map((item, index) => {
           // Select image based on item.name
           const imageUrl = imageMap[item.name] || 'path/to/default-image.jpg';
@@ -185,6 +185,7 @@ const GithubProjectCard = ({
                 fontFamily: 'Roboto Mono, monospace',
                 opacity: 1.0,
                 boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+                width: '100%',
               }}
             >
               <div
@@ -301,7 +302,7 @@ const GithubProjectCard = ({
             </Card>
           );
         })}
-      </div>
+      </>
     );
   };
 
@@ -335,13 +336,13 @@ const GithubProjectCard = ({
               </a>
             )}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-1 gap-6 w-full">
             {loading ? renderSkeleton() : renderProjects()}
           </div>
         </div>
       </div>
     </div>
-  ); 
+  );
 };
 
 export default GithubProjectCard;
