@@ -26,6 +26,8 @@ import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
+import SharesOrderTable from './shares-order-table';
+import OptionsPLTable from './options-pl-table';
 
 /**
  * Renders the GitProfile component.
@@ -235,6 +237,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                       )?.id ?? 'contacts'
                     }
                   />
+                  <SharesOrderTable loading={loading} id="hello" />
+                  <OptionsPLTable loading={loading} id="helo" />
                   {sanitizedConfig.educations.length !== 0 &&
                     sanitizedConfig.honors.length !== 0 && (
                       <EducationHonorCard
