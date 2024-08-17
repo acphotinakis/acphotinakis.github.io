@@ -92,7 +92,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
 
   return (
     <div
-      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl items-center"
+      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl items-center shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
       id={id}
     >
       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">

@@ -168,7 +168,7 @@ const GithubProjectCard = ({
     };
 
     return (
-      <>
+      <div>
         {githubProjects.map((item, index) => {
           // Select image based on item.name
           const imageUrl = imageMap[item.name] || 'path/to/default-image.jpg';
@@ -301,49 +301,47 @@ const GithubProjectCard = ({
             </Card>
           );
         })}
-      </>
+      </div>
     );
   };
 
   return (
     <div
-      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl"
+      className="card compact col-span-1 lg:col-span-2 shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)] italic w-full max-w-full rounded-2xl"
       id={id}
     >
-      <div className="grid grid-cols-2 gap-6">
-        <div className="col-span-2">
-          <div className="card-body flex flex-col py-4 px-4 md:py-8 md:px-8 relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <h5 className="card-title text-black text-lg md:text-xl flex-1 justify-center">
-                {loading ? (
-                  skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
-                ) : (
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500">
-                    {header}
-                  </span>
-                )}
-              </h5>
+      <div className="flex flex-col p-4 gap-6 items-center">
+        <div className="flex flex-col py-4 px-4 md:py-8 md:px-8 relative z-10 w-full max-w-screen-lg">
+          <div className="flex flex-col items-center justify-center mb-4 text-center">
+            <h5 className="card-title text-black text-lg md:text-xl mb-2">
               {loading ? (
-                skeleton({ widthCls: 'w-10', heightCls: 'h-5' })
+                skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
               ) : (
-                <a
-                  href={`https://github.com/${username}?tab=repositories`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-lg text-black opacity-100 hover:underline"
-                >
-                  See All
-                </a>
+                <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500">
+                  {header}
+                </span>
               )}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {loading ? renderSkeleton() : renderProjects()}
-            </div>
+            </h5>
+            {loading ? (
+              skeleton({ widthCls: 'w-10', heightCls: 'h-5' })
+            ) : (
+              <a
+                href={`https://github.com/${username}?tab=repositories`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-lg text-black opacity-100 hover:underline"
+              >
+                See All
+              </a>
+            )}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 w-full">
+            {loading ? renderSkeleton() : renderProjects()}
           </div>
         </div>
       </div>
     </div>
-  );
+  ); 
 };
 
 export default GithubProjectCard;

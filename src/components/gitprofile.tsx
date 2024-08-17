@@ -26,7 +26,6 @@ import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
-import SharesOrderTable from './shares-order-table';
 import OptionsPLTable from './options-pl-table';
 
 /**
@@ -187,6 +186,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     { name: 'Home', id: 'home' },
     { name: 'Contacts', id: 'contacts' },
     { name: 'Education & Honors', id: 'education-honors' },
+    { name: 'Stock Options Ledger', id: 'stock-options-ledger' },
     { name: 'Certifications & Experience', id: 'certifications-experience' },
     { name: 'Skills', id: 'skills' },
     { name: 'GitHub Projects', id: 'github-projects' },
@@ -237,8 +237,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       )?.id ?? 'contacts'
                     }
                   />
-                  <SharesOrderTable loading={loading} id="hello" />
-                  <OptionsPLTable loading={loading} id="helo" />
+                  {/* <SharesOrderTable loading={loading} id="in-progress" /> */}
                   {sanitizedConfig.educations.length !== 0 &&
                     sanitizedConfig.honors.length !== 0 && (
                       <EducationHonorCard
@@ -252,6 +251,14 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
+                  <OptionsPLTable
+                    loading={loading}
+                    id={
+                      cardSections.find(
+                        (section) => section.name === 'Stock Options Ledger',
+                      )?.id ?? 'education-honors'
+                    }
+                  />
                   {sanitizedConfig.certifications.length !== 0 &&
                     sanitizedConfig.experiences.length !== 0 && (
                       <CertExpCard

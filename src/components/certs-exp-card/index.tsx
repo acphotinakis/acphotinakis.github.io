@@ -124,7 +124,7 @@ const CertExpCard = ({
 
   return (
     <div
-      className="card shadow-2xl flex compact italic w-full max-w-full shadow-2xl items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="card flex compact italic w-full max-w-full shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div className="card-body flex">

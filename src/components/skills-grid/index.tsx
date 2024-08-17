@@ -121,26 +121,30 @@ const SkillsGrid = ({
   };
 
   return (
-    <div className="col-span-1 lg:col-span-2 text-black" id={id}>
-      <div className="flex flex-col gap-6">
-        <div className="card compact shadow bg-opacity-40">
+    <div
+      className="col-span-1 lg:col-span-2 text-black shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+      id={id}
+    >
+      <div className="flex flex-col gap-6 p-4">
+        <div className="card compact shadow bg-opacity-40 p-4 rounded-lg">
           <div className="card-body text-black">
-            <div className="mx-3 flex items-center justify-between mb-2 text-black">
-              <h5 className="card-title">
+            <div className="flex items-center justify-between mb-4 text-black">
+              <h5 className="card-title text-lg font-bold">
                 {loading ? (
-                  skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
+                  skeleton({ widthCls: 'w-32 sm:w-40', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-70"></span>
+                  <span className="text-base-content opacity-70">
+                    Your Title Here
+                  </span>
                 )}
               </h5>
             </div>
-            {/* Moved grid layout outside */}
-            <div className="flex flex-col gap-6 text-black grid grid-cols-2 gap-4 w-full">
+            <div className="flex flex-col gap-6 text-black md:grid md:grid-cols-2 md:gap-4">
               {loading ? (
                 renderSkeleton()
               ) : (
                 <>
-                  {sanitizedConfig.languages.length !== 0 && (
+                  {sanitizedConfig.languages.length > 0 && (
                     <SkillCard
                       loading={loading}
                       skills={sanitizedConfig.languages as Array<SkillName>}
@@ -148,7 +152,7 @@ const SkillsGrid = ({
                       name="Programming Languages"
                     />
                   )}
-                  {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
+                  {sanitizedConfig.frameworksAndLibraries.length > 0 && (
                     <SkillCard
                       loading={loading}
                       skills={
@@ -158,7 +162,7 @@ const SkillsGrid = ({
                       name="Frameworks & Libraries"
                     />
                   )}
-                  {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
+                  {sanitizedConfig.toolsAndTechnologies.length > 0 && (
                     <SkillCard
                       loading={loading}
                       skills={
@@ -168,7 +172,7 @@ const SkillsGrid = ({
                       name="Tools & Technologies"
                     />
                   )}
-                  {sanitizedConfig.conceptsAndSkills.length !== 0 && (
+                  {sanitizedConfig.conceptsAndSkills.length > 0 && (
                     <SkillCard
                       loading={loading}
                       skills={
