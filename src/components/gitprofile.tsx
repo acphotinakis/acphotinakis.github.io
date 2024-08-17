@@ -26,7 +26,7 @@ import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
-import OptionsPLTable from './options-pl-table';
+// import OptionsPLTable from './options-pl-table';
 
 /**
  * Renders the GitProfile component.
