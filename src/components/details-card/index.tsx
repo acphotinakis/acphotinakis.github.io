@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { AiFillGithub } from 'react-icons/ai';
 import { FaDev, FaGlobe, FaLinkedin, FaStackOverflow } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
@@ -9,6 +8,7 @@ import {
   SanitizedSocial,
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+import BarcelonaImage from '../../assets/barcelona.jpg';
 
 type Props = {
   profile: Profile | null;
@@ -27,24 +27,24 @@ const ListItem: React.FC<{
   color?: string; // New color prop
 }> = ({ icon, title, value, link, skeleton = false, color }) => {
   return (
-    <div className="flex justify-start py-2 px-1 items-center">
-      <div className="flex-grow font-medium gap-2 flex items-center my-1">
+    <div className="flex py-2 px-10 items-center">
+      <div className="flex-grow font-medium gap-2 flex items-center my-1 text-sm sm:text-base md:text-md">
         <span style={{ color }}>{icon}</span> {title}
       </div>
       <div
         className={`${
           skeleton ? 'flex-grow' : ''
-        } text-lg font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
+        } text-sm sm:text-base md:text-md font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
         style={{
           wordBreak: 'break-word',
-          color: 'black', // Set value text color to black
+          color: 'black',
         }}
       >
         <a
           href={link}
           target="_blank"
           rel="noreferrer"
-          className="flex justify-start py-2 px-1 items-center"
+          className="flex py-2 px-1 items-center text-sm sm:text-base md:text-md"
         >
           {value}
         </a>
@@ -92,103 +92,126 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
 
   return (
     <div
-      className="card shadow-2xl compact italic w-full max-w-full shadow-2xl rounded-2xl items-center shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+      className="bg-white card flex compact italic w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] rounded-2xl overflow-hidden h-auto"
       id={id}
     >
-      <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
-        <div className="text-base-content text-opacity-100 text-black flex flex-col items-center py-8 px-8 relative z-10">
-          {loading || !profile ? (
-            renderSkeleton()
-          ) : (
-            <Fragment>
-              <div className="mx-3 p-3">
-                <h5 className="card-title text-black text-lg md:text-xl">
-                  {loading ? (
-                    renderSkeleton()
-                  ) : (
-                    <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
-                      Contacts
-                    </span>
-                  )}
+      <div className="flex flex-col md:flex-row w-full h-full">
+        {/* Text Content */}
+        <div className="flex-1 card-body flex flex-col py-8 px-8 relative z-10">
+          <div className="text-base-content text-opacity-100 text-black flex flex-col py-8 px-8 relative z-10 items-center justify-center">
+            {loading || !profile ? (
+              renderSkeleton()
+            ) : (
+              <>
+                <h5 className="card-title text-black text-lg md:text-xl text-center">
+                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block text-center">
+                    Contacts
+                  </span>
                 </h5>
-              </div>
-              {profile.location && (
-                <ListItem
-                  icon={<MdLocationOn />}
-                  title="Based in:"
-                  value={profile.location}
-                  color="#E23237"
-                />
-              )}
-              <ListItem
-                icon={<AiFillGithub />}
-                title="GitHub:"
-                value={github.username}
-                link={`https://github.com/${github.username}`}
-                color={colorMap.github}
-              />
-              {social?.linkedin && (
-                <ListItem
-                  icon={<FaLinkedin />}
-                  title="LinkedIn:"
-                  value={social.linkedin}
-                  link={`https://www.linkedin.com/in/${social.linkedin}`}
-                  color={colorMap.linkedin}
-                />
-              )}
-              {social?.dev && (
-                <ListItem
-                  icon={<FaDev />}
-                  title="Dev:"
-                  value={social.dev}
-                  link={`https://dev.to/${social.dev}`}
-                  color={colorMap.dev}
-                />
-              )}
-              {social?.stackoverflow && (
-                <ListItem
-                  icon={<FaStackOverflow />}
-                  title="Stack Overflow:"
-                  value={social.stackoverflow.split('/').slice(-1)}
-                  link={`https://stackoverflow.com/users/${social.stackoverflow}`}
-                  color={colorMap.stackoverflow}
-                />
-              )}
-              {social?.website && (
-                <ListItem
-                  icon={<FaGlobe />}
-                  title="Website:"
-                  value={social.website
-                    .replace('https://', '')
-                    .replace('http://', '')}
-                  link={
-                    !social.website.startsWith('http')
-                      ? `http://${social.website}`
-                      : social.website
-                  }
-                  color={colorMap.website}
-                />
-              )}
-              {social?.phone && (
-                <ListItem
-                  icon={<RiPhoneFill />}
-                  title="Phone:"
-                  value={social.phone}
-                  link={`tel:${social.phone}`}
-                  color={colorMap.phone}
-                />
-              )}
-              {social?.email && (
-                <ListItem
-                  icon={<RiMailFill />}
-                  title="Email:"
-                  value={social.email}
-                  link={`mailto:${social.email}`}
-                  color={colorMap.email}
-                />
-              )}
-            </Fragment>
-          )}
+                <div className="relative mx-4 text-black flex flex-col text-sm sm:text-base md:text-md w-full items-center">
+                  {profile.location && (
+                    <ListItem
+                      icon={<MdLocationOn />}
+                      title="Based in:"
+                      value={profile.location}
+                      color="#E23237"
+                    />
+                  )}
+
+                  <ListItem
+                    icon={<AiFillGithub />}
+                    title="GitHub:"
+                    value={github.username}
+                    link={`https://github.com/${github.username}`}
+                    color={colorMap.github}
+                  />
+
+                  {social?.linkedin && (
+                    <ListItem
+                      icon={<FaLinkedin />}
+                      title="LinkedIn:"
+                      value={social.linkedin}
+                      link={`https://www.linkedin.com/in/${social.linkedin}`}
+                      color={colorMap.linkedin}
+                    />
+                  )}
+
+                  {social?.dev && (
+                    <ListItem
+                      icon={<FaDev />}
+                      title="Dev:"
+                      value={social.dev}
+                      link={`https://dev.to/${social.dev}`}
+                      color={colorMap.dev}
+                    />
+                  )}
+
+                  {social?.stackoverflow && (
+                    <ListItem
+                      icon={<FaStackOverflow />}
+                      title="Stack Overflow:"
+                      value={social.stackoverflow.split('/').slice(-1)}
+                      link={`https://stackoverflow.com/users/${social.stackoverflow}`}
+                      color={colorMap.stackoverflow}
+                    />
+                  )}
+
+                  {social?.website && (
+                    <ListItem
+                      icon={<FaGlobe />}
+                      title="Website:"
+                      value={social.website
+                        .replace('https://', '')
+                        .replace('http://', '')}
+                      link={
+                        !social.website.startsWith('http')
+                          ? `http://${social.website}`
+                          : social.website
+                      }
+                      color={colorMap.website}
+                    />
+                  )}
+
+                  {social?.phone && (
+                    <ListItem
+                      icon={<RiPhoneFill />}
+                      title="Phone:"
+                      value={social.phone}
+                      link={`tel:${social.phone}`}
+                      color={colorMap.phone}
+                    />
+                  )}
+
+                  {social?.email && (
+                    <ListItem
+                      icon={<RiMailFill />}
+                      title="Email:"
+                      value={social.email}
+                      link={`mailto:${social.email}`}
+                      color={colorMap.email}
+                    />
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Image Section */}
+        <div
+          className="bg-cover bg-center md:w-1/2 rounded-r-2xl hidden md:block"
+          style={{
+            backgroundImage: `url(${BarcelonaImage})`,
+            backgroundPosition: 'bottom',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            height: '550px',
+          }}
+        >
+          <div className="absolute top-10 right-10 flex items-center space-x-2 text-white">
+            <MdLocationOn size={24} color="red" />
+            <span>Barcelona, Spain</span>
+          </div>
         </div>
       </div>
     </div>

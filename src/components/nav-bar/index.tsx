@@ -11,6 +11,8 @@ import { Fa500Px, FaTimes, FaBars } from 'react-icons/fa'; // Import FaBars for 
 type CardSection = {
   name: string;
   id: string;
+  path: string;
+  dropdown?: CardSection[]; // Fixed to CardSection[]
 };
 
 const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
@@ -20,6 +22,7 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isSidebar, setIsSidebar] = useState<boolean>(window.innerWidth < 850); // Initial state based on window width
   const [showHamburger, setShowHamburger] = useState<boolean>(false);
+  // const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,6 +93,93 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
         : 'black';
   };
 
+  // const toggleDropdown = (id: string) => {
+  //   setActiveDropdown((prev) => (prev === id ? null : id));
+  // };
+
+  // const displayNavBarItems = () => {
+  //   return cardSections.map((section, index) => (
+  //     <div key={index}>
+  //       <NavbarItem
+  //         onMouseEnter={() => {
+  //           setHoveredItem(section.id);
+  //           handleMouseEnter();
+  //         }}
+  //         onMouseLeave={() => {
+  //           setHoveredItem(null);
+  //           handleMouseLeave();
+  //         }}
+  //       >
+  //         <Link
+  //           style={{
+  //             fontWeight: 'bold',
+  //             color:
+  //               hoveredItem === section.id
+  //                 ? 'red'
+  //                 : backgroundColor === 'black'
+  //                   ? 'white'
+  //                   : 'black',
+  //             transition: 'none',
+  //           }}
+  //           href={`#${section.id}`}
+  //           onClick={() => {
+  //             setIsSidebar(false);
+  //             if (section.dropdown?.length != undefined) {
+  //               if (section.dropdown.length > 0) {
+  //                 toggleDropdown(section.id);
+  //               }
+  //             }
+  //           }}
+  //         >
+  //           {section.name}
+  //         </Link>
+  //       </NavbarItem>
+  //       {activeDropdown === section.id &&
+  //         section.dropdown?.length != undefined &&
+  //         section.dropdown?.length > 0 && (
+  //           <div
+  //             style={{
+  //               display: 'flex',
+  //               flexDirection: 'column',
+  //               marginTop: '0.5rem',
+  //             }}
+  //           >
+  //             {section.dropdown.map((dropdownItem, dropdownIndex) => (
+  //               <NavbarItem
+  //                 key={dropdownIndex}
+  //                 onMouseEnter={() => {
+  //                   setHoveredItem(dropdownItem.id);
+  //                   handleMouseEnter();
+  //                 }}
+  //                 onMouseLeave={() => {
+  //                   setHoveredItem(null);
+  //                   handleMouseLeave();
+  //                 }}
+  //               >
+  //                 <Link
+  //                   style={{
+  //                     fontWeight: 'bold',
+  //                     color:
+  //                       hoveredItem === dropdownItem.id
+  //                         ? 'red'
+  //                         : backgroundColor === 'black'
+  //                           ? 'white'
+  //                           : 'black',
+  //                     transition: 'none',
+  //                   }}
+  //                   href={`#${section.id}`}
+  //                   onClick={() => setIsSidebar(false)}
+  //                 >
+  //                   {dropdownItem.name}
+  //                 </Link>
+  //               </NavbarItem>
+  //             ))}
+  //           </div>
+  //         )}
+  //     </div>
+  //   ));
+  // };
+
   const displayNavBarItems = () => {
     return cardSections.map((section, index) => (
       <NavbarItem
@@ -112,7 +202,7 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
                 : backgroundColor === 'black'
                   ? 'white'
                   : 'black',
-            transition: 'none', // Remove transition for immediate change
+            transition: 'none',
           }}
           href={`#${section.id}`}
           onClick={() => setIsSidebar(false)}
@@ -158,7 +248,7 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
             transition: 'none',
           }}
           href={`#${section.id}`}
-          onClick={() => setShowHamburger(false)} // Close hamburger menu on item click
+          onClick={() => setShowHamburger(false)}
         >
           {section.name}
         </Link>
@@ -180,9 +270,9 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
           padding: '1rem',
           position: 'fixed',
           fontWeight: 'bold',
-          display: 'flex', // Align items horizontally
-          justifyContent: 'space-between', // Space between items
-          alignItems: 'center', // Center items vertically
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           borderBottom: showBorder ? '2px solid black' : 'none',
           height: 'max-content',
         }}
@@ -208,64 +298,70 @@ const NavbarComp = ({ cardSections }: { cardSections: CardSection[] }) => {
             acphotinakis
           </p>
         </NavbarBrand>
-        {isSidebar ? (
-          <NavbarContent
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              marginTop: '1rem',
-              top: 0,
-              right: 0,
-              backgroundColor: backgroundColor,
-              transition: 'opacity 0.3s ease, visibility 0.3s ease', // Smooth transition
-              zIndex: 999, // Ensure dropdown is above other elements
-            }}
-          >
-            <div
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center', // Center items vertically
+          }}
+        >
+          {isSidebar ? (
+            <NavbarContent
               style={{
-                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                top: 0,
+                right: 0,
                 backgroundColor: backgroundColor,
-                overflow: 'visible',
+                transition: 'opacity 0.3s ease, visibility 0.3s ease', // Smooth transition
+                zIndex: 999, // Ensure dropdown is above other elements
               }}
             >
-              {showHamburger ? (
-                <div
-                  onClick={() => setShowHamburger(false)}
-                  className="rounded-l-2xl"
-                >
-                  <FaTimes
-                    style={{
-                      fontSize: '24px',
-                      top: '10px', // Adjust as needed
-                      right: '10px', // Adjust as needed
-                      color: iconColorF('times'),
-                    }}
-                    onMouseEnter={() => handleMouseEnterF('times')}
-                    onMouseLeave={handleMouseLeaveF}
-                  />
-                  {handleDisplayNavbarItemsSidebar()}
-                </div>
-              ) : (
-                <div onClick={() => setShowHamburger(true)}>
-                  <FaBars
-                    style={{
-                      color: iconColorF('bars'),
-                      fontSize: '24px',
-                      cursor: 'pointer', // Add cursor pointer to indicate clickable
-                    }}
-                    onMouseEnter={() => handleMouseEnterF('bars')}
-                    onMouseLeave={handleMouseLeaveF}
-                  />
-                </div>
-              )}
-            </div>
-          </NavbarContent>
-        ) : (
-          <NavbarContent className="hidden sm:flex gap-6" justify="center">
-            {displayNavBarItems()}
-          </NavbarContent>
-        )}
+              <div
+                style={{
+                  cursor: 'pointer',
+                  backgroundColor: backgroundColor,
+                  overflow: 'visible',
+                }}
+              >
+                {showHamburger ? (
+                  <div
+                    onClick={() => setShowHamburger(false)}
+                    className="rounded-l-2xl"
+                  >
+                    <FaTimes
+                      style={{
+                        fontSize: '24px',
+                        top: '0px', // Adjust as needed
+                        right: '0px', // Adjust as needed
+                        color: iconColorF('times'),
+                      }}
+                      onMouseEnter={() => handleMouseEnterF('times')}
+                      onMouseLeave={handleMouseLeaveF}
+                    />
+                    {handleDisplayNavbarItemsSidebar()}
+                  </div>
+                ) : (
+                  <div onClick={() => setShowHamburger(true)}>
+                    <FaBars
+                      style={{
+                        color: iconColorF('bars'),
+                        fontSize: '24px',
+                        cursor: 'pointer', // Add cursor pointer to indicate clickable
+                      }}
+                      onMouseEnter={() => handleMouseEnterF('bars')}
+                      onMouseLeave={handleMouseLeaveF}
+                    />
+                  </div>
+                )}
+              </div>
+            </NavbarContent>
+          ) : (
+            <NavbarContent className="hidden sm:flex gap-6" justify="center">
+              {displayNavBarItems()}
+            </NavbarContent>
+          )}
+        </div>
       </Navbar>
     </div>
   );

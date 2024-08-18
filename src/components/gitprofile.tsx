@@ -26,7 +26,7 @@ import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
-// import OptionsPLTable from './options-pl-table';
+import OptionsPLTable from './options-pl-table';
 
 /**
  * Renders the GitProfile component.
@@ -180,18 +180,67 @@ const GitProfile = ({ config }: { config: Config }) => {
   type CardSection = {
     name: string;
     id: string;
+    path: string;
+    dropdown?: CardSection[]; // Fixed to CardSection[]
   };
 
   const cardSections: CardSection[] = [
-    { name: 'Home', id: 'home' },
-    { name: 'Contacts', id: 'contacts' },
-    { name: 'Education & Honors', id: 'education-honors' },
-    { name: 'Stock Options Ledger', id: 'stock-options-ledger' },
-    { name: 'Certifications & Experience', id: 'certifications-experience' },
-    { name: 'Skills', id: 'skills' },
-    { name: 'GitHub Projects', id: 'github-projects' },
-    { name: 'Publications', id: 'publications' },
-    { name: 'Blog', id: 'blog' },
+    { name: 'Home', id: 'home', path: '/', dropdown: [] },
+    { name: 'Contacts', id: 'contacts', path: '/contacts', dropdown: [] },
+    {
+      name: 'Education & Honors',
+      id: 'education-honors',
+      path: '/education-honors',
+    },
+    {
+      name: 'Stock Options Ledger',
+      id: 'stock-options-ledger',
+      path: '/stock-options-ledger',
+    },
+    {
+      name: 'Certifications & Experience',
+      id: 'certifications-experience',
+      path: '/certifications-experience',
+    },
+    {
+      name: 'Skills',
+      id: 'skills',
+      path: '/skills',
+      dropdown: [
+        {
+          name: 'Programming Languages',
+          id: 'programming-languages',
+          path: '/skills#programming-languages',
+        },
+        {
+          name: 'Frameworks & Libraries',
+          id: 'frameworks-libraries',
+          path: '/skills#frameworks-libraries',
+        },
+        {
+          name: 'Tools & Technologies',
+          id: 'tools-technologies',
+          path: '/skills#tools-technologies',
+        },
+        {
+          name: 'Concepts & Skills',
+          id: 'concepts-skills',
+          path: '/skills#concepts-skills',
+        },
+      ],
+    },
+    {
+      name: 'GitHub Projects',
+      id: 'github-projects',
+      path: '/github-projects',
+    },
+    {
+      name: 'Publications',
+      id: 'publications',
+      path: '/publications',
+      dropdown: [],
+    },
+    { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
   ];
 
   const topStyle: React.CSSProperties = {
@@ -217,7 +266,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             <NavbarComp cardSections={cardSections} />
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
               <div className="flex flex-col gap-6 rounded-box">
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-6 bg-[#ededed]">
                   <AvatarCard
                     profile={profile}
                     loading={loading}
@@ -251,14 +300,15 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
-                  {/* <OptionsPLTable
+
+                  <OptionsPLTable
                     loading={loading}
                     id={
                       cardSections.find(
                         (section) => section.name === 'Stock Options Ledger',
-                      )?.id ?? 'education-honors'
+                      )?.id ?? 'stock-options-ledger'
                     }
-                  /> */}
+                  />
                   {sanitizedConfig.certifications.length !== 0 &&
                     sanitizedConfig.experiences.length !== 0 && (
                       <CertExpCard
@@ -279,6 +329,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                     id={
                       cardSections.find((section) => section.name === 'Skills')
                         ?.id ?? 'skills'
+                    }
+                    dropdown={
+                      cardSections.find((section) => section.name === 'Skills')
+                        ?.dropdown ?? []
                     }
                   />
                   {sanitizedConfig.projects.github.display && (

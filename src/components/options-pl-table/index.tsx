@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { skeleton } from '../../utils';
 import OptionsPLJson from '../../data/OptionsPlTable.json';
 import dayjs from 'dayjs';
@@ -60,6 +60,47 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | 'none'>(
     'none',
   );
+  const [windowWidth, setWindowWidth] = useState(window.outerWidth);
+  const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.outerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth < 500) {
+      // sm breakpoint
+      setVisibleColumns(['EntryDescription']);
+    } else if (windowWidth < 700) {
+      // md breakpoint
+      setVisibleColumns(['EntryDescription', 'Realized P/L %']);
+    } else if (windowWidth < 1024) {
+      // lg breakpoint
+      setVisibleColumns([
+        'Ticker',
+        'Entry Type',
+        'Strike Price',
+        'Trade Date',
+        'Realized P/L %',
+      ]);
+    } else if (windowWidth < 1210) {
+      // lg breakpoint
+      setVisibleColumns([
+        'Ticker',
+        'Trade Date',
+        'Entry Type',
+        'Strike Price',
+        'Exit Type',
+        'Realized P/L %',
+      ]);
+    } else {
+      setVisibleColumns(columns);
+    }
+  }, [windowWidth]);
 
   const sortedData = [...OptionsPLJson].sort(
     (a: OptionsPlRow, b: OptionsPlRow) => {
@@ -388,10 +429,9 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
     }
     return '→';
   };
-
   return (
     <div
-      className="card shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)] compact italic w-full max-w-full rounded-2xl items-center mb-5 py-8"
+      className="bg-white card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
@@ -433,12 +473,12 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
         </div>
 
         <div
-          className="overflow-x-auto w-full rounded-2xl shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+          className="overflow-x-auto w-full rounded-2xl bg-black shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
           style={{
             border: '2px solid black',
           }}
         >
-          <div className="max-h-[500px] overflow-y-auto rounded-2xl">
+          <div className="max-h-[500px] overflow-y-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead
                 className="sticky top-0 z-10"
@@ -449,15 +489,15 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
                 }}
               >
                 <tr>
-                  {columns.map((column) => (
+                  {visibleColumns.map((column) => (
                     <th
                       key={column}
-                      className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider items-center" // Adjust the min-w value as needed
+                      className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider items-center"
                     >
                       <button
                         key={column}
                         onClick={() => handleClick(column)}
-                        className={`p-2 border rounded items-center  ${getButtonClassName(column)}`}
+                        className={`p-2 border rounded items-center ${getButtonClassName(column)}`}
                       >
                         {column} {getSortDirectionIcon(column)}
                       </button>
@@ -465,11 +505,11 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 bg-[#ededed]">
                 {sortedData.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={columns.length}
+                      colSpan={visibleColumns.length}
                       className="px-7 py-4 text-center text-sm font-medium text-gray-500 border border-gray-300"
                     >
                       No results
@@ -478,13 +518,13 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
                 ) : (
                   sortedData.map((row: OptionsPlRow, index: number) => (
                     <tr key={index} className="border-b border-gray-300">
-                      {columns.map((column) => (
+                      {visibleColumns.map((column) => (
                         <td
                           key={column}
                           className="px-7 py-3 whitespace-nowrap"
                         >
                           <div
-                            className={`${getCellBackgroundColor(column, row[column].toString(), row)} text-black items-center text-center py-1 px-2 rounded-lg`}
+                            className={`${getCellBackgroundColor(column, row[column].toString(), row)} text-black items-center  ${column === 'EntryDescription' ? 'text-left' : 'text-center'} py-1 px-2 rounded-lg`}
                           >
                             {getCellText(column, row[column].toString(), row)}
                           </div>

@@ -12,7 +12,7 @@ const CONFIG = {
       mode: 'manual',
       automatic: {
         sortBy: 'stars',
-        limit: 6,
+        limit: 8,
         exclude: {
           forks: false,
           projects: ['acphotinakis/acphotinakis.github.io'],
@@ -27,6 +27,8 @@ const CONFIG = {
           'acphotinakis/DiskUsage',
           'acphotinakis/Place-IP',
           'acphotinakis/Keyboard-E-Store',
+          'acphotinakis/JamGame',
+          'acphotinakis/TradeSync',
         ],
       },
     },
@@ -119,8 +121,8 @@ const CONFIG = {
     'MongoDB',
   ],
   conceptsAndSkills: [
-    'Object-Oriented Programming (OOP)',
-    'API Development & Integration',
+    'OOP',
+    'API Dev & Integration',
     'Data Processing & ETL',
     'Automated Testing',
     'Software Architecture & Design Patterns',
@@ -166,8 +168,8 @@ const CONFIG = {
     60, // MongoDB
   ],
   conceptsAndSkillsLevel: [
-    100, // Object-Oriented Programming (OOP)
-    85, // API Development & Integration
+    100, // OOP
+    85, // API Dev & Integration
     85, // Data Processing & ETL
     85, // Automated Testing
     80, // Software Architecture & Design Patterns

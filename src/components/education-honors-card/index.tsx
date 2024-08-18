@@ -5,6 +5,7 @@ import {
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 import Amsterdam from '../../assets/amsterdam.jpg';
+import { MdLocationOn } from 'react-icons/md';
 
 const EducationListItem = ({
   time,
@@ -20,9 +21,9 @@ const EducationListItem = ({
       className="absolute w-2 h-2 bg-black rounded-full border border-black mt-1.5"
       style={{ left: '-4.0px' }}
     ></div>
-    <div className="my-0.5 text-xs">{time}</div>
-    <h3 className="font-semibold">{degree}</h3>
-    <div className="mb-4 font-normal">{institution}</div>
+    <div className="my-0.5 text-xs sm:text-sm text-black">{time}</div>
+    <h3 className="font-semibold text-sm sm:text-base md:text-md">{degree}</h3>
+    <div className="mb-4 font-normal text-sm sm:text-base">{institution}</div>
   </li>
 );
 
@@ -70,7 +71,7 @@ const EducationHonorCard = ({
 
   return (
     <div
-      className="card flex compact italic w-full max-w-full shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="bg-white card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div
@@ -82,7 +83,12 @@ const EducationHonorCard = ({
           backgroundRepeat: 'no-repeat',
           opacity: 1.0,
         }}
-      ></div>
+      >
+        <div className="absolute top-10 left-10 flex items-center space-x-2 text-white">
+          <MdLocationOn size={24} color="red" />
+          <span>Amsterdam, Netherlands</span>
+        </div>
+      </div>
       <div className="card-body ml-10">
         <div className="flex">
           <div className="flex-1 text-lg md:text-base sm:text-sm">

@@ -410,7 +410,7 @@
 
 //   return (
 //     <div
-//       className="card shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)] compact italic w-full max-w-full rounded-2xl items-center mb-5 py-8"
+//       className="card shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] compact italic w-full max-w-full rounded-2xl items-center mb-5 py-8"
 //       id={id}
 //     >
 //       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
@@ -475,7 +475,7 @@
 //           )}
 //         </div>
 //         <div
-//           className="overflow-x-auto w-full rounded-2xl shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+//           className="overflow-x-auto w-full rounded-2xl shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
 //           style={{
 //             border: '2px solid black',
 //           }}
@@ -695,7 +695,7 @@
 
 // //   return (
 // //     <div
-// //       className="card shadow-2xl compact italic w-full max-w-full rounded-2xl items-center mb-5 py-8 "
+// //       className="card shadow-2xl compact italic w-9/10 max-w-full rounded-2xl items-center mb-5 py-8 "
 // //       id={id}
 // //     >
 // //       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">

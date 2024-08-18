@@ -34,8 +34,8 @@ type SkillName =
   | 'Valgrind'
   | 'GDB'
   | 'MongoDB'
-  | 'Object-Oriented Programming (OOP)'
-  | 'API Development & Integration'
+  | 'OOP'
+  | 'API Dev & Integration'
   | 'Data Processing & ETL'
   | 'Automated Testing'
   | 'Software Architecture & Design Patterns'
@@ -44,14 +44,23 @@ type SkillName =
   | 'Software Engineering Principles'
   | 'Web Scraping';
 
+type CardSection = {
+  name: string;
+  id: string;
+  path: string;
+  dropdown?: CardSection[];
+};
+
 const SkillsGrid = ({
   loading,
   sanitizedConfig,
   id,
+  dropdown,
 }: {
   loading: boolean;
   sanitizedConfig: SanitizedConfig | Record<string, never>;
   id: string;
+  dropdown: CardSection[];
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -122,68 +131,84 @@ const SkillsGrid = ({
 
   return (
     <div
-      className="col-span-1 lg:col-span-2 text-black shadow-xl xl:shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+      className="bg-white card flex italic w-[95vw] mx-auto shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-black"
       id={id}
     >
-      <div className="flex flex-col gap-6">
-        <div className="card compact shadow bg-opacity-40">
-          <div className="card-body text-black">
-            <div className="mx-3 flex items-center justify-between mb-2 text-black">
-              <h5 className="card-title">
-                {loading ? (
-                  skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
-                ) : (
-                  <span className="text-base-content opacity-70"></span>
+      <div className="card compact shadow bg-opacity-40 w-full">
+        <div className="card-body items-center text-black">
+          <div className="mx-3 flex items-center justify-between mb-2 text-black">
+            <h5 className="card-title text-black text-lg md:text-xl text-center">
+              <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                Skills
+              </span>
+            </h5>
+          </div>
+          {/* Grid layout with responsive columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+            {loading ? (
+              renderSkeleton()
+            ) : (
+              <>
+                {sanitizedConfig.languages.length !== 0 && (
+                  <SkillCard
+                    loading={loading}
+                    skills={sanitizedConfig.languages as Array<SkillName>}
+                    // levels={sanitizedConfig.languagesLevel}
+                    name="Programming Languages"
+                    id={
+                      dropdown.find(
+                        (section) => section.name === 'Programming Languages',
+                      )?.id ?? 'programming-languages'
+                    }
+                  />
                 )}
-              </h5>
-            </div>
-            {/* Moved grid layout outside */}
-            <div className="flex flex-col gap-6 text-black grid sm:grid-cols-1 gap-4 w-full">
-              {loading ? (
-                renderSkeleton()
-              ) : (
-                <>
-                  {sanitizedConfig.languages.length !== 0 && (
-                    <SkillCard
-                      loading={loading}
-                      skills={sanitizedConfig.languages as Array<SkillName>}
-                      // levels={sanitizedConfig.languagesLevel}
-                      name="Programming Languages"
-                    />
-                  )}
-                  {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
-                    <SkillCard
-                      loading={loading}
-                      skills={
-                        sanitizedConfig.frameworksAndLibraries as Array<SkillName>
-                      }
-                      // levels={sanitizedConfig.frameworksAndLibrariesLevel}
-                      name="Frameworks & Libraries"
-                    />
-                  )}
-                  {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
-                    <SkillCard
-                      loading={loading}
-                      skills={
-                        sanitizedConfig.toolsAndTechnologies as Array<SkillName>
-                      }
-                      // levels={sanitizedConfig.toolsAndTechnologiesLevel}
-                      name="Tools & Technologies"
-                    />
-                  )}
-                  {sanitizedConfig.conceptsAndSkills.length !== 0 && (
-                    <SkillCard
-                      loading={loading}
-                      skills={
-                        sanitizedConfig.conceptsAndSkills as Array<SkillName>
-                      }
-                      // levels={sanitizedConfig.conceptsAndSkillsLevel}
-                      name="Concepts & Skills"
-                    />
-                  )}
-                </>
-              )}
-            </div>
+                {sanitizedConfig.frameworksAndLibraries.length !== 0 && (
+                  <SkillCard
+                    loading={loading}
+                    skills={
+                      sanitizedConfig.frameworksAndLibraries as Array<SkillName>
+                    }
+                    // levels={sanitizedConfig.frameworksAndLibrariesLevel}
+                    name="Frameworks & Libraries"
+                    id={
+                      dropdown.find(
+                        (section) => section.name === 'Frameworks & Libraries',
+                      )?.id ?? 'frameworks-libraries'
+                    }
+                  />
+                )}
+                {sanitizedConfig.toolsAndTechnologies.length !== 0 && (
+                  <SkillCard
+                    loading={loading}
+                    skills={
+                      sanitizedConfig.toolsAndTechnologies as Array<SkillName>
+                    }
+                    // levels={sanitizedConfig.toolsAndTechnologiesLevel}
+                    name="Tools & Technologies"
+                    id={
+                      dropdown.find(
+                        (section) => section.name === 'Tools & Technologies',
+                      )?.id ?? 'tools-technologies'
+                    }
+                  />
+                )}
+                {sanitizedConfig.conceptsAndSkills.length !== 0 && (
+                  <SkillCard
+                    loading={loading}
+                    skills={
+                      sanitizedConfig.conceptsAndSkills as Array<SkillName>
+                    }
+                    // levels={sanitizedConfig.conceptsAndSkillsLevel}
+                    name="Concepts & Skills"
+                    id={
+                      dropdown.find(
+                        (section) => section.name === 'Concepts & Skills',
+                      )?.id ?? 'concepts-skills'
+                    }
+                  />
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

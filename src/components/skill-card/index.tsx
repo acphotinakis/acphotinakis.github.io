@@ -59,8 +59,8 @@ type SkillName =
   | 'Valgrind'
   | 'GDB'
   | 'MongoDB'
-  | 'Object-Oriented Programming (OOP)'
-  | 'API Development & Integration'
+  | 'OOP'
+  | 'API Dev & Integration'
   | 'Data Processing & ETL'
   | 'Automated Testing'
   | 'Software Architecture & Design Patterns'
@@ -116,11 +116,11 @@ const skillIcons: Record<SkillName, { icon: JSX.Element; color: string }> = {
   Valgrind: { icon: <SiCplusplus color="#00599C" />, color: '#5E5E5E' },
   GDB: { icon: <SiCplusplus color="#00599C" />, color: '#5E5E5E' },
   MongoDB: { icon: <SiMongodb color="#47A248" />, color: '#4DB33D' },
-  'Object-Oriented Programming (OOP)': {
+  OOP: {
     icon: <FaJava color="#5382A1" />,
     color: '#FFA518',
   },
-  'API Development & Integration': {
+  'API Dev & Integration': {
     icon: <VscJson color="#FFCA28" />,
     color: '#0C7B46',
   },
@@ -157,10 +157,10 @@ const SkillListItem = ({
 }) => (
   <div
     key={skill}
-    className="flex flex-col justify-center items-center mb-2 p-4 bg-white rounded-lg shadow-md w-full h-32"
+    className="flex flex-col justify-center items-center mb-2 px-8 bg-white rounded-lg shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] w-full h-32 overflow-hidden"
   >
     <div className="mb-2 text-xl">{icon}</div>
-    <span className="text-base text-black">{skill}</span>
+    <span className="text-sm text-black text-center break-words">{skill}</span>
   </div>
 );
 
@@ -168,10 +168,12 @@ const SkillCard = ({
   loading,
   skills,
   name,
+  id,
 }: {
   loading: boolean;
   skills: Array<SkillName>;
   name: string;
+  id: string;
 }) => {
   const renderSkeleton = () => {
     const array = [];
@@ -186,8 +188,11 @@ const SkillCard = ({
   };
 
   return (
-    <div className="card shadow-2xl compact italic w-full rounded-2xl relative z-10">
-      <div className="card-body flex flex-col items-center py-4 px-4 md:py-8 md:px-8 relative z-10">
+    <div
+      id={id}
+      className="card shadow-2xl compact italic w-9/10 rounded-2xl relative z-10 shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
+    >
+      <div className="card-body flex flex-col items-center py-4 px-5 md:py-8 md:px-8 relative z-10">
         <div className="mx-3 p-3">
           <h5 className="card-title text-black text-lg md:text-xl">
             {loading ? (
@@ -199,9 +204,9 @@ const SkillCard = ({
             )}
           </h5>
         </div>
-        <div className="card m-3">
+        <div className="card m-3 w-full">
           <div className="p-3">
-            <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-3 grid-cols-1 w-full">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-3">
               {loading
                 ? renderSkeleton()
                 : skills.map((skill) => {
