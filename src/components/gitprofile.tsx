@@ -234,13 +234,13 @@ const GitProfile = ({ config }: { config: Config }) => {
       id: 'github-projects',
       path: '/github-projects',
     },
-    {
-      name: 'Publications',
-      id: 'publications',
-      path: '/publications',
-      dropdown: [],
-    },
-    { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
+    // {
+    //   name: 'Publications',
+    //   id: 'publications',
+    //   path: '/publications',
+    //   dropdown: [],
+    // },
+    // { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
   ];
 
   const topStyle: React.CSSProperties = {

@@ -9,6 +9,7 @@ import {
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 import BarcelonaImage from '../../assets/barcelona.jpg';
+import ResumePdfFile from '../../assets/Photinakis_Andrew_Resume_SWE.pdf';
 
 type Props = {
   profile: Profile | null;
@@ -191,6 +192,33 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
                       color={colorMap.email}
                     />
                   )}
+                  {ResumePdfFile &&
+                    (loading ? (
+                      <div className="mt-6">
+                        {skeleton({ widthCls: 'w-40', heightCls: 'h-8' })}
+                      </div>
+                    ) : (
+                      <>
+                        <a
+                          href={ResumePdfFile}
+                          target="_blank"
+                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-black hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          download
+                          rel="noreferrer"
+                        >
+                          Download Resume (.pdf)
+                        </a>
+                        {/* <a
+                          href={ResumeDocxFile}
+                          target="_blank"
+                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-black hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          download
+                          rel="noreferrer"
+                        >
+                          Download Resume (.docx)
+                        </a> */}
+                      </>
+                    ))}
                 </div>
               </>
             )}
@@ -202,10 +230,10 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
           className="bg-cover bg-center md:w-1/2 rounded-r-2xl hidden md:block"
           style={{
             backgroundImage: `url(${BarcelonaImage})`,
-            backgroundPosition: 'bottom',
+            backgroundPosition: 'center 40%',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
-            height: '550px',
+            opacity: 1.0,
           }}
         >
           <div className="absolute top-10 right-10 flex items-center space-x-2 text-white">
