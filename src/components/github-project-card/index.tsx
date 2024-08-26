@@ -1035,6 +1035,8 @@ const DownloadRepoIconButton = styled(IconButton)<{ isShaking: boolean }>`
   }
 `;
 
+type ProjectStatus = 'completed' | 'in-progress' | 'new';
+
 const imageMap: { [key: string]: string } = {
   DiskUsage: DiskUsageImage,
   'facebook-clone': FacebookImage,
@@ -1121,6 +1123,23 @@ const GithubProjectCard = ({
     return array;
   };
 
+  const projectStatusMap: Record<string, ProjectStatus> = {
+    SudokuSolver: 'completed',
+    'facebook-clone': 'completed',
+    webfinvizapi: 'completed',
+    DiskUsage: 'completed',
+    'Place-IP': 'completed',
+    'Keyboard-E-Store': 'completed',
+    JamGame: 'completed',
+    TradeSync: 'in-progress',
+  };
+
+  const statusColorMap: Record<ProjectStatus, string> = {
+    'in-progress': '#FFC107',
+    completed: '#4CAF50',
+    new: '#2196F3',
+  };
+
   const renderProjects = () => {
     const handleDownload = (projectName: string) => {
       const downloadUrl = `https://github.com/acphotinakis/${projectName}/archive/refs/heads/main.zip`;
@@ -1132,6 +1151,8 @@ const GithubProjectCard = ({
         {githubProjects.map((item, index) => {
           // Select image based on item.name
           const imageUrl = imageMap[item.name] || 'path/to/default-image.jpg';
+          const projectStatus = projectStatusMap[item.name];
+          const statusColor = statusColorMap[projectStatus] || '#000000';
 
           return (
             <Card
@@ -1166,13 +1187,14 @@ const GithubProjectCard = ({
                   width: '100%',
                   boxShadow: 'inherit',
                   padding: 2,
-                  flexGrow: 1, // Ensures the Box takes up remaining space
+                  flexGrow: 1,
+                  position: 'relative',
                 }}
               >
                 <CardContent
                   sx={{
                     flex: '1 0 auto',
-                    padding: 0, // Removes default padding if needed
+                    padding: 0,
                   }}
                 >
                   <Typography
@@ -1189,6 +1211,27 @@ const GithubProjectCard = ({
                     }}
                   >
                     {item.name}
+                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="h6"
+                    fontFamily="Roboto Mono, monospace"
+                    color="black"
+                    sx={{
+                      fontSize: {
+                        xs: '0.875rem',
+                        sm: '1rem',
+                        md: '1.125rem',
+                      },
+                      position: 'absolute',
+                      top: 8,
+                      right: 15,
+                      backgroundColor: statusColor,
+                      padding: '2px 8px',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    {projectStatus}
                   </Typography>
 
                   <Typography
@@ -1213,7 +1256,7 @@ const GithubProjectCard = ({
                     alignItems: 'center',
                     pl: 1,
                     pb: 1,
-                    marginTop: 'auto', // Pushes the footer to the bottom
+                    marginTop: 'auto',
                     fontSize: {
                       xs: '0.875rem',
                       sm: '1rem',
