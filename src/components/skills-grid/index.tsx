@@ -67,14 +67,14 @@ const SkillsGrid = ({
     for (let index = 0; index < array.length; index++) {
       array.push(
         <div
-          className="card shadow-2xl compact bg-base-100 text-black"
+          className="text-black shadow-2xl card compact bg-base-100"
           key={index}
         >
-          <div className="p-8 h-full w-full">
-            <div className="flex items-center flex-col">
+          <div className="w-full h-full p-8">
+            <div className="flex flex-col items-center">
               <div className="w-full">
                 <div className="px-4 text-black">
-                  <div className="text-center w-full text-black">
+                  <div className="w-full text-center text-black">
                     <h2 className="mb-2">
                       {skeleton({
                         widthCls: 'w-32',
@@ -134,17 +134,17 @@ const SkillsGrid = ({
       className="bg-white card flex italic w-[95vw] mx-auto shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-black"
       id={id}
     >
-      <div className="card compact shadow bg-opacity-40 w-full">
-        <div className="card-body items-center text-black">
-          <div className="mx-3 flex items-center justify-between mb-2 text-black">
-            <h5 className="card-title text-black text-lg md:text-xl text-center">
-              <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+      <div className="w-full shadow card compact bg-opacity-40">
+        <div className="items-center text-black card-body">
+          <div className="flex items-center justify-between mx-3 mb-2 text-black">
+            <h5 className="text-lg text-center text-black card-title md:text-xl">
+              <span className="block text-black border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                 Skills
               </span>
             </h5>
           </div>
           {/* Grid layout with responsive columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
             {loading ? (
               renderSkeleton()
             ) : (

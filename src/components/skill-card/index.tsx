@@ -8,23 +8,23 @@ import {
   FaGitAlt,
 } from 'react-icons/fa';
 import {
-  SiCsharp,
   SiCplusplus,
   SiTypescript,
-  SiXaml,
   SiSpringboot,
   SiSelenium,
   SiPytest,
   SiJunit5,
   SiSwagger,
-  SiAzurefunctions,
   SiPostman,
   SiMongodb,
   SiWireshark,
   SiGnubash,
   SiPython,
 } from 'react-icons/si';
-import { VscJson } from 'react-icons/vsc';
+import { VscJson, VscAzure } from 'react-icons/vsc';
+import { TbFileTypeXml } from 'react-icons/tb';
+import { PiFileCSharpLight } from 'react-icons/pi';
+
 import { skeleton } from '../../utils';
 
 // Define a union type for valid skill keys
@@ -73,12 +73,12 @@ type SkillName =
 const skillIcons: Record<SkillName, { icon: JSX.Element; color: string }> = {
   Python: { icon: <FaPython color="#306998" />, color: '#FFD43B' },
   Java: { icon: <FaJava color="#5382A1" />, color: '#FFA518' },
-  'C#': { icon: <SiCsharp color="#178600" />, color: '#68217A' },
+  'C#': { icon: <PiFileCSharpLight color="#178600" />, color: '#68217A' },
   'C++': { icon: <SiCplusplus color="#00599C" />, color: '#f34b7d' },
   C: { icon: <SiCplusplus color="#00599C" />, color: '#A8B9CC' },
   TypeScript: { icon: <SiTypescript color="#3178C6" />, color: '#007ACC' },
   JavaScript: { icon: <FaJsSquare color="#F7DF1E" />, color: '#F0DB4F' },
-  XML: { icon: <SiXaml color="#0060AC" />, color: '#FFA500' },
+  XML: { icon: <TbFileTypeXml color="#0060AC" />, color: '#FFA500' },
   SQL: { icon: <FaDatabase color="#00618A" />, color: '#E38C00' },
   'Bash Scripting': { icon: <SiGnubash color="#4EAA25" />, color: '#000000' },
   'Java (Spring Boot)': {
@@ -96,15 +96,15 @@ const skillIcons: Record<SkillName, { icon: JSX.Element; color: string }> = {
   React: { icon: <FaReact color="#61DAFB" />, color: '#282C34' },
   Swagger: { icon: <SiSwagger color="#85EA2D" />, color: '#0C7B46' },
   'Azure Data Factory': {
-    icon: <SiAzurefunctions color="#0078D4" />,
+    icon: <VscAzure color="#0078D4" />,
     color: '#00BCF2',
   },
   'Power Automate': {
-    icon: <SiAzurefunctions color="#0078D4" />,
+    icon: <VscAzure color="#0078D4" />,
     color: '#00BCF2',
   },
   'Azure Functions': {
-    icon: <SiAzurefunctions color="#0078D4" />,
+    icon: <VscAzure color="#0078D4" />,
     color: '#00BCF2',
   },
   'REST APIs': { icon: <VscJson color="#FFCA28" />, color: '#0C7B46' },
@@ -160,7 +160,7 @@ const SkillListItem = ({
     className="flex flex-col justify-center items-center mb-2 px-8 bg-white rounded-lg shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] w-full h-32 overflow-hidden"
   >
     <div className="mb-2 text-xl">{icon}</div>
-    <span className="text-sm text-black text-center break-words">{skill}</span>
+    <span className="text-sm text-center text-black break-words">{skill}</span>
   </div>
 );
 
@@ -192,21 +192,21 @@ const SkillCard = ({
       id={id}
       className="card shadow-2xl compact italic w-9/10 rounded-2xl relative z-10 shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
     >
-      <div className="card-body flex flex-col items-center py-4 px-5 md:py-8 md:px-8 relative z-10">
-        <div className="mx-3 p-3">
-          <h5 className="card-title text-black text-lg md:text-xl">
+      <div className="relative z-10 flex flex-col items-center px-5 py-4 card-body md:py-8 md:px-8">
+        <div className="p-3 mx-3">
+          <h5 className="text-lg text-black card-title md:text-xl">
             {loading ? (
               renderSkeleton()
             ) : (
-              <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+              <span className="block text-black border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                 {name}
               </span>
             )}
           </h5>
         </div>
-        <div className="card m-3 w-full">
+        <div className="w-full m-3 card">
           <div className="p-3">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-3">
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-3">
               {loading
                 ? renderSkeleton()
                 : skills.map((skill) => {

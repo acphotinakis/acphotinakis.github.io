@@ -291,6 +291,11 @@ const CONFIG = {
       to: '2026',
     },
     {
+      honorName: "Dean's List Fall '24",
+      from: '2024',
+      to: '2024',
+    },
+    {
       honorName: "Dean's List Fall '23",
       from: '2023',
       to: '2023',

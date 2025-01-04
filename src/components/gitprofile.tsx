@@ -27,6 +27,26 @@ import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
 import OptionsPLTable from './options-pl-table';
+import { ArticleGrid } from './articles';
+
+// Example usage
+const articles = [
+  {
+    title: 'How to Learn React',
+    description: 'Tips and tricks for mastering React development.',
+    image: 'https://via.placeholder.com/300x200',
+  },
+  {
+    title: 'Understanding JavaScript Closures',
+    description: 'A deep dive into closures and their practical applications.',
+    image: 'https://via.placeholder.com/300x200',
+  },
+  {
+    title: 'CSS Grid vs Flexbox',
+    description: 'When to use CSS Grid and when to use Flexbox.',
+    image: 'https://via.placeholder.com/300x200',
+  },
+];
 
 /**
  * Renders the GitProfile component.
@@ -254,7 +274,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   };
   return (
     <HelmetProvider>
-      <div className="fade-in h-screen">
+      <div className="h-screen fade-in">
         {error ? (
           <ErrorPage
             status={error.status}
@@ -371,6 +391,11 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
+                  {
+                    <div>
+                      <ArticleGrid articles={articles} />
+                    </div>
+                  }
                 </div>
               </div>
             </div>
