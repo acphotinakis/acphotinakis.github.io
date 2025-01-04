@@ -1,6 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { formatDistance } from 'date-fns';
+import { useCallback, useEffect, useState } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import '../assets/index.css';
+import { BG_COLOR } from '../constants';
+import { DEFAULT_THEMES } from '../constants/default-themes';
 import {
   CustomError,
   GENERIC_ERROR,
@@ -8,25 +12,21 @@ import {
   INVALID_GITHUB_USERNAME_ERROR,
   setTooManyRequestError,
 } from '../constants/errors';
-import { HelmetProvider } from 'react-helmet-async';
-import '../assets/index.css';
-import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
-import { SanitizedConfig } from '../interfaces/sanitized-config';
-import ErrorPage from './error-page';
-import { DEFAULT_THEMES } from '../constants/default-themes';
-import { BG_COLOR } from '../constants';
-import AvatarCard from './avatar-card';
-import { Profile } from '../interfaces/profile';
-import DetailsCard from './details-card';
 import { GithubProject } from '../interfaces/github-project';
-import GithubProjectCard from './github-project-card';
-import EducationHonorCard from './education-honors-card';
-import CertExpCard from './certs-exp-card';
-import SkillsGrid from './skills-grid';
+import { Profile } from '../interfaces/profile';
+import { SanitizedConfig } from '../interfaces/sanitized-config';
+import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
+import AvatarCard from './avatar-card';
 import BlogCard from './blog-card';
-import PublicationCard from './publication-card';
+import CertExpCard from './certs-exp-card';
+import DetailsCard from './details-card';
+import EducationHonorCard from './education-honors-card';
+import ErrorPage from './error-page';
+import GithubProjectCard from './github-project-card';
 import NavbarComp from './nav-bar';
-import OptionsPLTable from './options-pl-table';
+import OverallStockCard from './overall-stock';
+import PublicationCard from './publication-card';
+import SkillsGrid from './skills-grid';
 
 /**
  * Renders the GitProfile component.
@@ -198,6 +198,11 @@ const GitProfile = ({ config }: { config: Config }) => {
       path: '/stock-options-ledger',
     },
     {
+      name: 'Stock News',
+      id: 'stock-news',
+      path: '/stock-news',
+    },
+    {
       name: 'Certifications & Experience',
       id: 'certifications-experience',
       path: '/certifications-experience',
@@ -300,8 +305,16 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
-
-                  <OptionsPLTable
+                  {/* <StockCard stockSymbol="AAPL" />
+                  <StockNewsTable
+                    loading={loading}
+                    id={
+                      cardSections.find(
+                        (section) => section.name === 'Stock News',
+                      )?.id ?? 'stock-news'
+                    }
+                  /> */}
+                  <OverallStockCard
                     loading={loading}
                     id={
                       cardSections.find(
