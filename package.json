@@ -38,6 +38,7 @@
     "flowbite-react": "^0.10.1",
     "framer-motion": "^11.3.24",
     "http-proxy-middleware": "^3.0.0",
+    "lucide-react": "^0.469.0",
     "moment": "^2.24.0",
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
