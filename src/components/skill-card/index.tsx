@@ -157,10 +157,10 @@ const SkillListItem = ({
 }) => (
   <div
     key={skill}
-    className="flex flex-col justify-center items-center mb-2 px-8 bg-white rounded-lg shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] w-full h-32 overflow-hidden"
+    className="flex flex-col justify-center items-center mb-2 px-8 bg-black rounded-lg shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] w-full h-32 overflow-hidden"
   >
     <div className="mb-2 text-xl">{icon}</div>
-    <span className="text-sm text-center text-black break-words">{skill}</span>
+    <span className="text-sm text-center text-white break-words">{skill}</span>
   </div>
 );
 
@@ -194,11 +194,11 @@ const SkillCard = ({
     >
       <div className="relative z-10 flex flex-col items-center px-5 py-4 card-body md:py-8 md:px-8">
         <div className="p-3 mx-3">
-          <h5 className="text-lg text-black card-title md:text-xl">
+          <h5 className="text-lg text-white card-title md:text-xl">
             {loading ? (
               renderSkeleton()
             ) : (
-              <span className="block text-black border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
+              <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                 {name}
               </span>
             )}

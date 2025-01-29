@@ -67,14 +67,14 @@ const SkillsGrid = ({
     for (let index = 0; index < array.length; index++) {
       array.push(
         <div
-          className="text-black shadow-2xl card compact bg-base-100"
+          className="text-white shadow-2xl card compact bg-base-100"
           key={index}
         >
           <div className="w-full h-full p-8">
             <div className="flex flex-col items-center">
               <div className="w-full">
-                <div className="px-4 text-black">
-                  <div className="w-full text-center text-black">
+                <div className="px-4 text-white">
+                  <div className="w-full text-center text-white">
                     <h2 className="mb-2">
                       {skeleton({
                         widthCls: 'w-32',
@@ -131,14 +131,14 @@ const SkillsGrid = ({
 
   return (
     <div
-      className="bg-white card flex italic w-[95vw] mx-auto shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-black"
+      className="bg-black card flex italic w-[95vw] mx-auto shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-white"
       id={id}
     >
       <div className="w-full shadow card compact bg-opacity-40">
-        <div className="items-center text-black card-body">
-          <div className="flex items-center justify-between mx-3 mb-2 text-black">
-            <h5 className="text-lg text-center text-black card-title md:text-xl">
-              <span className="block text-black border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
+        <div className="items-center text-white card-body">
+          <div className="flex items-center justify-between mx-3 mb-2 text-white">
+            <h5 className="text-lg text-center text-white card-title md:text-xl">
+              <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                 Skills
               </span>
             </h5>

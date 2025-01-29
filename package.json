@@ -31,6 +31,7 @@
     "@mui/material": "^5.15.19",
     "@nextui-org/navbar": "^2.0.36",
     "@nextui-org/react": "^2.4.6",
+    "@radix-ui/react-slot": "^1.1.1",
     "@ramonak/react-progress-bar": "^5.2.0",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",

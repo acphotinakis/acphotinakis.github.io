@@ -208,6 +208,27 @@ const CONFIG = {
     'Visual Studio',
     'JetBrains IDEs (e.g., IntelliJ IDEA)',
   ],
+  courses: [
+    { courseName: 'Analysis of Algorithms', courseCode: 'CSCI261' },
+    { courseName: 'Concepts of Computer Systems', courseCode: 'CSCI250' },
+    {
+      courseName: 'Concepts of Parallel & Distributed Systems',
+      courseCode: 'CSCI251',
+    },
+    { courseName: 'Discrete Math for Computing', courseCode: 'MATH190' },
+    { courseName: 'Financial Management I', courseCode: 'FINC220' },
+    { courseName: 'Financial Management II', courseCode: 'FINC352' },
+    { courseName: 'Intro to Artificial Intelligence', courseCode: 'CSCI331' },
+    { courseName: 'Intro to Computer Science Theory', courseCode: 'CSCI263' },
+    { courseName: 'Intro to Options & Futures', courseCode: 'FINC470' },
+    { courseName: 'Intro to Software Engineering', courseCode: 'SWEN261' },
+    { courseName: 'Linear Algebra', courseCode: 'MATH241' },
+    { courseName: 'Machine Learning', courseCode: 'CSCI335' },
+    { courseName: 'Principles of Data Mining', courseCode: 'CSCI420' },
+    { courseName: 'Principles of Database Management', courseCode: 'CSCI320' },
+    { courseName: 'Stock Market Algorithmic Trading', courseCode: 'FINC425' },
+    { courseName: 'The Mechanics of Programming', courseCode: 'CSCI243' },
+  ],
   experiences: [
     {
       company: 'TechSource, Inc.',

@@ -71,7 +71,7 @@
 //   const project = projects.find((p) => p.name === item.name);
 
 //   return (
-//     <div className="fixed top-10 left-10 w-[95vw] h-[95vh] border border-red-500 rounded-2xl bg-white shadow-2xl z-10 flex items-center justify-center">
+//     <div className="fixed top-10 left-10 w-[95vw] h-[95vh] border border-red-500 rounded-2xl bg-black shadow-2xl z-10 flex items-center justify-center">
 //       <div className="relative w-full h-full">
 //         {/* Close Button */}
 //         <div className="absolute top-2 right-2">
@@ -101,8 +101,8 @@
 //         </div>
 //         <div className="card-body flex flex-col items-center py-4 px-5 md:py-8 md:px-8 h-full overflow-y-auto">
 //           <div className="mx-3 p-3">
-//             <h5 className="card-title text-black text-lg md:text-xl">
-//               <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+//             <h5 className="card-title text-white text-lg md:text-xl">
+//               <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block">
 //                 {item.name}
 //               </span>
 //             </h5>

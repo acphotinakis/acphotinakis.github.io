@@ -18,23 +18,28 @@ const CertificationListItem = ({
   body?: React.ReactNode;
   link?: string;
 }) => (
-  <li className="mb-5 relative text-black">
+  <li className="relative mb-5 text-white">
     <div
-      className="absolute w-2 h-2 bg-black rounded-full border border-black mt-1.5"
+      className="absolute w-2 h-2 bg-white rounded-full border border-white mt-1.5"
       style={{ left: '-4.5px' }}
     ></div>
+    <div
+      className="absolute top-0 bottom-0 left-0 w-px bg-white"
+      style={{ left: '-1px', bottom: '-23px', top: '5px' }}
+    ></div>
+
     <div className="ml-2">
       <div className="my-0.5 text-xs sm:text-sm flex items-center">
         <span>{year}</span>
         {link && (
           <a href={link} target="_blank" rel="noopener noreferrer">
-            <span className="ml-2 text-blue-500 hover:underline flex items-center">
+            <span className="flex items-center ml-2 text-blue-500 hover:underline">
               <LinkIcon />
             </span>
           </a>
         )}
       </div>
-      <div className="font-medium text-sm sm:text-base md:text-md">
+      <div className="text-sm font-medium sm:text-base md:text-md">
         <span>{name}</span>
       </div>
     </div>
@@ -52,17 +57,22 @@ const ExperienceListItem = ({
   company?: React.ReactNode;
   companyLink?: string;
 }) => (
-  <li className="mb-5 text-black relative">
+  <li className="relative mb-5 text-white">
     <div
-      className="absolute w-2 h-2 bg-black rounded-full border border-black mt-1.5"
+      className="absolute w-2 h-2 bg-white rounded-full border border-white mt-1.5"
       style={{ left: '-4.5px' }}
     ></div>
+    <div
+      className="absolute top-0 bottom-0 left-0 w-px bg-white"
+      style={{ left: '-1px', bottom: '-23px', top: '5px' }}
+    ></div>
+
     <div className="ml-2">
-      <div className="my-0.5 text-xs sm:text-sm text-black">{time}</div>
-      <h3 className="font-semibold text-sm sm:text-base md:text-md">
+      <div className="my-0.5 text-xs sm:text-sm text-white">{time}</div>
+      <h3 className="text-sm font-semibold sm:text-base md:text-md">
         {position}
       </h3>
-      <div className="mb-4 font-normal text-sm sm:text-base">
+      <div className="mb-4 text-sm font-normal sm:text-white">
         <a href={companyLink} target="_blank" rel="noreferrer">
           <u className="text-blue-500 hover:underline">{company}</u>
         </a>
@@ -130,25 +140,25 @@ const CertExpCard = ({
 
   return (
     <div
-      className="bg-white card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="bg-black card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
       id={id}
     >
-      <div className="card-body flex">
+      <div className="flex card-body">
         <div className="flex">
           <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-black">
-              <h5 className="card-title text-black">
+            <div className="mx-3 text-white">
+              <h5 className="text-white card-title">
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                     Experience
                   </span>
                 )}
               </h5>
             </div>
-            <div className="text-base-content text-opacity-100">
-              <ol className="relative border-l border-black my-2 mx-4 text-black items-center justify-between">
+            <div className="text-opacity-100 text-base-content">
+              <ol className="relative items-center justify-between mx-4 my-2 text-white border-l border-black">
                 {loading ? (
                   renderExperienceSkeleton()
                 ) : (
@@ -174,19 +184,19 @@ const CertExpCard = ({
 
           {/* Certifications Section */}
           <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-black">
-              <h5 className="card-title text-black">
+            <div className="mx-3 text-white">
+              <h5 className="text-white card-title">
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                     Certifications
                   </span>
                 )}
               </h5>
             </div>
-            <div className="text-base-content text-opacity-100">
-              <ol className="relative border-l border-black my-2 mx-4 text-black ">
+            <div className="text-opacity-100 text-base-content">
+              <ol className="relative mx-4 my-2 text-white border-l border-black ">
                 {loading ? (
                   renderCertificationSkeleton()
                 ) : (
@@ -209,7 +219,7 @@ const CertExpCard = ({
 
       {/* Image Section */}
       <div
-        className="bg-cover bg-center h-full rounded-r-2xl hidden md:block"
+        className="hidden h-full bg-center bg-cover rounded-r-2xl md:block"
         style={{
           backgroundImage: `url(${PlataniasImage})`,
           backgroundPosition: 'center 40%',
@@ -219,7 +229,7 @@ const CertExpCard = ({
         }}
       >
         {' '}
-        <div className="absolute top-10 right-10 flex items-center space-x-2 text-white">
+        <div className="absolute flex items-center space-x-2 text-white top-10 right-10">
           <MdLocationOn size={24} color="red" />
           <span>Crete, Greece</span>
         </div>

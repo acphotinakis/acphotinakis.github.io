@@ -16,12 +16,12 @@ const EducationListItem = ({
   degree?: React.ReactNode;
   institution?: React.ReactNode;
 }) => (
-  <li className="mb-5 ml-4 text-black">
+  <li className="mb-5 ml-4 text-white">
     <div
       className="absolute w-2 h-2 bg-black rounded-full border border-black mt-1.5"
       style={{ left: '-4.0px' }}
     ></div>
-    <div className="my-0.5 text-xs sm:text-sm text-black">{time}</div>
+    <div className="my-0.5 text-xs sm:text-sm text-white">{time}</div>
     <h3 className="font-semibold text-sm sm:text-base md:text-md">{degree}</h3>
     <div className="mb-4 font-normal text-sm sm:text-base">{institution}</div>
   </li>
@@ -29,7 +29,7 @@ const EducationListItem = ({
 
 const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
   <>
-    <div className="my-0.5 text-xs pt-2 text-lg md:text-base sm:text-sm text-black">
+    <div className="my-0.5 text-xs pt-2 text-lg md:text-base sm:text-sm text-white">
       {honorName}
     </div>
   </>
@@ -71,7 +71,7 @@ const EducationHonorCard = ({
 
   return (
     <div
-      className="bg-white card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="bg-black card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div
@@ -97,14 +97,14 @@ const EducationHonorCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                  <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block">
                     Education
                   </span>
                 )}
               </h5>
             </div>
             <div className="text-base-content text-opacity-100">
-              <ol className="relative border-l border-black my-2 mx-4 text-black">
+              <ol className="relative border-l border-black my-2 mx-4 text-white">
                 {loading
                   ? renderSkeleton()
                   : educations.map((item, index) => (
@@ -124,13 +124,13 @@ const EducationHonorCard = ({
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+                  <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block">
                     Honors
                   </span>
                 )}
               </h5>
             </div>
-            <div className="text-base-content text-opacity-100 text-black">
+            <div className="text-base-content text-opacity-100 text-white">
               <ol className="relative my-2 mx-4 text-white">
                 {loading
                   ? renderSkeleton()

@@ -28,6 +28,8 @@ import PublicationCard from './publication-card';
 import NavbarComp from './nav-bar';
 import OptionsPLTable from './options-pl-table';
 import { ArticleGrid } from './articles';
+import React from 'react';
+import MarqueeDemo from './course-marquee';
 
 // Example usage
 const articles = [
@@ -264,7 +266,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   ];
 
   const topStyle: React.CSSProperties = {
-    background: 'white',
+    background: 'black',
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
@@ -393,7 +395,12 @@ const GitProfile = ({ config }: { config: Config }) => {
                   )}
                   {
                     <div>
-                      <ArticleGrid articles={articles} />
+                      <div>
+                        <ArticleGrid articles={articles} />
+                      </div>
+                      <div>
+                        <MarqueeDemo />
+                      </div>
                     </div>
                   }
                 </div>

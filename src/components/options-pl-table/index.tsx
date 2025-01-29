@@ -431,7 +431,7 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
   };
   return (
     <div
-      className="bg-white card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between rounded-2xl overflow-hidden h-auto"
+      className="bg-black card flex compact italic  w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div className="card-body flex flex-col items-center py-8 px-8 relative z-10">
@@ -440,12 +440,12 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
             skeleton({ widthCls: 'w-max', heightCls: 'h-8' })
           ) : (
             <>
-              <h5 className="card-title text-black text-lg md:text-xl text-center">
-                <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block">
+              <h5 className="card-title text-white text-lg md:text-xl text-center">
+                <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block">
                   Stock Options Ledger
                 </span>
               </h5>
-              <div className="mt-4 text-black grid grid-cols-1 gap-4 md:grid-cols-3 border-b-4 border-blue-500 py-2">
+              <div className="mt-4 text-white grid grid-cols-1 gap-4 md:grid-cols-3 border-b-4 border-blue-500 py-2">
                 <div className="flex flex-col items-center justify-center text-center">
                   <strong className="mb-2">Average Realized P/L %:</strong>
                   <div
@@ -505,7 +505,7 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200 bg-[#ededed]">
+              <tbody className="bg-black divide-y divide-gray-200 bg-[#ededed]">
                 {sortedData.length === 0 ? (
                   <tr>
                     <td
@@ -524,7 +524,7 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
                           className="px-7 py-3 whitespace-nowrap"
                         >
                           <div
-                            className={`${getCellBackgroundColor(column, row[column].toString(), row)} text-black items-center  ${column === 'EntryDescription' ? 'text-left' : 'text-center'} py-1 px-2 rounded-lg`}
+                            className={`${getCellBackgroundColor(column, row[column].toString(), row)} text-white items-center  ${column === 'EntryDescription' ? 'text-left' : 'text-center'} py-1 px-2 rounded-lg`}
                           >
                             {getCellText(column, row[column].toString(), row)}
                           </div>

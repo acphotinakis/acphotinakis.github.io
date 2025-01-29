@@ -223,6 +223,11 @@ interface Experience {
   companyLink?: string;
 }
 
+interface Courses {
+  courseName?: string;
+  courseCode?: string;
+}
+
 interface Certification {
   body?: string;
   name?: string;
@@ -401,6 +406,8 @@ interface Config {
    * Experience list
    */
   experiences?: Array<Experience>;
+
+  courses?: Array<Courses>;
 
   /**
    * Certifications list

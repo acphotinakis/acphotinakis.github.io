@@ -93,23 +93,23 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
 
   return (
     <div
-      className="bg-white card flex compact italic w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] rounded-2xl overflow-hidden h-auto"
+      className="bg-black card flex compact italic w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] rounded-2xl overflow-hidden h-auto"
       id={id}
     >
       <div className="flex flex-col md:flex-row w-full h-full">
         {/* Text Content */}
         <div className="flex-1 card-body flex flex-col py-8 px-8 relative z-10">
-          <div className="text-base-content text-opacity-100 text-black flex flex-col py-8 px-8 relative z-10 items-center justify-center">
+          <div className="text-base-content text-opacity-100 text-white flex flex-col py-8 px-8 relative z-10 items-center justify-center">
             {loading || !profile ? (
               renderSkeleton()
             ) : (
               <>
-                <h5 className="card-title text-black text-lg md:text-xl text-center">
-                  <span className="text-base-content opacity-100 text-black border-t-2 border-b-2 border-blue-500 block text-center">
+                <h5 className="card-title text-white text-lg md:text-xl text-center">
+                  <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block text-center">
                     Contacts
                   </span>
                 </h5>
-                <div className="relative mx-4 text-black flex flex-col text-sm sm:text-base md:text-md w-full items-center">
+                <div className="relative mx-4 text-white flex flex-col text-sm sm:text-base md:text-md w-full items-center">
                   {profile.location && (
                     <ListItem
                       icon={<MdLocationOn />}
@@ -202,7 +202,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
                         <a
                           href={ResumePdfFile}
                           target="_blank"
-                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-black hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-white hover:border-black-500 hover:text-white-500 transition-colors duration-300"
                           download
                           rel="noreferrer"
                         >
@@ -211,7 +211,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
                         {/* <a
                           href={ResumeDocxFile}
                           target="_blank"
-                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-black hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-white hover:border-black-500 hover:text-white-500 transition-colors duration-300"
                           download
                           rel="noreferrer"
                         >

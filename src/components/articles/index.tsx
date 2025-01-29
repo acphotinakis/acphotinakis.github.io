@@ -53,7 +53,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles }) => {
           {articles.map((article, index) => (
             <div
               key={index}
-              className="overflow-hidden transition-transform transform bg-white shadow-lg rounded-xl hover:shadow-xl hover:scale-105"
+              className="overflow-hidden transition-transform transform bg-black shadow-lg rounded-xl hover:shadow-xl hover:scale-105"
             >
               <img
                 src={article.image}
