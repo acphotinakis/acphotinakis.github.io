@@ -25,30 +25,31 @@ import CertExpCard from './certs-exp-card';
 import SkillsGrid from './skills-grid';
 import BlogCard from './blog-card';
 import PublicationCard from './publication-card';
-import NavbarComp from './nav-bar';
+// import NavbarComp from './nav-bar';
 import OptionsPLTable from './options-pl-table';
-import { ArticleGrid } from './articles';
+// import { ArticleGrid } from './articles';
 import React from 'react';
 import MarqueeDemo from './course-marquee';
+import NavbarComp from './nav-bar';
 
 // Example usage
-const articles = [
-  {
-    title: 'How to Learn React',
-    description: 'Tips and tricks for mastering React development.',
-    image: 'https://via.placeholder.com/300x200',
-  },
-  {
-    title: 'Understanding JavaScript Closures',
-    description: 'A deep dive into closures and their practical applications.',
-    image: 'https://via.placeholder.com/300x200',
-  },
-  {
-    title: 'CSS Grid vs Flexbox',
-    description: 'When to use CSS Grid and when to use Flexbox.',
-    image: 'https://via.placeholder.com/300x200',
-  },
-];
+// const articles = [
+//   {
+//     title: 'How to Learn React',
+//     description: 'Tips and tricks for mastering React development.',
+//     image: 'https://via.placeholder.com/300x200',
+//   },
+//   {
+//     title: 'Understanding JavaScript Closures',
+//     description: 'A deep dive into closures and their practical applications.',
+//     image: 'https://via.placeholder.com/300x200',
+//   },
+//   {
+//     title: 'CSS Grid vs Flexbox',
+//     description: 'When to use CSS Grid and when to use Flexbox.',
+//     image: 'https://via.placeholder.com/300x200',
+//   },
+// ];
 
 /**
  * Renders the GitProfile component.
@@ -289,14 +290,16 @@ const GitProfile = ({ config }: { config: Config }) => {
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
               <div className="flex flex-col gap-6 rounded-box">
                 <div className="flex flex-col gap-6 bg-[#ededed]">
-                  <AvatarCard
-                    profile={profile}
-                    loading={loading}
-                    id={
-                      cardSections.find((section) => section.name === 'Home')
-                        ?.id ?? 'home'
-                    }
-                  />
+                  <div className="mt-10">
+                    <AvatarCard
+                      profile={profile}
+                      loading={loading}
+                      id={
+                        cardSections.find((section) => section.name === 'Home')
+                          ?.id ?? 'home'
+                      }
+                    />
+                  </div>
                   <DetailsCard
                     profile={profile}
                     loading={loading}
@@ -322,6 +325,9 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
+                  <div>
+                    <MarqueeDemo />
+                  </div>
 
                   <OptionsPLTable
                     loading={loading}
@@ -382,6 +388,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
+
                   {sanitizedConfig.blog.display && (
                     <BlogCard
                       loading={loading}
@@ -393,7 +400,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
-                  {
+                  {/* {
                     <div>
                       <div>
                         <ArticleGrid articles={articles} />
@@ -402,7 +409,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                         <MarqueeDemo />
                       </div>
                     </div>
-                  }
+                  } */}
                 </div>
               </div>
             </div>

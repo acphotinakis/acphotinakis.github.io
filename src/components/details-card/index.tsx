@@ -28,8 +28,8 @@ const ListItem: React.FC<{
   color?: string; // New color prop
 }> = ({ icon, title, value, link, skeleton = false, color }) => {
   return (
-    <div className="flex py-2 px-10 items-center">
-      <div className="flex-grow font-medium gap-2 flex items-center my-1 text-sm sm:text-base md:text-md">
+    <div className="flex items-center px-10 py-2">
+      <div className="flex items-center flex-grow gap-2 my-1 text-sm font-medium sm:text-base md:text-md">
         <span style={{ color }}>{icon}</span> {title}
       </div>
       <div
@@ -38,14 +38,14 @@ const ListItem: React.FC<{
         } text-sm sm:text-base md:text-md font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
         style={{
           wordBreak: 'break-word',
-          color: 'black',
+          color: 'white',
         }}
       >
         <a
           href={link}
           target="_blank"
           rel="noreferrer"
-          className="flex py-2 px-1 items-center text-sm sm:text-base md:text-md"
+          className="flex items-center px-1 py-2 text-sm sm:text-base md:text-md"
         >
           {value}
         </a>
@@ -96,20 +96,20 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
       className="bg-black card flex compact italic w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] rounded-2xl overflow-hidden h-auto"
       id={id}
     >
-      <div className="flex flex-col md:flex-row w-full h-full">
+      <div className="flex flex-col w-full h-full md:flex-row">
         {/* Text Content */}
-        <div className="flex-1 card-body flex flex-col py-8 px-8 relative z-10">
-          <div className="text-base-content text-opacity-100 text-white flex flex-col py-8 px-8 relative z-10 items-center justify-center">
+        <div className="relative z-10 flex flex-col flex-1 px-8 py-8 card-body">
+          <div className="relative z-10 flex flex-col items-center justify-center px-8 py-8 text-white text-opacity-100 text-base-content">
             {loading || !profile ? (
               renderSkeleton()
             ) : (
               <>
-                <h5 className="card-title text-white text-lg md:text-xl text-center">
-                  <span className="text-base-content opacity-100 text-white border-t-2 border-b-2 border-blue-500 block text-center">
+                <h5 className="text-lg text-center text-white card-title md:text-xl">
+                  <span className="block text-center text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
                     Contacts
                   </span>
                 </h5>
-                <div className="relative mx-4 text-white flex flex-col text-sm sm:text-base md:text-md w-full items-center">
+                <div className="relative flex flex-col items-center w-full mx-4 text-sm text-white sm:text-base md:text-md">
                   {profile.location && (
                     <ListItem
                       icon={<MdLocationOn />}
@@ -202,7 +202,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
                         <a
                           href={ResumePdfFile}
                           target="_blank"
-                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-white hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          className="mt-6 text-xs text-white transition-colors duration-300 border-white opacity-100 btn btn-outline btn-sm rounded-2xl hover:border-white hover:bg-white hover:text-black"
                           download
                           rel="noreferrer"
                         >
@@ -211,7 +211,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
                         {/* <a
                           href={ResumeDocxFile}
                           target="_blank"
-                          className="btn btn-outline btn-sm text-xs mt-6 opacity-100 rounded-2xl border-black text-white hover:border-black-500 hover:text-white-500 transition-colors duration-300"
+                          className="mt-6 text-xs text-white transition-colors duration-300 border-black opacity-100 btn btn-outline btn-sm rounded-2xl hover:border-black-500 hover:text-white-500"
                           download
                           rel="noreferrer"
                         >
@@ -227,7 +227,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
 
         {/* Image Section */}
         <div
-          className="bg-cover bg-center md:w-1/2 rounded-r-2xl hidden md:block"
+          className="hidden bg-center bg-cover md:w-1/2 rounded-r-2xl md:block"
           style={{
             backgroundImage: `url(${BarcelonaImage})`,
             backgroundPosition: 'center 40%',
@@ -236,7 +236,7 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
             opacity: 1.0,
           }}
         >
-          <div className="absolute top-10 right-10 flex items-center space-x-2 text-white">
+          <div className="absolute flex items-center space-x-2 text-white top-10 right-10">
             <MdLocationOn size={24} color="red" />
             <span>Barcelona, Spain</span>
           </div>
