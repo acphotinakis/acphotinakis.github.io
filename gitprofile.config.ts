@@ -21,11 +21,13 @@ const CONFIG = {
       manual: {
         // Properties for manually specifying projects
         projects: [
+          'acphotinakis/CipherPrimes',
+          'acphotinakis/SecureComm',
           'acphotinakis/SudokuSolver',
           'acphotinakis/facebook-clone',
           'acphotinakis/webfinvizapi',
           'acphotinakis/DiskUsage',
-          'acphotinakis/Place-IP',
+          'acphotinakis/RadixIP',
           'acphotinakis/Keyboard-E-Store',
           'acphotinakis/JamGame',
           'acphotinakis/TradeSync',
