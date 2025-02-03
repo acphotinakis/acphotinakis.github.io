@@ -31,6 +31,13 @@ import OptionsPLTable from './options-pl-table';
 import React from 'react';
 import MarqueeDemo from './course-marquee';
 import NavbarComp from './nav-bar';
+import {
+  Home,
+  Info,
+  ContactMail,
+  Dashboard,
+  MenuBook,
+} from '@mui/icons-material';
 
 // Example usage
 // const articles = [

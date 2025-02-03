@@ -14,11 +14,13 @@ import { GithubProject } from '../../interfaces/github-project';
 import SudokuImage from '../../assets/sudoku.png';
 import FacebookImage from '../../assets/facebook.jpg';
 import DiskUsageImage from '../../assets/parallel_computing.jpg';
-import PlaceIpImage from '../../assets/place_ip.jpg';
+import RadixIpImage from '../../assets/place_ip.jpg';
 import KeyboardEStoreImage from '../../assets/keyboard_e_store.jpg';
 import FinvizApiImage from '../../assets/finvizapi.jpg';
 import TradeSyncImage from '../../assets/trade_sync.jpg';
 import ParkingJamImage from '../../assets/parking_jam.png';
+import SecureCommImage from '../../assets/security-869216_1280.jpg';
+import ParallelUniverseImage from '../../assets/space-6377928_1280.jpg';
 
 const shakeAnimation = keyframes`
   0% { transform: translateX(0); }
@@ -81,15 +83,19 @@ const DownloadRepoIconButton = styled(IconButton)<{ isShaking: boolean }>`
 
 type ProjectStatus = 'completed' | 'in-progress' | 'new';
 
+export type IconProps = React.HTMLAttributes<SVGElement>;
+
 const imageMap: { [key: string]: string } = {
   DiskUsage: DiskUsageImage,
   'facebook-clone': FacebookImage,
   SudokuSolver: SudokuImage,
-  'Place-IP': PlaceIpImage,
+  RadixIP: RadixIpImage,
   'Keyboard-E-Store': KeyboardEStoreImage,
   webfinvizapi: FinvizApiImage,
   TradeSync: TradeSyncImage,
   JamGame: ParkingJamImage,
+  SecureComm: SecureCommImage,
+  CipherPrimes: ParallelUniverseImage,
 };
 
 const GithubProjectCard = ({
@@ -176,6 +182,8 @@ const GithubProjectCard = ({
     'Keyboard-E-Store': 'completed',
     JamGame: 'completed',
     TradeSync: 'in-progress',
+    SecureComm: 'completed',
+    CipherPrimes: 'completed',
   };
 
   const statusColorMap: Record<ProjectStatus, string> = {

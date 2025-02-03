@@ -160,7 +160,7 @@ const SkillListItem = ({
     className="flex flex-col justify-center items-center mb-2 px-8 bg-black rounded-lg shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] w-full h-32 overflow-hidden"
   >
     <div className="mb-2 text-xl">{icon}</div>
-    <span className="text-sm text-center text-white break-words">{skill}</span>
+    <span className="text-center text-white break-words text-md">{skill}</span>
   </div>
 );
 
