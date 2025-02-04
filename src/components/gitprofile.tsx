@@ -272,7 +272,6 @@ const GitProfile = ({ config }: { config: Config }) => {
     // },
     // { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
   ];
-
   const topStyle: React.CSSProperties = {
     background: 'black',
     width: '100%',
@@ -282,6 +281,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     alignItems: 'center',
     zIndex: -1,
   };
+
   return (
     <HelmetProvider>
       <div className="h-screen fade-in">
@@ -295,8 +295,9 @@ const GitProfile = ({ config }: { config: Config }) => {
           <>
             <NavbarComp cardSections={cardSections} />
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
-              <div className="flex flex-col gap-6 rounded-box">
-                <div className="flex flex-col gap-6 bg-[#ededed]">
+              <div className="flex flex-col gap-8 rounded-box">
+                <div className="flex flex-col gap-y-8 bg-[#ededed] p-6">
+                  {/* Avatar Card */}
                   <div className="mt-10">
                     <AvatarCard
                       profile={profile}
@@ -307,6 +308,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   </div>
+
+                  {/* Details Card */}
                   <DetailsCard
                     profile={profile}
                     loading={loading}
@@ -318,7 +321,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                       )?.id ?? 'contacts'
                     }
                   />
-                  {/* <SharesOrderTable loading={loading} id="in-progress" /> */}
+
+                  {/* Education & Honors Card */}
                   {sanitizedConfig.educations.length !== 0 &&
                     sanitizedConfig.honors.length !== 0 && (
                       <EducationHonorCard
@@ -332,10 +336,13 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
+
+                  {/* Marquee Section */}
                   <div>
                     <MarqueeDemo />
                   </div>
 
+                  {/* Options Ledger */}
                   <OptionsPLTable
                     loading={loading}
                     id={
@@ -344,6 +351,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                       )?.id ?? 'stock-options-ledger'
                     }
                   />
+
+                  {/* Certifications & Experience */}
                   {sanitizedConfig.certifications.length !== 0 &&
                     sanitizedConfig.experiences.length !== 0 && (
                       <CertExpCard
@@ -358,6 +367,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                         }
                       />
                     )}
+
+                  {/* Skills Grid */}
                   <SkillsGrid
                     loading={loading}
                     sanitizedConfig={sanitizedConfig}
@@ -370,6 +381,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                         ?.dropdown ?? []
                     }
                   />
+
+                  {/* GitHub Projects */}
                   {sanitizedConfig.projects.github.display && (
                     <GithubProjectCard
                       header={sanitizedConfig.projects.github.header}
@@ -384,6 +397,8 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
+
+                  {/* Publications */}
                   {sanitizedConfig.publications.length !== 0 && (
                     <PublicationCard
                       loading={loading}
@@ -396,6 +411,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     />
                   )}
 
+                  {/* Blog Section */}
                   {sanitizedConfig.blog.display && (
                     <BlogCard
                       loading={loading}
@@ -407,16 +423,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
-                  {/* {
-                    <div>
-                      <div>
-                        <ArticleGrid articles={articles} />
-                      </div>
-                      <div>
-                        <MarqueeDemo />
-                      </div>
-                    </div>
-                  } */}
                 </div>
               </div>
             </div>
