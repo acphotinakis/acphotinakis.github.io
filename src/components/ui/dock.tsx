@@ -63,7 +63,9 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
     return (
       <motion.div
         ref={ref}
-        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseMove={(e: React.MouseEvent<HTMLDivElement>) =>
+          mouseX.set(e.pageX)
+        }
         onMouseLeave={() => mouseX.set(Infinity)}
         {...props}
         className={cn(dockVariants({ className }), {
@@ -88,7 +90,7 @@ export interface DockIconProps
   mouseX?: MotionValue<number>;
   className?: string;
   children?: React.ReactNode;
-  props?: PropsWithChildren;
+  props?: PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>; // Add type argument here
 }
 
 const DockIcon = ({
