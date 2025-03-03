@@ -131,7 +131,7 @@ const SkillsGrid = ({
 
   return (
     <div
-      className="bg-black card flex italic w-[95vw] mx-auto shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-white"
+      className="bg-black card flex italic w-[95vw] mx-auto scroll-mt-50 shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between flex-col gap-6 rounded-2xl overflow-hidden h-auto col-span-1 lg:col-span-2 text-white"
       id={id}
     >
       <div className="w-full shadow card compact bg-opacity-40">

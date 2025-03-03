@@ -75,7 +75,7 @@ const EducationHonorCard = ({
 
   return (
     <div
-      className="bg-black card flex h-full  w-[95vw] compact italic mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="bg-black card flex h-full w-[95vw] compact italic mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto scroll-mt-16"
       id={id}
     >
       <div

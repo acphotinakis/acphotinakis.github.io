@@ -72,6 +72,7 @@ const sectionIcons = new Map<string, JSX.Element>([
     <FolderOpen key="github-projects" style={{ marginRight: '5px' }} />,
   ],
 ]);
+
 const NavbarComp = ({
   cardSections,
   backgroundColor = 'black',
@@ -82,10 +83,13 @@ const NavbarComp = ({
   textColor?: string;
 }) => {
   const displayNavBarItems = () => (
-    <div className="relative flex items-center gap-x-4">
-      <Dock direction="middle">
+    <div className="flex justify-center gap-x-4">
+      <Dock direction="middle" className="border-0">
         {cardSections.map((section) => (
-          <NavbarItem key={section.id} className="flex items-center">
+          <NavbarItem
+            key={section.id}
+            className="flex items-center focus:outline-none"
+          >
             <Link
               href={`#${section.id}`}
               className="flex items-center font-bold text-white"
@@ -106,23 +110,29 @@ const NavbarComp = ({
 
   return (
     <Navbar
-      className="fixed top-0 left-0 right-0 flex items-center justify-between p-1 border-b-2 border-indigo-600"
+      className="fixed top-0 left-0 right-0 flex items-center justify-center p-1 border-b-2 border-indigo-600"
       style={{
         backgroundColor,
         color: textColor,
         fontSize: '15px',
         fontWeight: 'bold',
-        zIndex: 9999, // Ensures it's above everything
+        zIndex: 9999,
+        alignContent: 'center',
       }}
     >
-      <NavbarBrand className="flex items-center gap-x-2">
+      {/* NavbarBrand */}
+      <NavbarBrand className="flex items-center gap-x-1">
         <Fa500Px
-          className={backgroundColor === 'black' ? 'text-white' : 'text-black'}
+          className={
+            backgroundColor === 'black' ? 'text-white mt-8' : 'text-black mt-8'
+          }
         />
-        <p className="text-xl font-bold">acphotinakis</p>
+        <p className="mt-8 text-xl font-bold">acphotinakis</p>
       </NavbarBrand>
-      <NavbarContent className="flex items-center gap-x-6">
-        {displayNavBarItems()}
+
+      {/* NavbarContent with centered items */}
+      <NavbarContent className="flex items-center justify-center gap-x-6">
+        <div className="flex gap-x-6">{displayNavBarItems()}</div>
       </NavbarContent>
     </Navbar>
   );

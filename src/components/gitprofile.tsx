@@ -31,13 +31,6 @@ import OptionsPLTable from './options-pl-table';
 import React from 'react';
 import MarqueeDemo from './course-marquee';
 import NavbarComp from './nav-bar';
-import {
-  Home,
-  Info,
-  ContactMail,
-  Dashboard,
-  MenuBook,
-} from '@mui/icons-material';
 
 // Example usage
 // const articles = [
@@ -273,7 +266,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     // { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
   ];
   const topStyle: React.CSSProperties = {
-    background: 'red',
+    backgroundColor: 'rgb(17, 24, 39)',
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
@@ -284,7 +277,7 @@ const GitProfile = ({ config }: { config: Config }) => {
 
   return (
     <HelmetProvider>
-      <div className="h-screen fade-in">
+      <div className="h-screen bg-gray-900 fade-in">
         {error ? (
           <ErrorPage
             status={error.status}
@@ -295,101 +288,124 @@ const GitProfile = ({ config }: { config: Config }) => {
           <>
             <NavbarComp cardSections={cardSections} />
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
-              <div className="flex flex-col gap-8 rounded-box">
-                <div className="flex flex-col p-6 bg-gray-900 gap-y-8">
-                  {/* Avatar Card */}
-                  <div className="mt-10">
-                    <AvatarCard
-                      profile={profile}
-                      loading={loading}
-                      id={
-                        cardSections.find((section) => section.name === 'Home')
-                          ?.id ?? 'home'
-                      }
-                    />
-                  </div>
+              <div className="grid grid-cols-1 gap-8 rounded-box">
+                {/* Avatar Card */}
+                <div
+                  className="col-span-1 p-6 mt-20 bg-gray-900 scroll-mt-20"
+                  id={
+                    cardSections.find((section) => section.name === 'Home')
+                      ?.id ?? 'home'
+                  }
+                >
+                  <AvatarCard profile={profile} loading={loading} id={''} />
+                </div>
 
-                  {/* Details Card */}
+                {/* Details Card */}
+                <div
+                  className="col-span-1 p-6 bg-gray-900 scroll-mt-20"
+                  id={
+                    cardSections.find((section) => section.name === 'Contacts')
+                      ?.id ?? 'contacts'
+                  }
+                >
                   <DetailsCard
                     profile={profile}
                     loading={loading}
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
-                    id={
-                      cardSections.find(
-                        (section) => section.name === 'Contacts',
-                      )?.id ?? 'contacts'
-                    }
+                    id={''}
                   />
+                </div>
 
-                  {/* Education & Honors Card */}
-                  {sanitizedConfig.educations.length !== 0 &&
-                    sanitizedConfig.honors.length !== 0 && (
+                {/* Education & Honors Card */}
+                {sanitizedConfig.educations.length !== 0 &&
+                  sanitizedConfig.honors.length !== 0 && (
+                    <div
+                      className="col-span-1 p-6 bg-gray-900 scroll-mt-20"
+                      id={
+                        cardSections.find(
+                          (section) => section.name === 'Education & Honors',
+                        )?.id ?? 'education-honors'
+                      }
+                    >
                       <EducationHonorCard
                         loading={loading}
                         educations={sanitizedConfig.educations}
                         honors={sanitizedConfig.honors}
-                        id={
-                          cardSections.find(
-                            (section) => section.name === 'Education & Honors',
-                          )?.id ?? 'education-honors'
-                        }
+                        id={''}
                       />
-                    )}
+                    </div>
+                  )}
 
-                  {/* Marquee Section */}
-                  <div>
-                    <MarqueeDemo />
-                  </div>
+                {/* Marquee Section */}
+                <div className="col-span-1 p-6 bg-gray-900">
+                  <MarqueeDemo />
+                </div>
 
-                  {/* Certifications & Experience */}
-                  {sanitizedConfig.certifications.length !== 0 &&
-                    sanitizedConfig.experiences.length !== 0 && (
+                {/* Certifications & Experience */}
+                {sanitizedConfig.certifications.length !== 0 &&
+                  sanitizedConfig.experiences.length !== 0 && (
+                    <div
+                      className="col-span-1 p-6 bg-gray-900 scroll-mt-20"
+                      id={
+                        cardSections.find(
+                          (section) =>
+                            section.name === 'Certifications & Experience',
+                        )?.id ?? 'certifications-experience'
+                      }
+                    >
                       <CertExpCard
                         loading={loading}
                         certifications={sanitizedConfig.certifications}
                         experiences={sanitizedConfig.experiences}
-                        id={
-                          cardSections.find(
-                            (section) =>
-                              section.name === 'Certifications & Experience',
-                          )?.id ?? 'certifications-experience'
-                        }
+                        id={''}
                       />
-                    )}
+                    </div>
+                  )}
 
-                  {/* Skills Grid */}
+                {/* Skills Grid */}
+                <div
+                  className="col-span-1 p-6 mt-10 bg-gray-900 scroll-mt-20"
+                  id={
+                    cardSections.find((section) => section.name === 'Skills')
+                      ?.id ?? 'skills'
+                  }
+                >
                   <SkillsGrid
                     loading={loading}
                     sanitizedConfig={sanitizedConfig}
-                    id={
-                      cardSections.find((section) => section.name === 'Skills')
-                        ?.id ?? 'skills'
-                    }
+                    id={''}
                     dropdown={
                       cardSections.find((section) => section.name === 'Skills')
                         ?.dropdown ?? []
                     }
                   />
+                </div>
 
-                  {/* GitHub Projects */}
-                  {sanitizedConfig.projects.github.display && (
+                {/* GitHub Projects */}
+                {sanitizedConfig.projects.github.display && (
+                  <div
+                    className="col-span-1 p-6 bg-gray-900 scroll-mt-20"
+                    id={
+                      cardSections.find(
+                        (section) => section.name === 'GitHub Projects',
+                      )?.id ?? 'github-projects'
+                    }
+                  >
                     <GithubProjectCard
                       header={sanitizedConfig.projects.github.header}
                       limit={sanitizedConfig.projects.github.automatic.limit}
                       githubProjects={githubProjects}
                       loading={loading}
                       username={sanitizedConfig.github.username}
-                      id={
-                        cardSections.find(
-                          (section) => section.name === 'GitHub Projects',
-                        )?.id ?? 'github-projects'
-                      }
+                      id={''}
                     />
-                  )}
+                  </div>
+                )}
 
-                  {/* Publications */}
-                  {sanitizedConfig.publications.length !== 0 && (
+                {/* Publications */}
+                {sanitizedConfig.publications.length !== 0 && (
+                  <div className="col-span-1 p-6 bg-gray-900 scroll-mt-20">
                     <PublicationCard
                       loading={loading}
                       publications={sanitizedConfig.publications}
@@ -399,10 +415,12 @@ const GitProfile = ({ config }: { config: Config }) => {
                         )?.id ?? 'publications'
                       }
                     />
-                  )}
+                  </div>
+                )}
 
-                  {/* Blog Section */}
-                  {sanitizedConfig.blog.display && (
+                {/* Blog Section */}
+                {sanitizedConfig.blog.display && (
+                  <div className="col-span-1 p-6 bg-gray-900 scroll-mt-20">
                     <BlogCard
                       loading={loading}
                       googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
@@ -412,17 +430,19 @@ const GitProfile = ({ config }: { config: Config }) => {
                           ?.id ?? 'blog'
                       }
                     />
-                  )}
+                  </div>
+                )}
 
-                  {/* Options Ledger */}
-                  <OptionsPLTable
-                    loading={loading}
-                    id={
-                      cardSections.find(
-                        (section) => section.name === 'Stock Options Ledger',
-                      )?.id ?? 'stock-options-ledger'
-                    }
-                  />
+                {/* Options Ledger */}
+                <div
+                  className="col-span-1 p-6 bg-gray-900 scroll-mt-20"
+                  id={
+                    cardSections.find(
+                      (section) => section.name === 'Stock Options Ledger',
+                    )?.id ?? 'stock-options-ledger'
+                  }
+                >
+                  <OptionsPLTable loading={loading} id={''} />
                 </div>
               </div>
             </div>

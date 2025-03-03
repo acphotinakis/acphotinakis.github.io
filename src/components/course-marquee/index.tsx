@@ -157,19 +157,28 @@ const ReviewCard = ({
 
 const MarqueeDemo = () => {
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden bg-black border rounded-lg card bg-background md:shadow-xl">
-      <Marquee pauseOnHover className="[--duration:30s]">
-        {firstRow.map((course) => (
-          <ReviewCard key={course.courseCode} {...course} />
-        ))}
-      </Marquee>
-      <Marquee reverse pauseOnHover className="[--duration:30s]">
-        {secondRow.map((course) => (
-          <ReviewCard key={course.courseName} {...course} />
-        ))}
-      </Marquee>
-      <div className="absolute inset-y-0 left-0 w-1/3 pointer-events-none bg-gradient-to-r from-dark white:from-background"></div>
-      <div className="absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-gradient-to-l from-white dark:from-background"></div>
+    <div className="bg-black card flex h-full w-[95vw] compact italic mx-auto items-center justify-between rounded-2xl overflow-hidden h-auto scroll-mt-16">
+      <div className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden bg-black rounded-lg">
+        <div className="flex items-center justify-between mx-3 mt-5 mb-2 text-white">
+          <h5 className="text-lg text-center text-white card-title md:text-xl">
+            <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
+              Courses
+            </span>
+          </h5>
+        </div>
+        <Marquee pauseOnHover className="[--duration:30s]">
+          {firstRow.map((course) => (
+            <ReviewCard key={course.courseCode} {...course} />
+          ))}
+        </Marquee>
+        <Marquee reverse pauseOnHover className="[--duration:30s]">
+          {secondRow.map((course) => (
+            <ReviewCard key={course.courseName} {...course} />
+          ))}
+        </Marquee>
+        {/* Keep the left-side gradient if needed */}
+        <div className="absolute inset-y-0 left-0 w-1/3 pointer-events-none bg-gradient-to-r from-dark dark:from-background"></div>
+      </div>
     </div>
   );
 };
