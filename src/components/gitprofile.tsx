@@ -273,7 +273,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     // { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
   ];
   const topStyle: React.CSSProperties = {
-    background: 'black',
+    background: 'red',
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
@@ -296,7 +296,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             <NavbarComp cardSections={cardSections} />
             <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
               <div className="flex flex-col gap-8 rounded-box">
-                <div className="flex flex-col gap-y-8 bg-[#ededed] p-6">
+                <div className="flex flex-col p-6 bg-gray-900 gap-y-8">
                   {/* Avatar Card */}
                   <div className="mt-10">
                     <AvatarCard
@@ -341,16 +341,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                   <div>
                     <MarqueeDemo />
                   </div>
-
-                  {/* Options Ledger */}
-                  <OptionsPLTable
-                    loading={loading}
-                    id={
-                      cardSections.find(
-                        (section) => section.name === 'Stock Options Ledger',
-                      )?.id ?? 'stock-options-ledger'
-                    }
-                  />
 
                   {/* Certifications & Experience */}
                   {sanitizedConfig.certifications.length !== 0 &&
@@ -423,6 +413,16 @@ const GitProfile = ({ config }: { config: Config }) => {
                       }
                     />
                   )}
+
+                  {/* Options Ledger */}
+                  <OptionsPLTable
+                    loading={loading}
+                    id={
+                      cardSections.find(
+                        (section) => section.name === 'Stock Options Ledger',
+                      )?.id ?? 'stock-options-ledger'
+                    }
+                  />
                 </div>
               </div>
             </div>

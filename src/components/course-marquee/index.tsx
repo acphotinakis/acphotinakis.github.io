@@ -142,7 +142,7 @@ const ReviewCard = ({
 }) => {
   return (
     <figure className="relative w-64 p-4 overflow-hidden text-white transition-all duration-300 bg-black border border-white cursor-pointer rounded-xl hover:bg-white hover:text-black">
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-3">
         {/* Render the passed icon with dynamic background color */}
         <div className={`p-2 ${backgroundColor} rounded-full`}>{image}</div>
         <div className="flex flex-col">

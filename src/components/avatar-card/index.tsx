@@ -35,6 +35,29 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
               </span>{' '}
               &<span className="font-semibold text-[#5046e6]"> Finance</span>
             </p>
+            <p>
+              → Strong interests in
+              <span className="font-semibold text-[#5046e6]">
+                {' '}
+                Software Engineering
+              </span>
+              ,
+              <span className="font-semibold text-[#5046e6]">
+                {' '}
+                Data Science
+              </span>
+              ,
+              <span className="font-semibold text-[#5046e6]">
+                {' '}
+                Cloud Computing
+              </span>
+              , &
+              <span className="font-semibold text-[#5046e6]">
+                {' '}
+                High-Frequency/Algorithmic Trading
+              </span>
+              .
+            </p>
           </div>
         </BoxReveal>
       </div>
