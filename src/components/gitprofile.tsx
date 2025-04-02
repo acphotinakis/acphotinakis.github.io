@@ -30,7 +30,6 @@ import OptionsPLTable from './options-pl-table';
 // import { ArticleGrid } from './articles';
 import React from 'react';
 import MarqueeDemo from './course-marquee';
-import NavbarComp from './nav-bar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 type CardSection = {
