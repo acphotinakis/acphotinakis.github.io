@@ -8,7 +8,6 @@ import {
   FaGitAlt,
 } from 'react-icons/fa';
 import {
-  SiCplusplus,
   SiTypescript,
   SiSpringboot,
   SiSelenium,
@@ -20,54 +19,14 @@ import {
   SiWireshark,
   SiGnubash,
   SiPython,
+  SiCplusplus,
 } from 'react-icons/si';
+
 import { VscJson, VscAzure } from 'react-icons/vsc';
 import { TbFileTypeXml } from 'react-icons/tb';
 import { PiFileCSharpLight } from 'react-icons/pi';
 
 import { skeleton } from '../../utils';
-
-// Define a union type for valid skill keys
-type SkillName =
-  | 'Python'
-  | 'Java'
-  | 'C#'
-  | 'C++'
-  | 'C'
-  | 'TypeScript'
-  | 'JavaScript'
-  | 'XML'
-  | 'SQL'
-  | 'Bash Scripting'
-  | 'Java (Spring Boot)'
-  | 'Boost C++ Libraries'
-  | 'Selenium'
-  | 'PyTest'
-  | 'JUnit'
-  | 'Angular'
-  | 'React'
-  | 'Swagger'
-  | 'Azure Data Factory'
-  | 'Power Automate'
-  | 'Azure Functions'
-  | 'REST APIs'
-  | 'SOAP APIs'
-  | 'Git'
-  | 'DLL Interfaces'
-  | 'Wireshark'
-  | 'Postman'
-  | 'Valgrind'
-  | 'GDB'
-  | 'MongoDB'
-  | 'OOP'
-  | 'API Dev & Integration'
-  | 'Data Processing & ETL'
-  | 'Automated Testing'
-  | 'Software Architecture & Design Patterns'
-  | 'Parallel & Distributed Systems'
-  | 'Data Mining'
-  | 'Software Engineering Principles'
-  | 'Web Scraping';
 
 // Define the skills and their associated icons and colors
 const skillIcons: Record<SkillName, { icon: JSX.Element; color: string }> = {

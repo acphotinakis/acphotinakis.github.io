@@ -4,8 +4,17 @@ import {
   SanitizedHonor,
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
-import Amsterdam from '../../assets/amsterdam.jpg';
+import AmsterdamImage from '../../assets/amsterdam.jpg';
 import { MdLocationOn } from 'react-icons/md';
+
+// Color palette constants
+const COLORS = {
+  primaryRed: '#e63946',
+  black: '#121212',
+  darkGray: '#1e1e1e',
+  midGray: '#9e9e9e',
+  white: '#f5f5f5',
+};
 
 const EducationListItem = ({
   time,
@@ -16,30 +25,71 @@ const EducationListItem = ({
   degree?: React.ReactNode;
   institution?: React.ReactNode;
 }) => (
-  <li className="mb-5 ml-4 text-white">
+  <li className="relative mb-5" style={{ color: COLORS.white }}>
     <div
-      className="absolute w-2 h-2 bg-black rounded-full border border-white mt-1.5"
-      style={{ left: '-4.0px' }}
+      className="absolute w-2 h-2 rounded-full border mt-1.5"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        borderColor: COLORS.primaryRed,
+        left: '-4.5px',
+      }}
     ></div>
-    <div className="my-0.5 text-xs sm:text-sm text-white">{time}</div>
-    <h3 className="text-sm font-semibold sm:text-base md:text-md">{degree}</h3>
-    <div className="mb-4 text-sm font-normal sm:text-base">{institution}</div>
+    {/* Timeline Line */}
+    <div
+      className="absolute top-0 bottom-0 left-0 w-px"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        left: '-1px',
+        bottom: '-23px',
+        top: '5px',
+      }}
+    ></div>
+
+    <div className="ml-2">
+      <div
+        className="my-0.5 text-xs sm:text-sm flex items-center"
+        style={{ color: COLORS.midGray }}
+      >
+        <span>{time}</span>
+      </div>
+      <div className="text-sm font-medium sm:text-base md:text-md">
+        <span>{institution}</span>
+      </div>
+      <div className="text-sm font-medium sm:text-base md:text-md">
+        <span>{degree}</span>
+      </div>
+    </div>
   </li>
 );
 
 const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
-  <li className="mb-5 ml-4 text-white">
+  <li className="relative mb-5" style={{ color: COLORS.white }}>
+    {/* Timeline Dot */}
     <div
-      className="absolute w-2 h-2 bg-black rounded-full border border-white mt-1.5"
-      style={{ left: '-4.0px' }}
+      className="absolute w-2 h-2 rounded-full border mt-1.5"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        borderColor: COLORS.primaryRed,
+        left: '-4.5px',
+      }}
     ></div>
-    <div className="my-0.5 text-xs pt-1 text-lg md:text-base sm:text-sm text-white">
+    {/* Timeline Line */}
+    <div
+      className="absolute top-0 bottom-0 left-0 w-px"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        left: '-1px',
+        bottom: '-23px',
+        top: '5px',
+      }}
+    ></div>
+    <div className="ml-2 my-0.5 text-xs pt-1 text-lg md:text-base sm:text-sm text-[#F5F5F5]">
       {honorName}
     </div>
   </li>
 );
 
-const EducationHonorCard = ({
+const EducationHonorPage = ({
   loading,
   educations,
   honors,
@@ -69,80 +119,82 @@ const EducationHonorCard = ({
         />,
       );
     }
-
     return array;
   };
 
   return (
     <div
-      className="bg-black card flex h-full w-[95vw] compact italic mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto scroll-mt-16"
+      className="flex w-full h-full max-w-5xl mx-auto overflow-hidden shadow-lg card rounded-2xl shadow-black/50 scroll-mt-16"
       id={id}
+      style={{
+        backgroundColor: COLORS.black,
+        boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
+      }}
     >
+      {/* Image */}
       <div
-        className="hidden h-full bg-center bg-cover rounded-l-2xl md:block"
+        className="relative hidden md:block min-h-[300px] bg-center bg-cover"
         style={{
-          backgroundImage: `url(${Amsterdam})`,
+          backgroundImage: `url(${AmsterdamImage})`,
           backgroundPosition: 'center 40%',
           backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          opacity: 1.0,
         }}
       >
-        <div className="absolute flex items-center space-x-2 text-white top-10 left-10">
-          <MdLocationOn size={24} color="red" />
+        <div
+          className="absolute flex items-center space-x-2 top-10 right-10"
+          style={{ color: COLORS.white }}
+        >
+          <MdLocationOn size={24} style={{ color: COLORS.primaryRed }} />
           <span>Amsterdam, Netherlands</span>
         </div>
       </div>
-      <div className="ml-10 card-body">
-        <div className="flex">
-          <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-white">
-              <h5 className="text-white card-title">
-                {loading ? (
-                  skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
-                ) : (
-                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
-                    Education
-                  </span>
-                )}
-              </h5>
-            </div>
-            <div className="text-opacity-100 text-base-content">
-              <ol className="relative mx-4 my-2 text-white border-l border-white">
-                {loading
-                  ? renderSkeleton()
-                  : educations.map((item, index) => (
-                      <EducationListItem
-                        key={index}
-                        time={`${item.from} - ${item.to}`}
-                        degree={item.degree}
-                        institution={item.institution}
-                      />
-                    ))}
-              </ol>
-            </div>
+
+      {/* Content Section */}
+      <div className="flex-1 px-8 py-8">
+        <div className="flex flex-col gap-6 md:flex-row">
+          {/* Education */}
+          <div className="flex-1">
+            <h5 className="text-lg md:text-xl mb-4 text-[#F5F5F5] card-title">
+              {loading ? (
+                skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
+              ) : (
+                <span className="block text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
+                  Education
+                </span>
+              )}
+            </h5>
+            <ol className="relative mx-4 my-2 border-l border-[#E53935]">
+              {loading
+                ? renderSkeleton()
+                : educations.map((item, index) => (
+                    <EducationListItem
+                      key={index}
+                      time={`${item.from} - ${item.to}`}
+                      degree={item.degree}
+                      institution={item.institution}
+                    />
+                  ))}
+            </ol>
           </div>
-          <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-white">
-              <h5 className="text-white card-title">
-                {loading ? (
-                  skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
-                ) : (
-                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
-                    Honors
-                  </span>
-                )}
-              </h5>
-            </div>
-            <div className="ml-3 text-white text-opacity-100 text-base-content">
-              <ol className="relative mx-4 my-2 text-white border-l border-white">
-                {loading
-                  ? renderSkeleton()
-                  : honors.map((item, index) => (
-                      <HonorListItem key={index} honorName={item.honorName} />
-                    ))}
-              </ol>
-            </div>
+
+          {/* Honors */}
+          <div className="flex-1">
+            <h5 className="text-lg md:text-xl mb-4 text-[#F5F5F5] card-title">
+              {loading ? (
+                skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
+              ) : (
+                <span className="block text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
+                  Honors
+                </span>
+              )}
+            </h5>
+            <ol className="relative mx-4 my-2 border-l border-[#E53935]">
+              {loading
+                ? renderSkeleton()
+                : honors.map((item, index) => (
+                    <HonorListItem key={index} honorName={item.honorName} />
+                  ))}
+            </ol>
           </div>
         </div>
       </div>
@@ -150,4 +202,4 @@ const EducationHonorCard = ({
   );
 };
 
-export default EducationHonorCard;
+export default EducationHonorPage;

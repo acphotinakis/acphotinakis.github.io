@@ -1,6 +1,7 @@
 import { skeleton } from '../../utils';
 import { SanitizedConfig } from '../../interfaces/sanitized-config';
 import SkillCard from '../skill-card';
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 // Define a union type for valid skill keys
 type SkillName =

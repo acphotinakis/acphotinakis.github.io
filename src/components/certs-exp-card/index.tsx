@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
   SanitizedCertification,
   SanitizedExperience,
@@ -7,6 +7,15 @@ import { skeleton } from '../../utils';
 import LinkIcon from '@mui/icons-material/Link';
 import PlataniasImage from '../../assets/platanias.jpg';
 import { MdLocationOn } from 'react-icons/md';
+
+// Color palette constants
+const COLORS = {
+  primaryRed: '#e63946',
+  black: '#121212',
+  darkGray: '#1e1e1e',
+  midGray: '#9e9e9e',
+  white: '#f5f5f5',
+};
 
 const CertificationListItem = ({
   year,
@@ -18,22 +27,38 @@ const CertificationListItem = ({
   body?: React.ReactNode;
   link?: string;
 }) => (
-  <li className="relative mb-5 text-white">
+  <li className="relative mb-5" style={{ color: COLORS.white }}>
     <div
-      className="absolute w-2 h-2 bg-white rounded-full border border-white mt-1.5"
-      style={{ left: '-4.5px' }}
+      className="absolute w-2 h-2 rounded-full border mt-1.5"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        borderColor: COLORS.primaryRed,
+        left: '-4.5px',
+      }}
     ></div>
+    {/* Timeline Line */}
     <div
-      className="absolute top-0 bottom-0 left-0 w-px bg-white"
-      style={{ left: '-1px', bottom: '-23px', top: '5px' }}
+      className="absolute top-0 bottom-0 left-0 w-px"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        left: '-1px',
+        bottom: '-23px',
+        top: '5px',
+      }}
     ></div>
 
     <div className="ml-2">
-      <div className="my-0.5 text-xs sm:text-sm flex items-center">
+      <div
+        className="my-0.5 text-xs sm:text-sm flex items-center"
+        style={{ color: COLORS.midGray }}
+      >
         <span>{year}</span>
         {link && (
           <a href={link} target="_blank" rel="noopener noreferrer">
-            <span className="flex items-center ml-2 text-blue-500 hover:underline">
+            <span
+              className="flex items-center ml-2 hover:underline"
+              style={{ color: COLORS.primaryRed }}
+            >
               <LinkIcon />
             </span>
           </a>
@@ -57,24 +82,42 @@ const ExperienceListItem = ({
   company?: React.ReactNode;
   companyLink?: string;
 }) => (
-  <li className="relative mb-5 text-white">
+  <li className="relative mb-5" style={{ color: COLORS.white }}>
+    {/* Timeline Dot */}
     <div
-      className="absolute w-2 h-2 bg-white rounded-full border border-white mt-1.5"
-      style={{ left: '-4.5px' }}
+      className="absolute w-2 h-2 rounded-full border mt-1.5"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        borderColor: COLORS.primaryRed,
+        left: '-4.5px',
+      }}
     ></div>
+    {/* Timeline Line */}
     <div
-      className="absolute top-0 bottom-0 left-0 w-px bg-white"
-      style={{ left: '-1px', bottom: '-23px', top: '5px' }}
+      className="absolute top-0 bottom-0 left-0 w-px"
+      style={{
+        backgroundColor: COLORS.primaryRed,
+        left: '-1px',
+        bottom: '-23px',
+        top: '5px',
+      }}
     ></div>
 
     <div className="ml-2">
-      <div className="my-0.5 text-xs sm:text-sm text-white">{time}</div>
+      <div
+        className="my-0.5 text-xs sm:text-sm"
+        style={{ color: COLORS.midGray }}
+      >
+        {time}
+      </div>
       <h3 className="text-sm font-semibold sm:text-base md:text-md">
         {position}
       </h3>
-      <div className="mb-4 text-sm font-normal sm:text-white">
+      <div className="mb-4 text-sm font-normal">
         <a href={companyLink} target="_blank" rel="noreferrer">
-          <u className="text-blue-500 hover:underline">{company}</u>
+          <u className="hover:underline" style={{ color: COLORS.primaryRed }}>
+            {company}
+          </u>
         </a>
       </div>
     </div>
@@ -92,145 +135,140 @@ const CertExpCard = ({
   experiences: SanitizedExperience[];
   id: string;
 }) => {
-  const renderExperienceSkeleton = () => {
-    const array = [];
-    for (let index = 0; index < 2; index++) {
-      array.push(
-        <ExperienceListItem
-          key={index}
-          time={skeleton({
-            widthCls: 'w-5/12',
-            heightCls: 'h-4',
-          })}
-          position={skeleton({
-            widthCls: 'w-6/12',
-            heightCls: 'h-4',
-            className: 'my-1.5',
-          })}
-          company={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
-        />,
-      );
-    }
+  const renderExperienceSkeleton = () =>
+    Array.from({ length: 2 }, (_, index) => (
+      <ExperienceListItem
+        key={index}
+        time={skeleton({ widthCls: 'w-5/12', heightCls: 'h-4' })}
+        position={skeleton({
+          widthCls: 'w-6/12',
+          heightCls: 'h-4',
+          className: 'my-1.5',
+        })}
+        company={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
+      />
+    ));
 
-    return array;
-  };
-
-  const renderCertificationSkeleton = () => {
-    const array = [];
-    for (let index = 0; index < 2; index++) {
-      array.push(
-        <CertificationListItem
-          key={index}
-          year={skeleton({
-            widthCls: 'w-5/12',
-            heightCls: 'h-4',
-          })}
-          name={skeleton({
-            widthCls: 'w-6/12',
-            heightCls: 'h-4',
-            className: 'my-1.5',
-          })}
-          body={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
-        />,
-      );
-    }
-
-    return array;
-  };
+  const renderCertificationSkeleton = () =>
+    Array.from({ length: 2 }, (_, index) => (
+      <CertificationListItem
+        key={index}
+        year={skeleton({ widthCls: 'w-5/12', heightCls: 'h-4' })}
+        name={skeleton({
+          widthCls: 'w-6/12',
+          heightCls: 'h-4',
+          className: 'my-1.5',
+        })}
+        body={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
+      />
+    ));
 
   return (
     <div
-      className="bg-black card flex compact italic w-[95vw] mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden h-auto"
+      className="grid w-full max-w-5xl grid-cols-1 mx-auto overflow-hidden shadow-lg card md:grid-cols-2 rounded-2xl"
       id={id}
+      style={{
+        backgroundColor: COLORS.black,
+        boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
+      }}
     >
       <div className="flex card-body">
         <div className="flex">
+          {/* Experience */}
           <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-white">
-              <h5 className="text-white card-title">
+            <div className="mx-3" style={{ color: COLORS.white }}>
+              <h5 className="card-title">
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
+                  <span
+                    className="block border-t-2 border-b-2"
+                    style={{
+                      borderColor: COLORS.primaryRed,
+                      color: COLORS.white,
+                    }}
+                  >
                     Experience
                   </span>
                 )}
               </h5>
             </div>
-            <div className="text-opacity-100 text-base-content">
-              <ol className="relative items-center justify-between mx-4 my-2 text-white border-l border-black">
-                {loading ? (
-                  renderExperienceSkeleton()
-                ) : (
-                  <Fragment>
-                    {experiences.map((experience, index) => (
-                      <ExperienceListItem
-                        key={index}
-                        time={`${experience.from} - ${experience.to}`}
-                        position={experience.position}
-                        company={experience.company}
-                        companyLink={
-                          experience.companyLink
-                            ? experience.companyLink
-                            : undefined
-                        }
-                      />
-                    ))}
-                  </Fragment>
-                )}
-              </ol>
-            </div>
+            <ol
+              className="relative mx-4 my-2 border-l"
+              style={{
+                color: COLORS.white,
+                borderColor: COLORS.primaryRed,
+              }}
+            >
+              {loading
+                ? renderExperienceSkeleton()
+                : experiences.map((exp, i) => (
+                    <ExperienceListItem
+                      key={i}
+                      time={`${exp.from} - ${exp.to}`}
+                      position={exp.position}
+                      company={exp.company}
+                      companyLink={exp.companyLink || undefined}
+                    />
+                  ))}
+            </ol>
           </div>
 
-          {/* Certifications Section */}
+          {/* Certifications */}
           <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3 text-white">
-              <h5 className="text-white card-title">
+            <div className="mx-3" style={{ color: COLORS.white }}>
+              <h5 className="card-title">
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
                 ) : (
-                  <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
+                  <span
+                    className="block border-t-2 border-b-2"
+                    style={{
+                      borderColor: COLORS.primaryRed,
+                      color: COLORS.white,
+                    }}
+                  >
                     Certifications
                   </span>
                 )}
               </h5>
             </div>
-            <div className="text-opacity-100 text-base-content">
-              <ol className="relative mx-4 my-2 text-white border-l border-black ">
-                {loading ? (
-                  renderCertificationSkeleton()
-                ) : (
-                  <>
-                    {certifications.map((certification, index) => (
-                      <CertificationListItem
-                        key={index}
-                        year={certification.year}
-                        name={certification.name}
-                        link={certification.link}
-                      />
-                    ))}
-                  </>
-                )}
-              </ol>
-            </div>
+            <ol
+              className="relative mx-4 my-2 border-l"
+              style={{
+                color: COLORS.white,
+                borderColor: COLORS.primaryRed,
+              }}
+            >
+              {loading
+                ? renderCertificationSkeleton()
+                : certifications.map((cert, i) => (
+                    <CertificationListItem
+                      key={i}
+                      year={cert.year}
+                      name={cert.name}
+                      link={cert.link}
+                    />
+                  ))}
+            </ol>
           </div>
         </div>
       </div>
 
-      {/* Image Section */}
+      {/* Image */}
       <div
-        className="hidden h-full bg-center bg-cover rounded-r-2xl md:block"
+        className="relative hidden md:block min-h-[300px] bg-center bg-cover"
         style={{
           backgroundImage: `url(${PlataniasImage})`,
           backgroundPosition: 'center 40%',
           backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          opacity: 1.0,
         }}
       >
-        {' '}
-        <div className="absolute flex items-center space-x-2 text-white top-10 right-10">
-          <MdLocationOn size={24} color="red" />
+        <div
+          className="absolute flex items-center space-x-2 top-10 right-10"
+          style={{ color: COLORS.white }}
+        >
+          <MdLocationOn size={24} style={{ color: COLORS.primaryRed }} />
           <span>Crete, Greece</span>
         </div>
       </div>
