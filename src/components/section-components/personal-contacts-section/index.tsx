@@ -2,14 +2,14 @@ import { AiFillGithub } from 'react-icons/ai';
 import { FaDev, FaGlobe, FaLinkedin, FaStackOverflow } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import { RiMailFill, RiPhoneFill } from 'react-icons/ri';
-import { Profile } from '../../interfaces/profile';
+import { Profile } from '../../../interfaces/profile';
 import {
   SanitizedGithub,
   SanitizedSocial,
-} from '../../interfaces/sanitized-config';
-import { skeleton } from '../../utils';
-import BarcelonaImage from '../../assets/barcelona.jpg';
-import ResumePdfFile from '../../assets/Photinakis_Andrew_Resume_SWE.pdf';
+} from '../../../interfaces/sanitized-config';
+import { skeleton } from '../../../utils';
+import BarcelonaImage from '../../../assets/barcelona.jpg';
+import ResumePdfFile from '../../../assets/Photinakis_Andrew_Resume_SWE.pdf';
 
 // Color palette constants
 const COLORS = {

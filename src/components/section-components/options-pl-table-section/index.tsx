@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { skeleton } from '../../utils';
-import OptionsPLJson from '../../data/OptionsPlTable.json';
+import { skeleton } from '../../../utils';
+import OptionsPLJson from '../../../data/OptionsPlTable.json';
 import dayjs from 'dayjs';
 
 interface OptionsPlRow {

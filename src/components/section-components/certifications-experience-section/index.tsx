@@ -2,8 +2,8 @@ import React from 'react';
 import {
   SanitizedCertification,
   SanitizedExperience,
-} from '../../interfaces/sanitized-config';
-import { skeleton } from '../../utils';
+} from '../../../interfaces/sanitized-config';
+import { skeleton } from '../../../utils';
 import LinkIcon from '@mui/icons-material/Link';
 import PlataniasImage from '../../assets/platanias.jpg';
 import { MdLocationOn } from 'react-icons/md';

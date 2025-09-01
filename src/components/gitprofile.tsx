@@ -15,20 +15,16 @@ import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import { BG_COLOR } from '../constants';
-import AvatarCard from './avatar-card';
+import AvatarCard from './section-components/avatar-section';
 import { Profile } from '../interfaces/profile';
-import DetailsCard from './details-card';
 import { GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './github-project-card';
 import EducationHonorCard from './education-honors-card';
-import CertExpCard from './certs-exp-card';
+import CertExpCard from './section-components/certifications-experience-section';
 import SkillsGrid from './skills-grid';
-import BlogCard from './blog-card';
-// import NavbarComp from './nav-bar';
-import OptionsPLTable from './options-pl-table';
-// import { ArticleGrid } from './articles';
+import OptionsPLTable from './section-components/options-pl-table-section';
 import React from 'react';
-import MarqueeDemo from './course-marquee';
+import MarqueeDemo from './section-components/academic-courses-section';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 type CardSection = {
@@ -38,8 +34,10 @@ type CardSection = {
   dropdown?: CardSection[]; // Fixed to CardSection[]
 };
 
-import { SidebarNav } from './sidebar-modern';
 import EducationHonorPage from './education-honors-card';
+import { ProfileSidebar } from './section-components/website-sidebar-section';
+import WorkExperienceSection from './section-components/experience-section';
+import DetailsCard from './section-components/personal-contacts-section';
 
 const cardSections: CardSection[] = [
   { name: 'Home', id: 'home', path: '/', dropdown: [] },
@@ -250,7 +248,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   };
 
   const topStyle: React.CSSProperties = {
-    backgroundColor: '#1E1E1E', // main background
+    backgroundColor: '#000000', // main background
     width: '100%',
     minHeight: '100vh',
     display: 'flex',
@@ -261,12 +259,22 @@ const GitProfile = ({ config }: { config: Config }) => {
   };
 
   // Modern card background for all pages
-  const cardBgClass = 'bg-[#1F1F1F]';
+  const cardBgClass = 'bg-[#000000]';
 
   const HomePage = () => (
     <div className={`min-h-full ${BG_COLOR}`} style={topStyle}>
       <main className="flex-1 p-6 overflow-auto">
         <div className="grid grid-cols-1 gap-8 rounded-box">
+          {/* Work Experience Card */}
+          <div
+            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
+            id={
+              cardSections.find((section) => section.name === 'Home')?.id ??
+              'home'
+            }
+          >
+            <WorkExperienceSection loading={loading} id={''} />
+          </div>
           {/* Avatar Card */}
           <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
@@ -380,7 +388,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             </div>
           )}
 
-          {/* Publications */}
+          {/* Publications
           {sanitizedConfig.publications.length !== 0 && (
             <div className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}>
               <PublicationCard
@@ -393,10 +401,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                 }
               />
             </div>
-          )}
+          )} */}
 
           {/* Blog Section */}
-          {sanitizedConfig.blog.display && (
+          {/* {sanitizedConfig.blog.display && (
             <div className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}>
               <BlogCard
                 loading={loading}
@@ -408,7 +416,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                 }
               />
             </div>
-          )}
+          )} */}
 
           {/* Options Ledger */}
           <div
@@ -533,7 +541,19 @@ const GitProfile = ({ config }: { config: Config }) => {
         ) : (
           <>
             {/* Sidebar */}
-            <SidebarNav cardSections={cardSections} />
+            {/* <SidebarNav cardSections={cardSections} /> */}
+            <ProfileSidebar
+              name="Andrew Photinakis"
+              title="Computer Science & Finance"
+              intro="4th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and Algo Trading."
+              footerLinks={[
+                { label: 'GitHub', href: 'https://github.com/acphotinakis' },
+                {
+                  label: 'LinkedIn',
+                  href: 'https://www.linkedin.com/in/andrew-photinakis/',
+                },
+              ]}
+            />
 
             {/* Main content area */}
             <div className="flex-1 overflow-auto">

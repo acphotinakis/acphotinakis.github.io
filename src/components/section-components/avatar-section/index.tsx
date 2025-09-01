@@ -1,5 +1,5 @@
-import { Profile } from '../../interfaces/profile';
-import { BoxReveal } from '../ui/box-reveal';
+import { Profile } from '../../../interfaces/profile';
+import { BoxReveal } from '../../ui/box-reveal';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 interface AvatarCardProps {
