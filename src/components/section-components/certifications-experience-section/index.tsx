@@ -5,7 +5,7 @@ import {
 } from '../../../interfaces/sanitized-config';
 import { skeleton } from '../../../utils';
 import LinkIcon from '@mui/icons-material/Link';
-import PlataniasImage from '../../assets/platanias.jpg';
+import PlataniasImage from '../../../assets/platanias.jpg';
 import { MdLocationOn } from 'react-icons/md';
 
 // Color palette constants
@@ -174,7 +174,7 @@ const CertExpCard = ({
     >
       <div className="flex card-body">
         <div className="flex">
-          {/* Experience */}
+          {/* Experience
           <div className="flex-1 text-lg md:text-base sm:text-sm">
             <div className="mx-3" style={{ color: COLORS.white }}>
               <h5 className="card-title">
@@ -212,7 +212,7 @@ const CertExpCard = ({
                     />
                   ))}
             </ol>
-          </div>
+          </div> */}
 
           {/* Certifications */}
           <div className="flex-1 text-lg md:text-base sm:text-sm">

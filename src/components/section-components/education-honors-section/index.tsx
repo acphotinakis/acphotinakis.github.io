@@ -2,9 +2,9 @@ import React from 'react';
 import {
   SanitizedEducation,
   SanitizedHonor,
-} from '../../interfaces/sanitized-config';
-import { skeleton } from '../../utils';
-import AmsterdamImage from '../../assets/amsterdam.jpg';
+} from '../../../interfaces/sanitized-config';
+import { skeleton } from '../../../utils';
+import AmsterdamImage from '../../../assets/amsterdam.jpg';
 import { MdLocationOn } from 'react-icons/md';
 
 // Color palette constants
@@ -89,7 +89,7 @@ const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
   </li>
 );
 
-const EducationHonorPage = ({
+const EducationHonorSection = ({
   loading,
   educations,
   honors,
@@ -202,4 +202,4 @@ const EducationHonorPage = ({
   );
 };
 
-export default EducationHonorPage;
+export default EducationHonorSection;

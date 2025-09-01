@@ -43,7 +43,7 @@ export function ProfileSidebar() {
             lineHeight: '1.6',
           }}
         >
-          4th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and
+          5th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and
           Algo Trading.
         </p>
 

@@ -1,13 +1,6 @@
 import React from 'react';
 import { skeleton } from '../../../utils';
-
-const COLORS = {
-  primaryRed: '#e63946',
-  black: '#121212',
-  darkGray: '#1e1e1e',
-  midGray: '#9e9e9e',
-  white: '#f5f5f5',
-};
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 interface Experience {
   company: string;
@@ -91,23 +84,45 @@ const WorkExperienceItem: React.FC<Experience & { time: string }> = ({
     {/* Timeline Dot */}
     <span
       className="absolute left-0 w-3 h-3 rounded-full top-2"
-      style={{ backgroundColor: COLORS.primaryRed }}
+      style={{ backgroundColor: COLOR_SCHEMA.accentRed }}
     />
     {/* Timeline Line */}
     <span
       className="absolute left-1.5 top-5 bottom-0 w-0.5"
-      style={{ backgroundColor: COLORS.primaryRed }}
+      style={{ backgroundColor: COLOR_SCHEMA.accentRed }}
     />
     <div>
-      <div className="mb-1 text-xs text-gray-400">{time}</div>
-      <h3 className="text-sm font-semibold sm:text-base">{position}</h3>
-      <div className="mb-2 text-sm font-medium text-white">
+      <div
+        className="mb-1 text-xs"
+        style={{ color: COLOR_SCHEMA.textSecondary }}
+      >
+        {time}
+      </div>
+      <h3
+        className="text-sm font-semibold sm:text-base"
+        style={{ color: COLOR_SCHEMA.textPrimary }}
+      >
+        {position}
+      </h3>
+      <div
+        className="mb-2 text-sm font-medium"
+        style={{ color: COLOR_SCHEMA.textPrimary }}
+      >
         {companyLink ? (
           <a
             href={companyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-primaryRed hover:opacity-80"
+            className="underline"
+            style={{
+              color: COLOR_SCHEMA.accentRed,
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.color = COLOR_SCHEMA.accentRedHover)
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.color = COLOR_SCHEMA.accentRed)
+            }
           >
             {company}
           </a>
@@ -116,14 +131,22 @@ const WorkExperienceItem: React.FC<Experience & { time: string }> = ({
         )}
       </div>
 
-      <p className="text-sm text-gray-300 whitespace-pre-line">{details}</p>
+      <p
+        className="text-sm whitespace-pre-line"
+        style={{ color: COLOR_SCHEMA.textSecondary }}
+      >
+        {details}
+      </p>
       {/* Skills */}
-      <div className="flex flex-wrap gap-2 mt-3">
+      <div className="flex flex-wrap gap-2 mt-6">
         {skills.map((skill, idx) => (
           <span
             key={idx}
-            className="px-2 py-1 text-xs font-medium text-white rounded-full"
-            style={{ backgroundColor: COLORS.primaryRed }}
+            className="px-2 py-1 text-xs font-medium rounded-full"
+            style={{
+              backgroundColor: COLOR_SCHEMA.accentRed,
+              color: COLOR_SCHEMA.textPrimary,
+            }}
           >
             {skill}
           </span>
@@ -158,29 +181,39 @@ const WorkExperienceSection: React.FC<{ loading?: boolean; id?: string }> = ({
 
   return (
     <div
+      className="bg-[#2C2C25] card flex w-full max-w-5xl mx-auto shadow-lg shadow-black/50 rounded-2xl overflow-hidden h-auto"
       id={id}
-      className="bg-[#000000] border border-spacing-1 border-white w-full max-w-5xl p-6 mx-auto overflow-hidden bg-black shadow-lg rounded-2xl"
+      style={{
+        backgroundColor: COLOR_SCHEMA.cardBg,
+        boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
+      }}
     >
-      <h5 className="text-lg text-center text-[#F5F5F5] card-title md:text-xl mb-6">
-        <span className="block text-center border-t-2 border-b-2 border-[#E53935] py-1">
-          Work Experience
-        </span>
-      </h5>
-      <ol className="relative pl-4 border-l-2 border-primaryRed">
-        {loading
-          ? renderSkeletons()
-          : experiences.map((exp, idx) => (
-              <WorkExperienceItem
-                key={idx}
-                time={`${exp.from} - ${exp.to}`}
-                position={exp.position}
-                company={exp.company}
-                companyLink={exp.companyLink}
-                details={exp.details}
-                skills={exp.skills}
-              />
-            ))}
-      </ol>
+      <div className="flex flex-col items-center gap-6 p-4">
+        <div className="relative z-10 flex flex-col w-full max-w-screen-lg px-4 py-4 md:py-8 md:px-8">
+          <div className="flex flex-col items-center justify-center mb-4 text-center">
+            <h5 className="text-lg text-center text-[#F5F5F5] card-title md:text-xl mb-6">
+              <span className="block text-center border-t-2 border-b-2 border-[#E53935] py-1">
+                Work Experience
+              </span>
+            </h5>
+          </div>
+          <ol className="relative pl-4 ">
+            {loading
+              ? renderSkeletons()
+              : experiences.map((exp, idx) => (
+                  <WorkExperienceItem
+                    key={idx}
+                    time={`${exp.from} - ${exp.to}`}
+                    position={exp.position}
+                    company={exp.company}
+                    companyLink={exp.companyLink}
+                    details={exp.details}
+                    skills={exp.skills}
+                  />
+                ))}
+          </ol>
+        </div>
+      </div>
     </div>
   );
 };

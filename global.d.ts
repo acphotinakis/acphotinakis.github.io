@@ -208,6 +208,12 @@ interface Social {
   email?: string;
 }
 
+interface ProgrammingLanguages {
+  name: string;
+  level: number;
+  bullets: string[];
+}
+
 interface Resume {
   /**
    * Resume file url
@@ -394,6 +400,7 @@ interface Config {
    * Skill list
    */
   skills?: Array<string>;
+  updated_languages?: Array<ProgrammingLanguages>;
   languages?: Array<string>;
   frameworksAndLibraries?: Array<string>;
   toolsAndTechnologies?: Array<string>;

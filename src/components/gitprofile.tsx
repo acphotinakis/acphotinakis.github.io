@@ -12,16 +12,16 @@ import { HelmetProvider } from 'react-helmet-async';
 import '../assets/index.css';
 import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
 import { SanitizedConfig } from '../interfaces/sanitized-config';
-import ErrorPage from './error-page';
+import ErrorPage from './section-reusable-components/error-page';
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './section-components/avatar-section';
 import { Profile } from '../interfaces/profile';
 import { GithubProject } from '../interfaces/github-project';
-import GithubProjectCard from './github-project-card';
-import EducationHonorCard from './education-honors-card';
+import GithubProjectCard from './section-components/github-project-card';
+import EducationHonorSection from './section-components/education-honors-section';
 import CertExpCard from './section-components/certifications-experience-section';
-import SkillsGrid from './skills-grid';
+import SkillsGrid from './section-components/skills-section';
 import OptionsPLTable from './section-components/options-pl-table-section';
 import React from 'react';
 import MarqueeDemo from './section-components/academic-courses-section';
@@ -34,7 +34,6 @@ type CardSection = {
   dropdown?: CardSection[]; // Fixed to CardSection[]
 };
 
-import EducationHonorPage from './education-honors-card';
 import { ProfileSidebar } from './section-components/website-sidebar-section';
 import WorkExperienceSection from './section-components/experience-section';
 import DetailsCard from './section-components/personal-contacts-section';
@@ -116,10 +115,10 @@ const GitProfile = ({ config }: { config: Config }) => {
 
   const getGithubProjects = useCallback(
     async (publicRepoCount: number): Promise<GithubProject[]> => {
+      let repoDataItems: any[] = [];
+
       if (sanitizedConfig.projects.github.mode === 'automatic') {
-        if (publicRepoCount === 0) {
-          return [];
-        }
+        if (publicRepoCount === 0) return [];
 
         const excludeRepo =
           sanitizedConfig.projects.github.automatic.exclude.projects
@@ -132,13 +131,11 @@ const GitProfile = ({ config }: { config: Config }) => {
         const repoResponse = await axios.get(url, {
           headers: { 'Content-Type': 'application/vnd.github.v3+json' },
         });
-        const repoData = repoResponse.data;
-
-        return repoData.items;
+        repoDataItems = repoResponse.data.items;
       } else {
-        if (sanitizedConfig.projects.github.manual.projects.length === 0) {
+        if (sanitizedConfig.projects.github.manual.projects.length === 0)
           return [];
-        }
+
         const repos = sanitizedConfig.projects.github.manual.projects
           .map((project) => `+repo:${project}`)
           .join('');
@@ -148,11 +145,27 @@ const GitProfile = ({ config }: { config: Config }) => {
         const repoResponse = await axios.get(url, {
           headers: { 'Content-Type': 'application/vnd.github.v3+json' },
         });
-        const repoData = repoResponse.data;
-        console.log(repoData);
-
-        return repoData.items;
+        repoDataItems = repoResponse.data.items;
       }
+
+      // Map raw GitHub API data to your simplified UI shape
+      const mappedProjects: GithubProject[] = repoDataItems.map((repo) => ({
+        name: repo.name,
+        description: repo.description,
+        html_url: repo.html_url,
+        homepage: repo.homepage || undefined,
+        language: repo.language || 'Unknown',
+        stargazers_count: repo.stargazers_count,
+        forks_count: repo.forks_count,
+        license: repo.license?.name || undefined,
+        created_at: repo.created_at,
+        pushed_at: repo.pushed_at,
+        archived: repo.archived,
+      }));
+
+      console.log('Mapped Projects:', mappedProjects); // ✅ debug
+
+      return mappedProjects;
     },
     [
       sanitizedConfig.github.username,
@@ -164,6 +177,57 @@ const GitProfile = ({ config }: { config: Config }) => {
       sanitizedConfig.projects.github.automatic.exclude.projects,
     ],
   );
+
+  // const getGithubProjects = useCallback(
+  //   async (publicRepoCount: number): Promise<GithubProject[]> => {
+  //     if (sanitizedConfig.projects.github.mode === 'automatic') {
+  //       if (publicRepoCount === 0) {
+  //         return [];
+  //       }
+
+  //       const excludeRepo =
+  //         sanitizedConfig.projects.github.automatic.exclude.projects
+  //           .map((project) => `+-repo:${project}`)
+  //           .join('');
+
+  //       const query = `user:${sanitizedConfig.github.username}+fork:${!sanitizedConfig.projects.github.automatic.exclude.forks}${excludeRepo}`;
+  //       const url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.projects.github.automatic.sortBy}&per_page=${sanitizedConfig.projects.github.automatic.limit}&type=Repositories`;
+
+  //       const repoResponse = await axios.get(url, {
+  //         headers: { 'Content-Type': 'application/vnd.github.v3+json' },
+  //       });
+  //       const repoData = repoResponse.data;
+
+  //       return repoData.items;
+  //     } else {
+  //       if (sanitizedConfig.projects.github.manual.projects.length === 0) {
+  //         return [];
+  //       }
+  //       const repos = sanitizedConfig.projects.github.manual.projects
+  //         .map((project) => `+repo:${project}`)
+  //         .join('');
+
+  //       const url = `https://api.github.com/search/repositories?q=${repos}&type=Repositories`;
+
+  //       const repoResponse = await axios.get(url, {
+  //         headers: { 'Content-Type': 'application/vnd.github.v3+json' },
+  //       });
+  //       const repoData = repoResponse.data;
+  //       console.log('REPO DATA:', JSON.stringify(repoData, null, 2));
+
+  //       return repoData.items;
+  //     }
+  //   },
+  //   [
+  //     sanitizedConfig.github.username,
+  //     sanitizedConfig.projects.github.mode,
+  //     sanitizedConfig.projects.github.manual.projects,
+  //     sanitizedConfig.projects.github.automatic.sortBy,
+  //     sanitizedConfig.projects.github.automatic.limit,
+  //     sanitizedConfig.projects.github.automatic.exclude.forks,
+  //     sanitizedConfig.projects.github.automatic.exclude.projects,
+  //   ],
+  // );
 
   const loadData = useCallback(async () => {
     try {
@@ -256,6 +320,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     alignItems: 'center',
     zIndex: -1,
     color: '#F5F5F5',
+    fontFamily: 'Roboto Mono, monospace',
   };
 
   // Modern card background for all pages
@@ -265,16 +330,26 @@ const GitProfile = ({ config }: { config: Config }) => {
     <div className={`min-h-full ${BG_COLOR}`} style={topStyle}>
       <main className="flex-1 p-6 overflow-auto">
         <div className="grid grid-cols-1 gap-8 rounded-box">
-          {/* Work Experience Card */}
-          <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
-            id={
-              cardSections.find((section) => section.name === 'Home')?.id ??
-              'home'
-            }
-          >
-            <WorkExperienceSection loading={loading} id={''} />
-          </div>
+          {/* GitHub Projects */}
+          {sanitizedConfig.projects.github.display && (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={
+                cardSections.find(
+                  (section) => section.name === 'GitHub Projects',
+                )?.id ?? 'github-projects'
+              }
+            >
+              <GithubProjectCard
+                limit={sanitizedConfig.projects.github.automatic.limit}
+                githubProjects={githubProjects}
+                loading={loading}
+                username={sanitizedConfig.github.username}
+                id={''}
+              />
+            </div>
+          )}
+
           {/* Avatar Card */}
           <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
@@ -284,6 +359,16 @@ const GitProfile = ({ config }: { config: Config }) => {
             }
           >
             <AvatarCard profile={profile} loading={loading} id={''} />
+          </div>
+          {/* Work Experience Card */}
+          <div
+            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
+            id={
+              cardSections.find((section) => section.name === 'Home')?.id ??
+              'home'
+            }
+          >
+            <WorkExperienceSection loading={loading} id={''} />
           </div>
 
           {/* Details Card */}
@@ -314,7 +399,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                   )?.id ?? 'education-honors'
                 }
               >
-                <EducationHonorPage
+                <EducationHonorSection
                   loading={loading}
                   educations={sanitizedConfig.educations}
                   honors={sanitizedConfig.honors}
@@ -358,7 +443,6 @@ const GitProfile = ({ config }: { config: Config }) => {
           >
             <SkillsGrid
               loading={loading}
-              sanitizedConfig={sanitizedConfig}
               id={''}
               dropdown={
                 cardSections.find((section) => section.name === 'Skills')
@@ -367,7 +451,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             />
           </div>
 
-          {/* GitHub Projects */}
+          {/* GitHub Projects
           {sanitizedConfig.projects.github.display && (
             <div
               className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
@@ -386,7 +470,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                 id={''}
               />
             </div>
-          )}
+          )} */}
 
           {/* Publications
           {sanitizedConfig.publications.length !== 0 && (
@@ -419,7 +503,7 @@ const GitProfile = ({ config }: { config: Config }) => {
           )} */}
 
           {/* Options Ledger */}
-          <div
+          {/* <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
             id={
               cardSections.find(
@@ -428,7 +512,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             }
           >
             <OptionsPLTable loading={loading} id={''} />
-          </div>
+          </div> */}
         </div>
       </main>
     </div>
@@ -458,7 +542,7 @@ const GitProfile = ({ config }: { config: Config }) => {
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
         <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
-          <EducationHonorCard
+          <EducationHonorSection
             loading={loading}
             educations={sanitizedConfig.educations}
             honors={sanitizedConfig.honors}
@@ -500,7 +584,6 @@ const GitProfile = ({ config }: { config: Config }) => {
         <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
           <SkillsGrid
             loading={loading}
-            sanitizedConfig={sanitizedConfig}
             id={''}
             dropdown={
               cardSections.find((section) => section.name === 'Skills')
@@ -531,7 +614,10 @@ const GitProfile = ({ config }: { config: Config }) => {
 
   return (
     <HelmetProvider>
-      <div className="flex h-screen bg-red-900 fade-in">
+      <div
+        className="flex h-screen bg-red-900 fade-in"
+        style={{ fontFamily: 'Roboto Mono, monospace' }}
+      >
         {error ? (
           <ErrorPage
             status={error.status}

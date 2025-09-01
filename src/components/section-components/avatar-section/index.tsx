@@ -16,8 +16,15 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
   return (
     <div
       id={id}
-      className="flex flex-col items-center justify-center w-full max-w-5xl p-8 mx-auto text-center shadow-lg mt-11 rounded-2xl shadow-black/50 scroll-mt-20"
-      style={{ backgroundColor: COLOR_SCHEMA.cardBackground }}
+      className="flex flex-col items-center justify-center w-full max-w-5xl p-8 mx-auto text-center mt-11 rounded-2xl scroll-mt-20"
+      style={{
+        backgroundColor: COLOR_SCHEMA.cardBg,
+        boxShadow: `
+          -4px 0 6px -2px ${COLOR_SCHEMA.border},   /* left shadow */
+           4px 0 6px -2px ${COLOR_SCHEMA.border},   /* right shadow */
+           0 4px 6px -2px ${COLOR_SCHEMA.border}    /* bottom shadow */
+        `,
+      }}
     >
       <div className="flex grid w-full h-full grid-cols-1 gap-6 md:grid-cols-2">
         {/* Name Section */}
@@ -39,7 +46,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
           <BoxReveal boxColor={COLOR_SCHEMA.accentRed} duration={0.9}>
             <div
               className="mt-6 leading-relaxed"
-              style={{ color: COLOR_SCHEMA.textPrimary }}
+              style={{ color: COLOR_SCHEMA.textSecondary }}
             >
               <p className="mb-2">
                 → 4th year Computer Science Student at Rochester Institute of
