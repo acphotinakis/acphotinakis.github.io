@@ -8,7 +8,6 @@ import ScienceIcon from '@mui/icons-material/Science';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import BusinessIcon from '@mui/icons-material/Business';
 import ComputerIcon from '@mui/icons-material/Computer';
-import { skeleton } from '../../../utils';
 import { COLOR_SCHEMA } from '../../../interfaces/colorSchema';
 import { Marquee } from '@/components/ui/marquee';
 import { CompInputCoursesSectionProps } from '@/data/page_data/websiteInterfaces';
