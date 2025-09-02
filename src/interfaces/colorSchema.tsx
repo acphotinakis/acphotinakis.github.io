@@ -48,6 +48,7 @@ export interface ColorSchema {
 
   black: string;
   white: string;
+  midGray: string;
 }
 
 export const COLOR_SCHEMA: ColorSchema = {
@@ -100,4 +101,5 @@ export const COLOR_SCHEMA: ColorSchema = {
 
   black: '#000000',
   white: '#FFFFFF',
+  midGray: '#9e9e9e',
 };

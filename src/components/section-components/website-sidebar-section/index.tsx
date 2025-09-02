@@ -1,10 +1,10 @@
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, Menu, X } from 'lucide-react';
 import { cardSections, CardSection } from '@/components/gitprofile';
 import { useState } from 'react';
 
 export function ProfileSidebar() {
-  const [mobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const flattenedSections: CardSection[] = cardSections.flatMap((section) => {
     if (section.dropdown && section.dropdown.length > 0) {
@@ -15,11 +15,19 @@ export function ProfileSidebar() {
 
   return (
     <>
+      {/* Mobile toggle button */}
+      <button
+        className="fixed z-50 p-2 text-white rounded-md top-4 left-4 md:hidden bg-black/50"
+        onClick={() => setMobileOpen(!mobileOpen)}
+      >
+        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-80 transform transition-transform duration-300 md:relative md:translate-x-0 ${
+        className={`fixed top-0 left-0 z-40 h-full w-64 transform transition-transform duration-300 md:relative md:translate-x-0 md:w-80 flex flex-col justify-between min-h-screen p-8 border-r ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
-        } flex flex-col justify-between min-h-screen p-8 border-r`}
+        }`}
         style={{
           backgroundColor: COLOR_SCHEMA.cardBg,
           borderColor: COLOR_SCHEMA.border,
@@ -49,6 +57,7 @@ export function ProfileSidebar() {
               href={`#${section.id}`}
               className="relative font-medium transition-all duration-200 group"
               style={{ color: COLOR_SCHEMA.textSecondary }}
+              onClick={() => setMobileOpen(false)} // Close sidebar on mobile after click
             >
               <span
                 className="inline-block transition-transform duration-200 group-hover:translate-x-2 group-hover:text-red-500"
@@ -79,6 +88,14 @@ export function ProfileSidebar() {
           </a>
         </div>
       </aside>
+
+      {/* Overlay when mobile menu is open */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
     </>
   );
 }

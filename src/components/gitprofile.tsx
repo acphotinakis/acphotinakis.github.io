@@ -15,48 +15,57 @@ import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './section-reusable-components/error-page';
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import { BG_COLOR } from '../constants';
-import AvatarCard from './section-components/avatar-section';
-import { Profile } from '../interfaces/profile';
+
 import { GithubApiProject, GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './section-components/github-project-card';
 import EducationHonorSection from './section-components/education-honors-section';
-import CertificationsSection from './section-components/certifications-experience-section';
-import SkillsGrid from './section-components/skills-section';
-// import OptionsPLTable from './section-components/options-pl-table-section';
 import React from 'react';
-import MarqueeDemo from './section-components/academic-courses-section';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ProfileSidebar } from './section-components/website-sidebar-section';
+import WorkExperienceSection from './section-components/experience-section';
+import WEBSITE_CONFIG from '@/data/page_data/websiteConfigData';
+import HomeSection from './section-components/home-section';
+import ContactsSection from './section-components/personal-contacts-section';
+import CertificationsSection from './section-components/certifications-section';
+import CoursesSection from './section-components/courses-section';
+import SkillsSection from './section-components/skills-section';
+import { Profile } from '@/interfaces/profile';
 
 export type CardSection = {
   name: string;
   id: string;
   path: string;
-  dropdown?: CardSection[]; // Fixed to CardSection[]
+  dropdown?: CardSection[];
 };
-
-import { ProfileSidebar } from './section-components/website-sidebar-section';
-import WorkExperienceSection from './section-components/experience-section';
-import DetailsCard from './section-components/personal-contacts-section';
-// import CourseTimelineSection from './section-components/course-timeline-section';
 
 export const cardSections: CardSection[] = [
   { name: 'Home', id: 'home', path: '/', dropdown: [] },
-  { name: 'Contacts', id: 'contacts', path: '/contacts', dropdown: [] },
+  {
+    name: 'Contacts',
+    id: 'contacts',
+    path: '/contacts',
+  },
   {
     name: 'Education & Honors',
     id: 'education-honors',
     path: '/education-honors',
   },
-  // {
-  //   name: 'Stock Options Ledger',
-  //   id: 'stock-options-ledger',
-  //   path: '/stock-options-ledger',
-  // },
   {
-    name: 'Certifications & Experience',
-    id: 'certifications-experience',
-    path: '/certifications-experience',
+    name: 'Work Experiences',
+    id: 'work-experiences',
+    path: '/work-experiences',
   },
+  {
+    name: 'Certifications',
+    id: 'certifications',
+    path: '/certifications',
+  },
+  {
+    name: 'Courses',
+    id: 'courses',
+    path: '/courses',
+  },
+
   {
     name: 'Skills',
     id: 'skills',
@@ -89,13 +98,6 @@ export const cardSections: CardSection[] = [
     id: 'github-projects',
     path: '/github-projects',
   },
-  // {
-  //   name: 'Publications',
-  //   id: 'publications',
-  //   path: '/publications',
-  //   dropdown: [],
-  // },
-  // { name: 'Blog', id: 'blog', path: '/blog', dropdown: [] },
 ];
 
 /**
@@ -111,7 +113,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   const [theme, setTheme] = useState<string>(DEFAULT_THEMES[0]);
   const [error, setError] = useState<CustomError | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [, setProfile] = useState<Profile | null>(null);
   const [githubProjects, setGithubProjects] = useState<GithubProject[]>([]);
 
   const getGithubProjects = useCallback(
@@ -164,7 +166,7 @@ const GitProfile = ({ config }: { config: Config }) => {
         archived: repo.archived,
       }));
 
-      console.log('Mapped Projects:', mappedProjects); // ✅ debug
+      // console.log('Mapped Projects:', mappedProjects); // ✅ debug
 
       return mappedProjects;
     },
@@ -288,66 +290,115 @@ const GitProfile = ({ config }: { config: Config }) => {
     <div className={`min-h-full ${BG_COLOR}`} style={topStyle}>
       <main className="flex-1 p-6 overflow-auto">
         <div className="grid grid-cols-1 gap-8 rounded-box">
-          {/* Avatar Card */}
-          <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
-            id={getSectionId('Home')}
-          >
-            <AvatarCard loading={loading} id={getSectionId('Home')} />
-          </div>
-
-          {/* Contacts Card */}
-          <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-            id={getSectionId('Contacts')}
-          >
-            <DetailsCard
-              profile={profile}
-              loading={loading}
-              github={sanitizedConfig.github}
-              social={sanitizedConfig.social}
-              id={getSectionId('Contacts')}
-            />
-          </div>
-
-          {/* Education & Honors */}
-          {sanitizedConfig.educations.length &&
-          sanitizedConfig.honors.length ? (
+          {/* HomeSection Card */}
+          {WEBSITE_CONFIG.home_section.paragraphs.length > 0 ? (
             <div
               className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-              id={getSectionId('Education & Honors')}
+              id={getSectionId('Home')}
             >
-              <EducationHonorSection
+              <HomeSection
+                id={getSectionId('Home')}
                 loading={loading}
-                // educations={sanitizedConfig.educations}
-                // honors={sanitizedConfig.honors}
-                id={getSectionId('Education & Honors')}
+                homeSection={WEBSITE_CONFIG.home_section}
               />
             </div>
           ) : null}
 
-          {/* Work Experience */}
-          <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-            id={getSectionId('Certifications & Experience')}
-          >
-            <WorkExperienceSection
-              loading={loading}
-              id={getSectionId('Certifications & Experience')}
-            />
-          </div>
-
-          {/* Certifications & Experience */}
-          {sanitizedConfig.certifications.length &&
-          sanitizedConfig.experiences.length ? (
+          {/* Contacts Card */}
+          {WEBSITE_CONFIG.personal_contacts_section ? (
             <div
               className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-              id={getSectionId('Certifications & Experience')}
+              id={getSectionId('Contacts')}
+            >
+              <ContactsSection
+                id={getSectionId('Contacts')}
+                loading={loading}
+                personalContacts={WEBSITE_CONFIG.personal_contacts_section}
+              />
+            </div>
+          ) : null}
+
+          {/* Education & Honors */}
+          {WEBSITE_CONFIG.education_honors_section.educations.length &&
+          WEBSITE_CONFIG.education_honors_section.honors.length ? (
+            <div
+              id={getSectionId('Education & Honors')}
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+            >
+              <EducationHonorSection
+                id={getSectionId('Education & Honors')}
+                loading={loading}
+                educationHonors={WEBSITE_CONFIG.education_honors_section}
+              />
+            </div>
+          ) : null}
+
+          {/* Work Experiences */}
+          {WEBSITE_CONFIG.work_experiences_section.length ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Work Experiences')}
+            >
+              <WorkExperienceSection
+                id={getSectionId('Work Experiences')}
+                loading={loading}
+                workExperiences={WEBSITE_CONFIG.work_experiences_section}
+              />
+            </div>
+          ) : null}
+
+          {/* Certifications  */}
+          {WEBSITE_CONFIG.certifications_section.length ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Certifications')}
             >
               <CertificationsSection
+                id={getSectionId('Certifications')}
                 loading={loading}
-                certifications={sanitizedConfig.certifications}
-                id={getSectionId('Certifications & Experience')}
+                certifications={WEBSITE_CONFIG.certifications_section}
+              />
+            </div>
+          ) : null}
+
+          {/* CoursesSection Section */}
+          {WEBSITE_CONFIG.courses_section.length ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Courses')}
+            >
+              <CoursesSection
+                id={getSectionId('Courses')}
+                loading={loading}
+                courses={WEBSITE_CONFIG.courses_section}
+              />
+            </div>
+          ) : null}
+
+          {/* Skills Grid */}
+          {WEBSITE_CONFIG.skills_section.programming_languages.length &&
+          WEBSITE_CONFIG.skills_section.frameworksAndLibraries.length &&
+          WEBSITE_CONFIG.skills_section.toolsAndTechnologies.length &&
+          WEBSITE_CONFIG.skills_section.conceptsAndSkills.length ? (
+            <div
+              className={`col-span-1 p-6 mt-10 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Skills')}
+            >
+              <SkillsSection
+                loading={loading}
+                id={getSectionId('Skills')}
+                programming_languages={
+                  WEBSITE_CONFIG.skills_section.programming_languages
+                }
+                frameworksAndLibraries={
+                  WEBSITE_CONFIG.skills_section.frameworksAndLibraries
+                }
+                toolsAndTechnologies={
+                  WEBSITE_CONFIG.skills_section.toolsAndTechnologies
+                }
+                conceptsAndSkills={
+                  WEBSITE_CONFIG.skills_section.conceptsAndSkills
+                }
               />
             </div>
           ) : null}
@@ -367,38 +418,6 @@ const GitProfile = ({ config }: { config: Config }) => {
               />
             </div>
           ) : null}
-
-          {/* Marquee Section */}
-          <div className={`col-span-1 p-6 ${cardBgClass}`}>
-            <MarqueeDemo />
-          </div>
-
-          {/* Skills Grid */}
-          <div
-            className={`col-span-1 p-6 mt-10 ${cardBgClass} scroll-mt-20`}
-            id={getSectionId('Skills')}
-          >
-            <SkillsGrid
-              loading={loading}
-              id={getSectionId('Skills')}
-              dropdown={
-                cardSections.find((section) => section.name === 'Skills')
-                  ?.dropdown ?? []
-              }
-            />
-          </div>
-
-          {/* Stock Options Ledger (Optional) */}
-
-          {/* <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-            id={getSectionId('Stock Options Ledger')}
-          >
-            <OptionsPLTable
-              loading={loading}
-              id={getSectionId('Stock Options Ledger')}
-            />
-          </div> */}
         </div>
       </main>
     </div>
@@ -411,15 +430,13 @@ const GitProfile = ({ config }: { config: Config }) => {
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
         <div
-          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
           id={getSectionId('Contacts')}
         >
-          <DetailsCard
-            profile={profile}
-            loading={loading}
-            github={sanitizedConfig.github}
-            social={sanitizedConfig.social}
+          <ContactsSection
             id={getSectionId('Contacts')}
+            loading={loading}
+            personalContacts={WEBSITE_CONFIG.personal_contacts_section}
           />
         </div>
       </div>
@@ -434,43 +451,26 @@ const GitProfile = ({ config }: { config: Config }) => {
           id={getSectionId('Education & Honors')}
         >
           <EducationHonorSection
-            loading={loading}
-            // educations={sanitizedConfig.educations}
-            // honors={sanitizedConfig.honors}
             id={getSectionId('Education & Honors')}
+            loading={loading}
+            educationHonors={WEBSITE_CONFIG.education_honors_section}
           />
         </div>
       </div>
     </div>
   );
 
-  // const StockOptionsLedgerPage = () => (
-  //   <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
-  //     <div className="grid grid-cols-1 gap-8 rounded-box">
-  //       <div
-  //         className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
-  //         id={getSectionId('Stock Options Ledger')}
-  //       >
-  //         <OptionsPLTable
-  //           loading={loading}
-  //           id={getSectionId('Stock Options Ledger')}
-  //         />
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
   const CertificationsExperiencePage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
         <div
           className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
-          id={getSectionId('Certifications & Experience')}
+          id={getSectionId('Certifications')}
         >
           <CertificationsSection
+            id={getSectionId('Certifications')}
             loading={loading}
-            certifications={sanitizedConfig.certifications}
-            id={getSectionId('Certifications & Experience')}
+            certifications={WEBSITE_CONFIG.certifications_section}
           />
         </div>
       </div>
@@ -481,16 +481,22 @@ const GitProfile = ({ config }: { config: Config }) => {
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
         <div
-          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          className={`col-span-1 p-6 mt-10 ${cardBgClass} scroll-mt-20`}
           id={getSectionId('Skills')}
         >
-          <SkillsGrid
+          <SkillsSection
             loading={loading}
             id={getSectionId('Skills')}
-            dropdown={
-              cardSections.find((section) => section.name === 'Skills')
-                ?.dropdown ?? []
+            programming_languages={
+              WEBSITE_CONFIG.skills_section.programming_languages
             }
+            frameworksAndLibraries={
+              WEBSITE_CONFIG.skills_section.frameworksAndLibraries
+            }
+            toolsAndTechnologies={
+              WEBSITE_CONFIG.skills_section.toolsAndTechnologies
+            }
+            conceptsAndSkills={WEBSITE_CONFIG.skills_section.conceptsAndSkills}
           />
         </div>
       </div>
@@ -542,10 +548,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                   path="/education-honors"
                   element={<EducationHonorsPage />}
                 />
-                {/* <Route
-                  path="/stock-options-ledger"
-                  element={<StockOptionsLedgerPage />}
-                /> */}
                 <Route
                   path="/certifications-experience"
                   element={<CertificationsExperiencePage />}

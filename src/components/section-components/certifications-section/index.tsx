@@ -1,10 +1,10 @@
 import React from 'react';
-import { SanitizedCertification } from '../../../interfaces/sanitized-config';
 import { skeleton } from '../../../utils';
 import LinkIcon from '@mui/icons-material/Link';
 import PlataniasImage from '../../../assets/platanias.jpg';
 import { MdLocationOn } from 'react-icons/md';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
+import { CompInputCertificationsSectionProps } from '@/data/page_data/websiteInterfaces';
 
 const CertificationListItem = ({
   year,
@@ -61,15 +61,10 @@ const CertificationListItem = ({
 );
 
 const CertificationsSection = ({
+  id,
   loading,
   certifications,
-  id,
-}: {
-  loading: boolean;
-  certifications: SanitizedCertification[];
-
-  id: string;
-}) => {
+}: CompInputCertificationsSectionProps) => {
   const renderCertificationSkeleton = () =>
     Array.from({ length: 2 }, (_, index) => (
       <CertificationListItem
