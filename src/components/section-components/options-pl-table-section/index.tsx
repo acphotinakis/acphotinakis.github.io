@@ -31,7 +31,6 @@ interface OptionsPlRow {
 
 const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
   const excludeColumns = [
-    // 'Strike Price',
     'ExitOptionType',
     'ExitStrikePrice',
     'EntryQuantity',
@@ -51,9 +50,7 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
   ];
 
   const columns = OptionsPLJson[0]
-    ? Object.keys(OptionsPLJson[0] as OptionsPlRow).filter(
-        (column) => !excludeColumns.includes(column),
-      )
+    ? Object.keys(OptionsPLJson[0]).filter((c) => !excludeColumns.includes(c))
     : [];
 
   const [sortColumn, setSortColumn] = useState<string | null>(null);
@@ -63,23 +60,18 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
   const [windowWidth, setWindowWidth] = useState(window.outerWidth);
   const [visibleColumns, setVisibleColumns] = useState<string[]>([]);
 
+  // Handle responsive columns
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.outerWidth);
-
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    if (windowWidth < 500) {
-      // sm breakpoint
-      setVisibleColumns(['EntryDescription']);
-    } else if (windowWidth < 700) {
-      // md breakpoint
+    if (windowWidth < 500) setVisibleColumns(['EntryDescription']);
+    else if (windowWidth < 700)
       setVisibleColumns(['EntryDescription', 'Realized P/L %']);
-    } else if (windowWidth < 1024) {
-      // lg breakpoint
+    else if (windowWidth < 1024)
       setVisibleColumns([
         'Ticker',
         'Entry Type',
@@ -87,8 +79,7 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
         'Trade Date',
         'Realized P/L %',
       ]);
-    } else if (windowWidth < 1210) {
-      // lg breakpoint
+    else if (windowWidth < 1210)
       setVisibleColumns([
         'Ticker',
         'Trade Date',
@@ -97,446 +88,197 @@ const OptionsPLTable = ({ loading, id }: { loading: boolean; id: string }) => {
         'Exit Type',
         'Realized P/L %',
       ]);
-    } else {
-      setVisibleColumns(columns);
-    }
+    else setVisibleColumns(columns);
   }, [windowWidth]);
 
   const sortedData = [...OptionsPLJson].sort(
     (a: OptionsPlRow, b: OptionsPlRow) => {
-      if (sortDirection === 'none') return 0;
-      if (!sortColumn) return 0;
+      if (!sortColumn || sortDirection === 'none') return 0;
 
-      // Helper function to parse date strings
-      const parseDate = (dateStr: string) => new Date(dateStr).getTime();
+      const parseNumber = (str: string) =>
+        parseFloat(str.replace(/[^0-9.-]+/g, '')) || 0;
+      const parsePercent = (str: string) =>
+        parseFloat(str.replace('%', '')) || 0;
+      const parseDate = (str: string) => new Date(str).getTime();
 
-      // Helper function to parse currency strings
-      const parseCurrency = (currencyStr: string) =>
-        parseFloat(currencyStr.replace(/[^0-9.-]+/g, ''));
+      const getValue = (row: OptionsPlRow) => {
+        switch (sortColumn) {
+          case 'Ticker':
+            return row[sortColumn] as string;
+          case 'Trade Date':
+          case 'Expiration Date':
+          case 'Exit Date':
+            return parseDate(row[sortColumn] as string);
+          case 'Entry Type':
+            return `${row.Action} - ${row['Entry Type']}`;
+          case 'Exit Type':
+            return `${row.ExitAction} - ${row['Exit Type']}`;
+          case 'Strike Price':
+            return parseNumber(row[sortColumn] as string);
+          case 'Realized P/L %':
+            return parsePercent(row[sortColumn] as string);
+          default:
+            return row[sortColumn] as string | number;
+        }
+      };
 
-      // Helper function to parse percentage strings
-      const parsePercentage = (percentStr: string) =>
-        parseFloat(percentStr.replace('%', ''));
+      const aVal = getValue(a);
+      const bVal = getValue(b);
 
-      const aValue = a[sortColumn];
-      const bValue = b[sortColumn];
-
-      // Determine type of column and parse values accordingly
-      let aParsedValue, bParsedValue;
-
-      switch (sortColumn) {
-        case 'Ticker':
-          aParsedValue = aValue as string;
-          bParsedValue = bValue as string;
-          break;
-
-        case 'Trade Date':
-        case 'Expiration Date':
-        case 'Exit Date':
-          // Handle date columns
-          aParsedValue = parseDate(aValue as string);
-          bParsedValue = parseDate(bValue as string);
-          break;
-
-        case 'Entry Type':
-          // Handle concatenated columns
-          aParsedValue = `${a['Action']} - ${a['Entry Type']}`;
-          bParsedValue = `${b['Action']} - ${b['Entry Type']}`;
-          break;
-
-        case 'Exit Type':
-          // Handle concatenated columns
-          aParsedValue = `${a['Exit Action']} - ${a['Exit Type']}`;
-          bParsedValue = `${b['Exit Action']} - ${b['Exit Type']}`;
-          break;
-
-        case 'Strike Price':
-          // Handle currency columns
-          aParsedValue = parseCurrency(aValue as string);
-          bParsedValue = parseCurrency(bValue as string);
-          break;
-
-        case 'TradeP/L':
-        case 'Realized P/L %':
-          // Handle percentage columns
-          aParsedValue = parsePercentage(aValue as string);
-          bParsedValue = parsePercentage(bValue as string);
-          break;
-
-        default:
-          // Handle default case (assuming string or number)
-          aParsedValue = aValue;
-          bParsedValue = bValue;
-          break;
-      }
-
-      // Compare parsed values based on sort direction
-      if (
-        typeof aParsedValue === 'number' &&
-        typeof bParsedValue === 'number'
-      ) {
+      if (typeof aVal === 'number' && typeof bVal === 'number')
+        return sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
+      if (typeof aVal === 'string' && typeof bVal === 'string')
         return sortDirection === 'asc'
-          ? aParsedValue - bParsedValue
-          : bParsedValue - aParsedValue;
-      } else if (
-        typeof aParsedValue === 'string' &&
-        typeof bParsedValue === 'string'
-      ) {
-        return sortDirection === 'asc'
-          ? aParsedValue.localeCompare(bParsedValue)
-          : bParsedValue.localeCompare(aParsedValue);
-      }
-
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
       return 0;
     },
   );
 
-  // Calculate the average Realized P/L %
-  const tradePLSum = sortedData.reduce((sum: number, row: OptionsPlRow) => {
-    const value = parseFloat(row['Realized P/L %']);
-    return sum + (isNaN(value) ? 0 : value * 100);
-  }, 0);
+  const tradePLSum = sortedData.reduce(
+    (sum, row) => sum + (parseFloat(row['Realized P/L %']) || 0),
+    0,
+  );
+  const averageTradePL = (
+    sortedData.length ? tradePLSum / sortedData.length : 0
+  ).toFixed(2);
 
-  const tradePLCount = sortedData.length;
-  const averageTradePL =
-    tradePLCount > 0 ? (tradePLSum / tradePLCount).toFixed(2) : '0.00';
+  const averageTradeLength = sortedData.length
+    ? sortedData.reduce(
+        (acc, row) =>
+          acc + dayjs(row['Exit Date']).diff(dayjs(row['Trade Date']), 'day'),
+        0,
+      ) / sortedData.length
+    : 0;
 
-  // Function to calculate the average trade length
-  const calculateAverageTradeLength = (data: OptionsPlRow[]) => {
-    if (data.length === 0) return 0;
-
-    const totalDays = data.reduce((acc, row) => {
-      const TradeDate = dayjs(row['Trade Date']);
-      const ExitDate = dayjs(row['Exit Date']);
-      return acc + ExitDate.diff(TradeDate, 'day');
-    }, 0);
-
-    return totalDays / data.length;
-  };
-
-  // Example usage
-  const averageTradeLength = calculateAverageTradeLength(sortedData);
-
-  // Function to find the most traded ticker symbol
-  const findMostTradedTicker = (data: OptionsPlRow[]) => {
-    const tickerCounts: { [ticker: string]: number } = {};
-
-    data.forEach((row) => {
-      const Ticker = row.Ticker;
-      const exitTicker = row.ExitTicker;
-
-      // Count both entry and exit tickers
-      tickerCounts[Ticker] = (tickerCounts[Ticker] || 0) + 1;
-      tickerCounts[exitTicker] = (tickerCounts[exitTicker] || 0) + 1;
+  const mostTradedTicker = (() => {
+    const counts: Record<string, number> = {};
+    sortedData.forEach((row) => {
+      counts[row.Ticker] = (counts[row.Ticker] || 0) + 1;
     });
+    return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+  })();
 
-    const mostTradedTicker = Object.keys(tickerCounts).reduce(
-      (maxTicker, ticker) => {
-        return tickerCounts[ticker] > (tickerCounts[maxTicker] || 0)
-          ? ticker
-          : maxTicker;
-      },
-      '',
-    );
-
-    return mostTradedTicker;
-  };
-
-  // Example usage
-  const mostTradedTicker = findMostTradedTicker(sortedData);
-
-  const getCellBackgroundColor = (
-    column: string,
-    value: string,
-    row: OptionsPlRow,
-  ): string => {
-    // Helper function to handle 'Realized P/L %' column
-    const getRealizedPLBackgroundColor = (percent: number) => {
-      if (percent > 0) return 'bg-[#3fb950] text-white border rounded-xl';
-      if (percent < 0) return 'bg-[#FB5057] text-white border rounded-xl';
-      return 'bg-[#A9A9A9] text-white border rounded-xl';
-    };
-
-    // Helper function to handle 'Action' column
-    const getActionBackgroundColor = (action: string) => {
-      if (action === 'Buy') return 'bg-[#4a90e2] text-white border rounded-xl';
-      if (action === 'Sell') return 'bg-[#f5a623] text-white border rounded-xl';
-      return '';
-    };
-
-    // Helper function to handle 'Entry Type' and 'Exit Type' columns
-    const getEntryExitTypeBackgroundColor = (
-      column: string,
-      entryType: string,
-      exitAction?: string,
-    ) => {
-      if (column === 'Exit Type' && exitAction === 'ExpiredOTM') {
-        return 'bg-[#9b59b6] text-white border rounded-xl';
-      }
-      if (entryType === 'C') return 'bg-[#3498db] text-white border rounded-xl';
-      if (entryType === 'P') return 'bg-[#8e44ad] text-white border rounded-xl';
-      return '';
-    };
-
-    // Main logic to determine the background color based on the column
-    switch (column) {
-      case 'Realized P/L %': {
-        const percent = parseFloat(value);
-        return getRealizedPLBackgroundColor(percent);
-      }
-
-      case 'Action': {
-        return getActionBackgroundColor(value);
-      }
-
-      case 'Entry Type':
-      case 'Exit Type': {
-        return getEntryExitTypeBackgroundColor(column, value, row.ExitAction);
-      }
-
-      default: {
-        return '';
-      }
-    }
-  };
-
-  // Helper function to handle 'Realized P/L %' column
-  const formatRealizedPLPercentage = (value: string) => {
+  const getCellBG = (column: string, value: string) => {
     const percent = parseFloat(value);
-    return (percent * 100).toFixed(2) + '%';
+    if (column === 'Realized P/L %')
+      return percent > 0
+        ? 'bg-green-500'
+        : percent < 0
+          ? 'bg-red-500'
+          : 'bg-gray-400';
+    if (column === 'Entry Type')
+      return value === 'C'
+        ? 'bg-blue-500'
+        : value === 'P'
+          ? 'bg-purple-500'
+          : '';
+    if (column === 'Exit Type')
+      return value === 'ExpiredOTM' ? 'bg-purple-700' : '';
+    return '';
   };
 
-  // Helper function to handle 'Entry Type' and 'Exit Type' columns
-  const formatType = (
-    column: string,
-    value: string,
-    action: string,
-    exitAction?: string,
-  ) => {
-    let fixedAction = '';
-
-    // Determine fixedAction based on column type
-    if (column === 'Entry Type') {
-      if (action === 'BTO') {
-        fixedAction = 'Buy to Open';
-      } else if (action === 'STO') {
-        fixedAction = 'Sell to Open';
-      }
-    } else if (column === 'Exit Type') {
-      if (exitAction === 'STC') {
-        fixedAction = 'Sell to Close';
-      } else if (exitAction === 'BTC') {
-        fixedAction = 'Buy to Close';
-      } else if (exitAction === 'ExpiredOTM') {
-        fixedAction = 'ExpiredOTM';
-      }
-    }
-
-    // Determine suffix based on value
-    let suffix = '';
-    if (value === 'C') {
-      suffix = 'Call';
-    } else if (value === 'P') {
-      suffix = 'Put';
-    }
-
-    return `${fixedAction} - ${suffix}`;
-  };
-
-  // Main function to get cell text based on column
-  const getCellText = (
-    column: string,
-    value: string,
-    row: OptionsPlRow,
-  ): string => {
-    switch (column) {
-      case 'Realized P/L %':
-        return formatRealizedPLPercentage(value);
-
-      case 'Entry Type':
-        return formatType(column, value, row.Action);
-
-      case 'Exit Type':
-        return formatType(column, value, row.ExitAction, row.ExitAction);
-
-      case 'Ticker':
-        return '$' + value;
-
-      default:
-        return value;
-    }
-  };
-
-  // Ensure `averageTradePL` is parsed as a float
-  const parsedAverageTradePL = parseFloat(averageTradePL);
-
-  // Determine the background color and arrow based on the parsed value
-  const getAvgTradePlBG = (value: GLfloat) => {
-    if (value > 0) return 'bg-[#3fb950]';
-    if (value < 0) return 'bg-[#FB5057]';
-    return 'bg-[#A9A9A9]';
-  };
-
-  const getAvgTradePlArrow = (value: GLfloat) => {
-    if (value > 0) return '▲'; // Up arrow for positive
-    if (value < 0) return '▼'; // Down arrow for negative
-    return '►'; // Side arrow for zero
-  };
-
-  const getNextSortDirection = (currentDirection: string) => {
-    switch (currentDirection) {
-      case 'asc':
-        return 'desc';
-      case 'desc':
-        return 'none';
-      default:
-        return 'asc';
-    }
-  };
-
-  const handleClick = (column: string) => {
-    if (sortColumn === column) {
-      setSortDirection(getNextSortDirection(sortDirection));
-    } else {
+  const handleSort = (column: string) => {
+    if (sortColumn === column)
+      setSortDirection(
+        sortDirection === 'asc'
+          ? 'desc'
+          : sortDirection === 'desc'
+            ? 'none'
+            : 'asc',
+      );
+    else {
       setSortColumn(column);
       setSortDirection('asc');
     }
   };
-  const getButtonClassName = (column: string) => {
-    if (sortColumn === column) {
-      switch (sortDirection) {
-        case 'asc':
-          return 'bg-blue-700 text-white';
-        case 'desc':
-          return 'bg-[#FF5F15] text-white';
-        default:
-          return 'bg-black text-white';
-      }
-    }
-    return 'bg-black text-white';
-  };
 
-  const getSortDirectionIcon = (column: string) => {
-    if (sortColumn === column) {
-      switch (sortDirection) {
-        case 'asc':
-          return '↑';
-        case 'desc':
-          return '↓';
-        case 'none':
-          return '→';
-      }
-    }
-    return '→';
-  };
+  const getSortIcon = (column: string) =>
+    sortColumn === column
+      ? sortDirection === 'asc'
+        ? '↑'
+        : sortDirection === 'desc'
+          ? '↓'
+          : '→'
+      : '→';
+
   return (
-    <div
-      className="bg-black card flex compact italic w-full mx-auto shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.5),_0_-4px_8px_rgba(0,_0,_0,_0.5)] items-center justify-between rounded-2xl overflow-hidden h-auto"
-      id={id}
-    >
-      <div className="relative z-10 flex flex-col items-center px-8 py-8 card-body">
-        <div className="flex flex-col items-center mb-6">
-          {loading ? (
-            skeleton({ widthCls: 'w-max', heightCls: 'h-8' })
-          ) : (
-            <>
-              <h5 className="text-lg text-center text-white card-title md:text-xl">
-                <span className="block text-white border-t-2 border-b-2 border-blue-500 opacity-100 text-base-content">
-                  Stock Options Ledger
-                </span>
-              </h5>
-              <div className="grid grid-cols-1 gap-4 py-2 mt-4 text-white border-b-4 border-blue-500 md:grid-cols-3">
-                <div className="flex flex-col items-center justify-center text-center">
-                  <strong className="mb-2">Average Realized P/L %:</strong>
-                  <div
-                    className={`flex items-center justify-center px-3 py-1 rounded-lg text-white ${getAvgTradePlBG(parsedAverageTradePL)}`}
-                  >
-                    <span className="mr-2">
-                      {getAvgTradePlArrow(parsedAverageTradePL)}
-                    </span>
-                    <span>{parsedAverageTradePL.toFixed(2)}%</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center justify-center text-center">
-                  <strong className="mb-2">Average Trade Length:</strong>
-                  <span>{averageTradeLength.toFixed(2)} days</span>
-                </div>
-
-                <div className="flex flex-col items-center justify-center text-center">
-                  <strong className="mb-2">Most Traded Ticker Symbol:</strong>
-                  <span>${mostTradedTicker}</span>
-                </div>
-              </div>
-            </>
-          )}
+    <div className="w-full max-w-full p-4 mx-auto bg-black shadow-lg rounded-2xl">
+      {/* Stats */}
+      <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
+        <div className="flex flex-col items-center justify-center p-2 bg-gray-900 rounded-lg">
+          <span className="text-sm font-medium text-gray-300">
+            Average Realized P/L %
+          </span>
+          <span
+            className={`mt-1 px-3 py-1 rounded-lg text-white ${parseFloat(averageTradePL) > 0 ? 'bg-green-500' : parseFloat(averageTradePL) < 0 ? 'bg-red-500' : 'bg-gray-400'}`}
+          >
+            {averageTradePL}%
+          </span>
         </div>
+        <div className="flex flex-col items-center justify-center p-2 bg-gray-900 rounded-lg">
+          <span className="text-sm font-medium text-gray-300">
+            Average Trade Length
+          </span>
+          <span className="mt-1">{averageTradeLength.toFixed(2)} days</span>
+        </div>
+        <div className="flex flex-col items-center justify-center p-2 bg-gray-900 rounded-lg">
+          <span className="text-sm font-medium text-gray-300">
+            Most Traded Ticker
+          </span>
+          <span className="mt-1">${mostTradedTicker}</span>
+        </div>
+      </div>
 
-        <div
-          className="overflow-x-auto w-full rounded-2xl bg-black shadow shadow-[0_4px_8px_rgba(0,_0,_0,_0.3),_0_-4px_8px_rgba(0,_0,_0,_0.3)]"
-          style={{
-            border: '2px solid black',
-          }}
-        >
-          <div className="max-h-[500px] overflow-y-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead
-                className="sticky top-0 z-10"
-                style={{
-                  backgroundColor: 'black',
-                  color: 'white',
-                  borderRadius: '0.5rem 0.5rem 0 0',
-                }}
-              >
-                <tr>
+      {/* Table */}
+      <div className="overflow-x-auto rounded-2xl">
+        <table className="min-w-full border-collapse">
+          <thead className="sticky top-0 text-white bg-gray-900">
+            <tr>
+              {visibleColumns.map((column) => (
+                <th
+                  key={column}
+                  className="px-4 py-2 text-xs font-semibold text-left uppercase"
+                >
+                  <button
+                    className="flex items-center gap-1"
+                    onClick={() => handleSort(column)}
+                  >
+                    {column} {getSortIcon(column)}
+                  </button>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {sortedData.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={visibleColumns.length}
+                  className="py-4 text-center text-gray-500"
+                >
+                  No results
+                </td>
+              </tr>
+            ) : (
+              sortedData.map((row, idx) => (
+                <tr key={idx} className="hover:bg-gray-800">
                   {visibleColumns.map((column) => (
-                    <th
-                      key={column}
-                      className="items-center px-5 py-3 text-xs font-medium tracking-wider text-left uppercase"
-                    >
-                      <button
-                        key={column}
-                        onClick={() => handleClick(column)}
-                        className={`p-2 border rounded items-center ${getButtonClassName(column)}`}
+                    <td key={column} className="px-3 py-2">
+                      <div
+                        className={`text-center px-2 py-1 rounded-lg ${getCellBG(column, row[column].toString())} text-white`}
                       >
-                        {column} {getSortDirectionIcon(column)}
-                      </button>
-                    </th>
+                        {column === 'Realized P/L %'
+                          ? parseFloat(row[column].toString()).toFixed(2) + '%'
+                          : row[column]}
+                      </div>
+                    </td>
                   ))}
                 </tr>
-              </thead>
-              <tbody className="bg-black divide-y divide-gray-200 bg-[#ededed]">
-                {sortedData.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={visibleColumns.length}
-                      className="py-4 text-sm font-medium text-center text-gray-500 border border-gray-300 px-7"
-                    >
-                      No results
-                    </td>
-                  </tr>
-                ) : (
-                  sortedData.map((row: OptionsPlRow, index: number) => (
-                    <tr key={index} className="border-b border-gray-300">
-                      {visibleColumns.map((column) => (
-                        <td
-                          key={column}
-                          className="py-3 px-7 whitespace-nowrap"
-                        >
-                          <div
-                            className={`${getCellBackgroundColor(column, row[column].toString(), row)} text-white items-center  ${column === 'EntryDescription' ? 'text-left' : 'text-center'} py-1 px-2 rounded-lg`}
-                          >
-                            {getCellText(column, row[column].toString(), row)}
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

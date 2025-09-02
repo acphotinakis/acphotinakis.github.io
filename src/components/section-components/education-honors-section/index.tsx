@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  SanitizedEducation,
-  SanitizedHonor,
-} from '../../../interfaces/sanitized-config';
 import { skeleton } from '../../../utils';
 import AmsterdamImage from '../../../assets/amsterdam.jpg';
 import { MdLocationOn } from 'react-icons/md';
@@ -17,6 +13,49 @@ const COLORS = {
   white: '#f5f5f5',
 };
 
+const educations = [
+  {
+    institution: 'Rochester Institute of Technology',
+    degree: 'M.Sc. Computer Science',
+    from: 'August 2025',
+    to: 'December 2026',
+    level: 'Master’s',
+    description:
+      'Specializing in advanced AI, machine learning, and algorithmic trading systems.',
+    highlightColor: '#F87171', // red for masters to stand out
+    special: true,
+  },
+  {
+    institution: 'Rochester Institute of Technology',
+    degree: 'B.Sc. Computer Science',
+    from: 'August 2021',
+    to: 'May 2025',
+    level: 'Bachelor’s',
+    description:
+      'Pursuing a strong foundation in software engineering, algorithms, and systems design.',
+    highlightColor: '#4ADE80', // green for bachelors
+  },
+  {
+    institution: 'Rochester Institute of Technology',
+    degree: 'Minor in Finance',
+    from: 'August 2022',
+    to: 'December 2024',
+    level: 'Bachelor’s',
+    description:
+      'Exploring financial markets, investing, and the intersection of technology and finance.',
+    highlightColor: '#4ADE80',
+  },
+];
+
+const honors = [
+  { honorName: 'RIT Presidential Scholar', from: '2021', to: '2026' },
+  { honorName: "Dean's List Spring '25", from: '2025', to: '2025' },
+  { honorName: "Dean's List Fall '24", from: '2024', to: '2024' },
+  { honorName: "Dean's List Fall '23", from: '2023', to: '2023' },
+  { honorName: "Dean's List Fall '22", from: '2022', to: '2022' },
+  { honorName: "Dean's List Spring '22", from: '2022', to: '2022' },
+];
+
 const EducationListItem = ({
   time,
   degree,
@@ -27,6 +66,7 @@ const EducationListItem = ({
   institution?: React.ReactNode;
 }) => (
   <li className="relative mb-5" style={{ color: COLORS.white }}>
+    {/* Dot */}
     <div
       className="absolute w-2 h-2 rounded-full border mt-1.5"
       style={{
@@ -34,7 +74,7 @@ const EducationListItem = ({
         borderColor: COLORS.primaryRed,
         left: '-4.5px',
       }}
-    ></div>
+    />
     {/* Timeline Line */}
     <div
       className="absolute top-0 bottom-0 left-0 w-px"
@@ -44,20 +84,22 @@ const EducationListItem = ({
         bottom: '-23px',
         top: '5px',
       }}
-    ></div>
-
-    <div className="ml-2">
+    />
+    <div className="ml-3">
       <div
-        className="my-0.5 text-xs sm:text-sm flex items-center"
+        className="flex items-center mb-1 text-xs font-medium sm:text-sm md:text-sm"
         style={{ color: COLORS.midGray }}
       >
-        <span>{time}</span>
+        {time}
       </div>
-      <div className="text-sm font-medium sm:text-base md:text-md">
-        <span>{institution}</span>
+      <div className="text-sm sm:text-base md:text-base font-semibold mb-0.5">
+        {institution}
       </div>
-      <div className="text-sm font-medium sm:text-base md:text-md">
-        <span>{degree}</span>
+      <div
+        className="text-sm sm:text-base md:text-base font-medium text-[#F5F5F5]"
+        style={{ color: COLOR_SCHEMA.textSecondary }}
+      >
+        {degree}
       </div>
     </div>
   </li>
@@ -65,26 +107,29 @@ const EducationListItem = ({
 
 const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
   <li className="relative mb-5" style={{ color: COLORS.white }}>
-    {/* Timeline Dot */}
+    {/* Dot */}
     <div
       className="absolute w-2 h-2 rounded-full border mt-1.5"
       style={{
-        backgroundColor: COLORS.primaryRed,
-        borderColor: COLORS.primaryRed,
+        backgroundColor: COLOR_SCHEMA.accentRed,
+        borderColor: COLOR_SCHEMA.accentRed,
         left: '-4.5px',
       }}
-    ></div>
+    />
     {/* Timeline Line */}
     <div
       className="absolute top-0 bottom-0 left-0 w-px"
       style={{
-        backgroundColor: COLORS.primaryRed,
+        backgroundColor: COLOR_SCHEMA.accentRed,
         left: '-1px',
         bottom: '-23px',
         top: '5px',
       }}
-    ></div>
-    <div className="ml-2 my-0.5 text-xs pt-1 text-lg md:text-base sm:text-sm text-[#F5F5F5]">
+    />
+    <div
+      className="pt-1 ml-3 text-sm font-medium sm:text-base md:text-base"
+      style={{ color: COLOR_SCHEMA.textSecondary }}
+    >
       {honorName}
     </div>
   </li>
@@ -92,13 +137,9 @@ const HonorListItem = ({ honorName }: { honorName: React.ReactNode }) => (
 
 const EducationHonorSection = ({
   loading,
-  educations,
-  honors,
   id,
 }: {
   loading: boolean;
-  educations: SanitizedEducation[];
-  honors: SanitizedHonor[];
   id: string;
 }) => {
   const renderSkeleton = () => {
@@ -107,10 +148,7 @@ const EducationHonorSection = ({
       array.push(
         <EducationListItem
           key={index}
-          time={skeleton({
-            widthCls: 'w-5/12',
-            heightCls: 'h-4',
-          })}
+          time={skeleton({ widthCls: 'w-5/12', heightCls: 'h-4' })}
           degree={skeleton({
             widthCls: 'w-6/12',
             heightCls: 'h-4',
@@ -125,11 +163,11 @@ const EducationHonorSection = ({
 
   return (
     <div
-      className="flex w-full h-full max-w-5xl mx-auto overflow-hidden shadow-lg card rounded-2xl shadow-black/50 scroll-mt-16"
+      className="flex w-full h-full max-w-5xl mx-auto overflow-hidden shadow-lg rounded-2xl scroll-mt-16"
       id={id}
       style={{
         backgroundColor: COLOR_SCHEMA.black,
-        boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
+        boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
       }}
     >
       {/* Image */}
@@ -146,25 +184,25 @@ const EducationHonorSection = ({
           style={{ color: COLORS.white }}
         >
           <MdLocationOn size={24} style={{ color: COLORS.primaryRed }} />
-          <span>Amsterdam, Netherlands</span>
+          <span className="text-sm md:text-base">Amsterdam, Netherlands</span>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="flex-1 px-8 py-8">
+      <div className="flex-1 px-6 py-6 md:px-8 md:py-8">
         <div className="flex flex-col gap-6 md:flex-row">
           {/* Education */}
           <div className="flex-1">
-            <h5 className="text-lg md:text-xl mb-4 text-[#F5F5F5] card-title">
+            <h1 className="text-md sm:text-xl md:text-2xl mb-4 text-[#F5F5F5] card-title">
               {loading ? (
                 skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
               ) : (
-                <span className="block text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
+                <span className="block text-md text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
                   Education
                 </span>
               )}
-            </h5>
-            <ol className="relative mx-4 my-2 border-l border-[#E53935]">
+            </h1>
+            <ol className="relative mx-2 md:mx-4 my-2 border-l border-[#E53935]">
               {loading
                 ? renderSkeleton()
                 : educations.map((item, index) => (
@@ -180,7 +218,7 @@ const EducationHonorSection = ({
 
           {/* Honors */}
           <div className="flex-1">
-            <h5 className="text-lg md:text-xl mb-4 text-[#F5F5F5] card-title">
+            <h5 className="text-lg sm:text-xl md:text-2xl mb-4 text-[#F5F5F5] card-title">
               {loading ? (
                 skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
               ) : (
@@ -189,7 +227,7 @@ const EducationHonorSection = ({
                 </span>
               )}
             </h5>
-            <ol className="relative mx-4 my-2 border-l border-[#E53935]">
+            <ol className="relative mx-2 md:mx-4 my-2 border-l border-[#E53935]">
               {loading
                 ? renderSkeleton()
                 : honors.map((item, index) => (

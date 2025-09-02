@@ -187,7 +187,7 @@ const MarqueeDemo = () => {
       <div className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden rounded-lg">
         <div className="flex items-center justify-between mx-3 mt-5 mb-2">
           <h5
-            className="text-lg text-center card-title md:text-xl"
+            className="text-lg text-center md:text-xl"
             style={{ color: COLOR_SCHEMA.textPrimary }}
           >
             <span

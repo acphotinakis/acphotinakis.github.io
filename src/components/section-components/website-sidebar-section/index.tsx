@@ -1,7 +1,6 @@
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 import { Github, Linkedin, Instagram } from 'lucide-react';
 import { cardSections, CardSection } from '@/components/gitprofile';
-import React from 'react';
 
 export function ProfileSidebar() {
   const flattenedSections: CardSection[] = cardSections.flatMap((section) => {
@@ -10,30 +9,6 @@ export function ProfileSidebar() {
     }
     return section;
   });
-
-  // Include all sections, including dropdowns
-  const renderSections = (sections: CardSection[]) => {
-    return sections.map((section: CardSection) => (
-      <React.Fragment key={section.id}>
-        <a
-          href={`#${section.id}`}
-          className="relative font-medium transition-all duration-200 group"
-          style={{ color: COLOR_SCHEMA.textSecondary }}
-        >
-          <span
-            className="inline-block transition-transform duration-200 group-hover:translate-x-2"
-            style={{ position: 'relative' }}
-          >
-            {section.name}
-          </span>
-          <span className="absolute bottom-0 left-[-5px] h-[2px] w-0 bg-red-500 transition-all duration-200 group-hover:w-[calc(100%+10px)] group-hover:left-[5px]"></span>
-        </a>
-        {section.dropdown && (
-          <div className="mt-2 ml-4">{renderSections(section.dropdown)}</div>
-        )}
-      </React.Fragment>
-    ));
-  };
 
   return (
     <aside
@@ -57,17 +32,10 @@ export function ProfileSidebar() {
         >
           Computer Science & Finance
         </h2>
-        <p
-          className="mt-6 leading-relaxed text-md"
-          style={{ color: COLOR_SCHEMA.textSecondary }}
-        >
-          5th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and
-          Algo Trading.
-        </p>
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex flex-col gap-4 mt-auto ml-3 text-sm">
+      <nav className="flex flex-col gap-4 mb-8 ml-3 text-sm">
         {flattenedSections.map((section) => (
           <a
             key={section.id}
@@ -76,7 +44,7 @@ export function ProfileSidebar() {
             style={{ color: COLOR_SCHEMA.textSecondary }}
           >
             <span
-              className="inline-block transition-transform duration-200 group-hover:translate-x-2"
+              className="inline-block transition-transform duration-200 group-hover:translate-x-2 group-hover:text-red-500"
               style={{ position: 'relative' }}
             >
               {section.name}

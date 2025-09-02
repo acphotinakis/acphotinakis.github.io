@@ -47,6 +47,7 @@ export interface ColorSchema {
   infoBg: string;
 
   black: string;
+  white: string;
 }
 
 export const COLOR_SCHEMA: ColorSchema = {
@@ -98,4 +99,5 @@ export const COLOR_SCHEMA: ColorSchema = {
   infoBg: '#0D47A1',
 
   black: '#000000',
+  white: '#FFFFFF',
 };

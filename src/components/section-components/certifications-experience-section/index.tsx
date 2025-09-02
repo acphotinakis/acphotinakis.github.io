@@ -4,15 +4,7 @@ import { skeleton } from '../../../utils';
 import LinkIcon from '@mui/icons-material/Link';
 import PlataniasImage from '../../../assets/platanias.jpg';
 import { MdLocationOn } from 'react-icons/md';
-
-// Color palette constants
-const COLORS = {
-  primaryRed: '#e63946',
-  black: '#121212',
-  darkGray: '#1e1e1e',
-  midGray: '#9e9e9e',
-  white: '#f5f5f5',
-};
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 const CertificationListItem = ({
   year,
@@ -24,12 +16,12 @@ const CertificationListItem = ({
   body?: React.ReactNode;
   link?: string;
 }) => (
-  <li className="relative mb-5" style={{ color: COLORS.white }}>
+  <li className="relative mb-5" style={{ color: COLOR_SCHEMA.white }}>
     <div
       className="absolute w-2 h-2 rounded-full border mt-1.5"
       style={{
-        backgroundColor: COLORS.primaryRed,
-        borderColor: COLORS.primaryRed,
+        backgroundColor: COLOR_SCHEMA.accentRed,
+        borderColor: COLOR_SCHEMA.accentRed,
         left: '-4.5px',
       }}
     ></div>
@@ -37,7 +29,7 @@ const CertificationListItem = ({
     <div
       className="absolute top-0 bottom-0 left-0 w-px"
       style={{
-        backgroundColor: COLORS.primaryRed,
+        backgroundColor: COLOR_SCHEMA.accentRed,
         left: '-1px',
         bottom: '-23px',
         top: '5px',
@@ -47,14 +39,14 @@ const CertificationListItem = ({
     <div className="ml-2">
       <div
         className="my-0.5 text-xs sm:text-sm flex items-center"
-        style={{ color: COLORS.midGray }}
+        style={{ color: COLOR_SCHEMA.textMuted }}
       >
         <span>{year}</span>
         {link && (
           <a href={link} target="_blank" rel="noopener noreferrer">
             <span
               className="flex items-center ml-2 hover:underline"
-              style={{ color: COLORS.primaryRed }}
+              style={{ color: COLOR_SCHEMA.accentRed }}
             >
               <LinkIcon />
             </span>
@@ -97,7 +89,7 @@ const CertificationsSection = ({
       className="grid w-full max-w-5xl grid-cols-1 mx-auto overflow-hidden shadow-lg card md:grid-cols-2 rounded-2xl"
       id={id}
       style={{
-        backgroundColor: COLORS.black,
+        backgroundColor: COLOR_SCHEMA.black,
         boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
       }}
     >
@@ -105,7 +97,7 @@ const CertificationsSection = ({
         <div className="flex">
           {/* Certifications */}
           <div className="flex-1 text-lg md:text-base sm:text-sm">
-            <div className="mx-3" style={{ color: COLORS.white }}>
+            <div className="mx-3" style={{ color: COLOR_SCHEMA.white }}>
               <h5 className="card-title">
                 {loading ? (
                   skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
@@ -113,8 +105,8 @@ const CertificationsSection = ({
                   <span
                     className="block border-t-2 border-b-2"
                     style={{
-                      borderColor: COLORS.primaryRed,
-                      color: COLORS.white,
+                      borderColor: COLOR_SCHEMA.accentRed,
+                      color: COLOR_SCHEMA.white,
                     }}
                   >
                     Certifications
@@ -125,8 +117,8 @@ const CertificationsSection = ({
             <ol
               className="relative mx-4 my-2 border-l"
               style={{
-                color: COLORS.white,
-                borderColor: COLORS.primaryRed,
+                color: COLOR_SCHEMA.white,
+                borderColor: COLOR_SCHEMA.accentRed,
               }}
             >
               {loading
@@ -155,9 +147,9 @@ const CertificationsSection = ({
       >
         <div
           className="absolute flex items-center space-x-2 top-10 right-10"
-          style={{ color: COLORS.white }}
+          style={{ color: COLOR_SCHEMA.white }}
         >
-          <MdLocationOn size={24} style={{ color: COLORS.primaryRed }} />
+          <MdLocationOn size={24} style={{ color: COLOR_SCHEMA.accentRed }} />
           <span>Crete, Greece</span>
         </div>
       </div>

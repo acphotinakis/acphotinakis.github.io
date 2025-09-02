@@ -47,11 +47,11 @@ export const cardSections: CardSection[] = [
     id: 'education-honors',
     path: '/education-honors',
   },
-  {
-    name: 'Stock Options Ledger',
-    id: 'stock-options-ledger',
-    path: '/stock-options-ledger',
-  },
+  // {
+  //   name: 'Stock Options Ledger',
+  //   id: 'stock-options-ledger',
+  //   path: '/stock-options-ledger',
+  // },
   {
     name: 'Certifications & Experience',
     id: 'certifications-experience',
@@ -293,11 +293,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
             id={getSectionId('Home')}
           >
-            <AvatarCard
-              profile={profile}
-              loading={loading}
-              id={getSectionId('Home')}
-            />
+            <AvatarCard loading={loading} id={getSectionId('Home')} />
           </div>
 
           {/* Contacts Card */}
@@ -323,8 +319,8 @@ const GitProfile = ({ config }: { config: Config }) => {
             >
               <EducationHonorSection
                 loading={loading}
-                educations={sanitizedConfig.educations}
-                honors={sanitizedConfig.honors}
+                // educations={sanitizedConfig.educations}
+                // honors={sanitizedConfig.honors}
                 id={getSectionId('Education & Honors')}
               />
             </div>
@@ -394,7 +390,7 @@ const GitProfile = ({ config }: { config: Config }) => {
 
           {/* Stock Options Ledger (Optional) */}
 
-          <div
+          {/* <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
             id={getSectionId('Stock Options Ledger')}
           >
@@ -402,7 +398,7 @@ const GitProfile = ({ config }: { config: Config }) => {
               loading={loading}
               id={getSectionId('Stock Options Ledger')}
             />
-          </div>
+          </div> */}
         </div>
       </main>
     </div>
@@ -439,8 +435,8 @@ const GitProfile = ({ config }: { config: Config }) => {
         >
           <EducationHonorSection
             loading={loading}
-            educations={sanitizedConfig.educations}
-            honors={sanitizedConfig.honors}
+            // educations={sanitizedConfig.educations}
+            // honors={sanitizedConfig.honors}
             id={getSectionId('Education & Honors')}
           />
         </div>

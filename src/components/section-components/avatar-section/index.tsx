@@ -1,15 +1,13 @@
-import { Profile } from '../../../interfaces/profile';
 import { BoxReveal } from '../../ui/box-reveal';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 interface AvatarCardProps {
-  profile: Profile | null;
   loading?: boolean;
   resumeFileUrl?: string;
   id: string;
 }
 
-const AvatarCard: React.FC<AvatarCardProps> = ({ profile, id }) => {
+const AvatarCard: React.FC<AvatarCardProps> = ({ id }) => {
   return (
     <section
       id={id}
@@ -23,32 +21,44 @@ const AvatarCard: React.FC<AvatarCardProps> = ({ profile, id }) => {
         `,
       }}
     >
+      {/* Heading */}
+      <div className="flex flex-col items-center justify-center w-full mb-6 text-center">
+        <h5 className="text-lg text-center text-[#F5F5F5] card-title md:text-xl">
+          <span className="block text-center border-t-2 border-b-2 border-[#E53935] py-1">
+            Home
+          </span>
+        </h5>
+      </div>
+
       {/* Description Section */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center w-full">
         <BoxReveal boxColor={COLOR_SCHEMA.accentRed} duration={0.9}>
-          <div className="mt-4 space-y-4 text-sm leading-relaxed text-left sm:text-base">
+          <div className="mt-4 space-y-5 text-sm leading-relaxed text-left sm:text-base">
             <p style={{ color: COLOR_SCHEMA.textSecondary }}>
-              I’m a Computer Science student with a minor in Finance. I’m
-              passionate about leveraging AI, machine learning, algorithmic
-              trading, and cloud computing to develop quant strategies and
-              trading solutions that bridge technology and finance.
+              I’m a 5th-year Computer Science student at RIT with a minor in
+              Finance. I’m passionate about using AI, machine learning,
+              algorithmic trading, and cloud computing to develop innovative
+              solutions that bridge technology and finance. My focus is on
+              building quant strategies and tools that combine analytical rigor
+              with practical applications.
             </p>
             <p style={{ color: COLOR_SCHEMA.textSecondary }}>
-              Outside of academics, I enjoy classic rock—bands like AC/DC,
+              Beyond academics, I’m fueled by classic rock—bands like AC/DC,
               Journey, Def Leppard, Poison, Mötley Crüe, Scorpions, and Guns N’
-              Roses keep me motivated and relaxed.
+              Roses keep me energized and inspired.
             </p>
             <p style={{ color: COLOR_SCHEMA.textSecondary }}>
-              When facing challenges, I rely on persistence, curiosity, and
-              creativity. I like to approach problems with an open mind,
-              experiment, and find solutions that work.
+              I tackle challenges with persistence, curiosity, and creativity. I
+              enjoy experimenting, exploring new ideas, and finding practical
+              solutions to complex problems.
             </p>
             <p style={{ color: COLOR_SCHEMA.textSecondary }}>
-              This year, I had the opportunity to study abroad across Europe and
-              the Mediterranean. I explored Hungary, Italy, Slovenia, Greece,
-              Croatia, and Malta—including Budapest, Florence, Venice,
-              Ljubljana, Athens, Paros, Zagreb, Split, and Mdina. Traveling has
-              broadened my perspective and taught me adaptability in new
+              This year, I had the incredible opportunity to study abroad across
+              Europe and the Mediterranean, visiting Hungary, Italy, Slovenia,
+              Greece, Croatia, and Malta—including Budapest, Florence, Venice,
+              Ljubljana, Athens, Paros, Zagreb, Split, and Mdina. These
+              experiences broadened my perspective, strengthened my
+              adaptability, and reinforced my passion for learning in diverse
               environments.
             </p>
           </div>
