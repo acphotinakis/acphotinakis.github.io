@@ -197,7 +197,7 @@ const EducationHonorSection = ({
               {loading ? (
                 skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
               ) : (
-                <span className="block text-md text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
+                <span className="block text-base text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
                   Education
                 </span>
               )}
@@ -222,7 +222,7 @@ const EducationHonorSection = ({
               {loading ? (
                 skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
               ) : (
-                <span className="block text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
+                <span className="block text-base text-[#F5F5F5] border-t-2 border-b-2 border-[#E53935] py-1">
                   Honors
                 </span>
               )}

@@ -8,7 +8,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { getLanguageColor, skeleton } from '../../../utils';
 import { GithubProject } from '../../../interfaces/github-project';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
-import Masonry from 'react-responsive-masonry';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 type ProjectStatus = 'completed' | 'in-progress' | 'new';
 
@@ -302,13 +302,15 @@ const GithubProjectCard = ({
               </a>
             )}
           </div>
-          <div className="w-full">
+          <div className="w-full ">
             {loading ? (
               renderSkeleton()
             ) : (
-              <Masonry columnsCount={2} gutter="16px">
-                {renderProjects()}
-              </Masonry>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={{ 350: 1, 600: 2, 900: 3 }}
+              >
+                <Masonry gutter="16px">{renderProjects()}</Masonry>
+              </ResponsiveMasonry>
             )}
           </div>
         </div>

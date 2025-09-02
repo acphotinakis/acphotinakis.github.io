@@ -521,10 +521,7 @@ const GitProfile = ({ config }: { config: Config }) => {
   // -------------------------
   return (
     <HelmetProvider>
-      <div
-        className="flex h-screen bg-red-900 fade-in"
-        style={{ fontFamily: 'Roboto Mono, monospace' }}
-      >
+      <div className="flex w-screen h-screen font-mono bg-red-900 fade-in">
         {error ? (
           <ErrorPage
             status={error.status}
@@ -533,8 +530,11 @@ const GitProfile = ({ config }: { config: Config }) => {
           />
         ) : (
           <>
+            {/* Sidebar */}
             <ProfileSidebar />
-            <div className="flex-1 overflow-auto">
+
+            {/* Main Content */}
+            <main className="flex-1 overflow-auto">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/contacts" element={<ContactsPage />} />
@@ -557,7 +557,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                 />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
-            </div>
+            </main>
           </>
         )}
       </div>
