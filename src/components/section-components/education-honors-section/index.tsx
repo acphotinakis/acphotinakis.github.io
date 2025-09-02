@@ -6,6 +6,7 @@ import {
 import { skeleton } from '../../../utils';
 import AmsterdamImage from '../../../assets/amsterdam.jpg';
 import { MdLocationOn } from 'react-icons/md';
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 // Color palette constants
 const COLORS = {
@@ -127,7 +128,7 @@ const EducationHonorSection = ({
       className="flex w-full h-full max-w-5xl mx-auto overflow-hidden shadow-lg card rounded-2xl shadow-black/50 scroll-mt-16"
       id={id}
       style={{
-        backgroundColor: COLORS.black,
+        backgroundColor: COLOR_SCHEMA.black,
         boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
       }}
     >

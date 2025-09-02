@@ -45,6 +45,8 @@ export interface ColorSchema {
   warningBg: string;
   errorBg: string;
   infoBg: string;
+
+  black: string;
 }
 
 export const COLOR_SCHEMA: ColorSchema = {
@@ -52,7 +54,8 @@ export const COLOR_SCHEMA: ColorSchema = {
   background: '#1F1F1F',
   backgroundAlt: '#181818',
   cardBackground: '#121212',
-  cardBg: '#121212',
+  // cardBg: '#121212',
+  cardBg: '#000000',
 
   // Text
   textPrimary: '#F5F5F5',
@@ -93,4 +96,6 @@ export const COLOR_SCHEMA: ColorSchema = {
   warningBg: '#F57C00',
   errorBg: '#B71C1C',
   infoBg: '#0D47A1',
+
+  black: '#000000',
 };

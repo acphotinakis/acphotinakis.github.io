@@ -12,6 +12,17 @@ interface Experience {
   skills: string[];
 }
 
+interface WorkExperienceItemProps {
+  time: React.ReactNode;
+  position: React.ReactNode;
+  company: React.ReactNode;
+  details: React.ReactNode;
+  from: string;
+  to: string;
+  companyLink: string;
+  skills: string[];
+}
+
 const experiences: Experience[] = [
   {
     company: 'PricewaterhouseCoopers (PwC)',
@@ -72,12 +83,12 @@ Developed a dynamic linking library using Boost C++ and DLL interfaces to integr
   },
 ];
 
-const WorkExperienceItem: React.FC<Experience & { time: string }> = ({
+const WorkExperienceItem: React.FC<WorkExperienceItemProps> = ({
   time,
   position,
   company,
-  companyLink,
   details,
+  companyLink,
   skills,
 }) => (
   <li className="relative pl-6 mb-8">
@@ -204,6 +215,8 @@ const WorkExperienceSection: React.FC<{ loading?: boolean; id?: string }> = ({
                   <WorkExperienceItem
                     key={idx}
                     time={`${exp.from} - ${exp.to}`}
+                    from={exp.from}
+                    to={exp.to}
                     position={exp.position}
                     company={exp.company}
                     companyLink={exp.companyLink}

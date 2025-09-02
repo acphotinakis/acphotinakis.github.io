@@ -1,86 +1,93 @@
-import React from 'react';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
-import { Github, Linkedin, Instagram } from 'lucide-react'; // example icons
+import { Github, Linkedin, Instagram } from 'lucide-react';
+import { cardSections, CardSection } from '@/components/gitprofile';
+import React from 'react';
 
 export function ProfileSidebar() {
+  const flattenedSections: CardSection[] = cardSections.flatMap((section) => {
+    if (section.dropdown && section.dropdown.length > 0) {
+      return [section, ...section.dropdown];
+    }
+    return section;
+  });
+
+  // Include all sections, including dropdowns
+  const renderSections = (sections: CardSection[]) => {
+    return sections.map((section: CardSection) => (
+      <React.Fragment key={section.id}>
+        <a
+          href={`#${section.id}`}
+          className="relative font-medium transition-all duration-200 group"
+          style={{ color: COLOR_SCHEMA.textSecondary }}
+        >
+          <span
+            className="inline-block transition-transform duration-200 group-hover:translate-x-2"
+            style={{ position: 'relative' }}
+          >
+            {section.name}
+          </span>
+          <span className="absolute bottom-0 left-[-5px] h-[2px] w-0 bg-red-500 transition-all duration-200 group-hover:w-[calc(100%+10px)] group-hover:left-[5px]"></span>
+        </a>
+        {section.dropdown && (
+          <div className="mt-2 ml-4">{renderSections(section.dropdown)}</div>
+        )}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <aside
+      className="flex flex-col justify-between min-h-screen p-8 border-r w-80"
       style={{
-        width: '320px',
-        minHeight: '100vh',
-        backgroundColor: 'black',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '2rem',
-        borderRight: `1px solid ${COLOR_SCHEMA.border}`,
+        backgroundColor: COLOR_SCHEMA.cardBg,
+        borderColor: COLOR_SCHEMA.border,
       }}
     >
       {/* Top Section: Name + Title + Intro */}
       <div>
         <h1
-          style={{
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: COLOR_SCHEMA.textPrimary,
-          }}
+          className="text-2xl font-bold"
+          style={{ color: COLOR_SCHEMA.textPrimary }}
         >
           Andrew Photinakis
         </h1>
         <h2
-          style={{
-            fontSize: '1.2rem',
-            color: COLOR_SCHEMA.textSecondary,
-            marginTop: '0.25rem',
-          }}
+          className="mt-1 text-lg"
+          style={{ color: COLOR_SCHEMA.textSecondary }}
         >
           Computer Science & Finance
         </h2>
         <p
-          style={{
-            marginTop: '1.5rem',
-            color: COLOR_SCHEMA.textSecondary,
-            lineHeight: '1.6',
-          }}
+          className="mt-6 leading-relaxed text-md"
+          style={{ color: COLOR_SCHEMA.textSecondary }}
         >
           5th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and
           Algo Trading.
         </p>
-
-        {/* Nav Links */}
-        <nav
-          style={{
-            marginTop: '2.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-          }}
-        >
-          {['About', 'Experience', 'Projects'].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              style={{
-                color: COLOR_SCHEMA.textSecondary,
-                fontWeight: '500',
-                textDecoration: 'none',
-                position: 'relative',
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = COLOR_SCHEMA.accentRed)
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = COLOR_SCHEMA.textSecondary)
-              }
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
       </div>
 
+      {/* Navigation Links */}
+      <nav className="flex flex-col gap-4 mt-auto ml-3 text-sm">
+        {flattenedSections.map((section) => (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            className="relative font-medium transition-all duration-200 group"
+            style={{ color: COLOR_SCHEMA.textSecondary }}
+          >
+            <span
+              className="inline-block transition-transform duration-200 group-hover:translate-x-2"
+              style={{ position: 'relative' }}
+            >
+              {section.name}
+            </span>
+            <span className="absolute bottom-0 left-[-5px] h-[2px] w-0 bg-red-500 transition-all duration-200 group-hover:w-[calc(100%+10px)] group-hover:left-[5px]"></span>
+          </a>
+        ))}
+      </nav>
+
       {/* Footer: Social Icons */}
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+      <div className="flex gap-4 mt-10">
         <a
           href="https://github.com/yourusername"
           target="_blank"

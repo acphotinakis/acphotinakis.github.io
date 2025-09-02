@@ -10,15 +10,7 @@ import {
 import { skeleton } from '../../../utils';
 import BarcelonaImage from '../../../assets/barcelona.jpg';
 import ResumePdfFile from '../../../assets/Photinakis_Andrew_Resume_SWE.pdf';
-
-// Color palette constants
-const COLORS = {
-  primaryRed: '#e63946',
-  black: '#121212',
-  darkGray: '#1e1e1e',
-  midGray: '#9e9e9e',
-  white: '#f5f5f5',
-};
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 type Props = {
   profile: Profile | null;
@@ -65,7 +57,7 @@ const ListItem: React.FC<{
 
 const colorMap: Record<string, string> = {
   github: '#E53935',
-  linkedin: '#0077b5',
+  linkedin: '#E53935',
   dev: '#E53935',
   stackoverflow: '#E53935',
   phone: '#E53935',
@@ -94,10 +86,10 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
 
   return (
     <div
-      className="bg-[#2C2C25] card flex w-full max-w-5xl mx-auto shadow-lg shadow-black/50 rounded-2xl overflow-hidden h-auto"
+      className="flex w-full h-auto max-w-5xl mx-auto overflow-hidden shadow-lg card shadow-black/50 rounded-2xl"
       id={id}
       style={{
-        backgroundColor: COLORS.black,
+        backgroundColor: COLOR_SCHEMA.cardBg,
         boxShadow: `0 4px 15px rgba(0,0,0,0.5)`,
       }}
     >
@@ -108,12 +100,13 @@ const DetailsCard = ({ profile, loading, social, github, id }: Props) => {
             renderSkeleton()
           ) : (
             <>
-              <h5 className="text-lg text-center text-[#F5F5F5] card-title md:text-xl mb-6">
-                <span className="block text-center border-t-2 border-b-2 border-[#E53935] py-1">
+              <h5 className="text-lg text-[#F5F5F5] card-title md:text-xl mb-4 px-6">
+                <span className="border-t-2 border-b-2 border-[#E53935] py-1 inline-block">
                   Contacts
                 </span>
               </h5>
-              <div className="flex flex-col items-center w-full gap-2">
+
+              <div className="flex flex-col w-full gap-2 items-left">
                 {profile.location && (
                   <ListItem
                     icon={<MdLocationOn />}

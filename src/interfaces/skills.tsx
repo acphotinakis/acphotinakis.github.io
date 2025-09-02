@@ -85,11 +85,12 @@ import { VscJson, VscAzure } from 'react-icons/vsc';
 import { TbFileTypeXml } from 'react-icons/tb';
 import { PiFileCSharpLight } from 'react-icons/pi';
 import { COLOR_SCHEMA } from './colorSchema';
+import React from 'react';
 
 // Skill icons mapped to skill names
 export const SKILL_ICONS: Record<
   SKILL_NAMES,
-  { icon: JSX.Element; color: string }
+  { icon: React.ReactElement; color: string }
 > = {
   Python: {
     icon: <FaPython color={COLOR_SCHEMA.accentYellow} />,

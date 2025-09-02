@@ -4,109 +4,57 @@ import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 interface AvatarCardProps {
   profile: Profile | null;
-  loading: boolean;
+  loading?: boolean;
   resumeFileUrl?: string;
   id: string;
 }
 
-const AvatarCard: React.FC<AvatarCardProps> = ({
-  profile,
-  id,
-}): JSX.Element => {
+const AvatarCard: React.FC<AvatarCardProps> = ({ profile, id }) => {
   return (
-    <div
+    <section
       id={id}
-      className="flex flex-col items-center justify-center w-full max-w-5xl p-8 mx-auto text-center mt-11 rounded-2xl scroll-mt-20"
+      className="flex flex-col items-center justify-center w-full max-w-5xl p-8 mx-auto mt-11 rounded-2xl scroll-mt-20"
       style={{
-        backgroundColor: COLOR_SCHEMA.cardBg,
+        backgroundColor: COLOR_SCHEMA.black,
         boxShadow: `
-          -4px 0 6px -2px ${COLOR_SCHEMA.border},   /* left shadow */
-           4px 0 6px -2px ${COLOR_SCHEMA.border},   /* right shadow */
-           0 4px 6px -2px ${COLOR_SCHEMA.border}    /* bottom shadow */
+          -4px 0 6px -2px ${COLOR_SCHEMA.border},
+           4px 0 6px -2px ${COLOR_SCHEMA.border},
+           0 4px 6px -2px ${COLOR_SCHEMA.border}
         `,
       }}
     >
-      <div className="flex grid w-full h-full grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Name Section */}
-        <div className="flex items-center justify-center">
-          <BoxReveal boxColor={COLOR_SCHEMA.accentRed} duration={0.9}>
-            <p
-              className="text-[3.5rem] font-semibold"
-              style={{ color: COLOR_SCHEMA.textPrimary }}
-            >
-              <span style={{ color: COLOR_SCHEMA.accentRed }}>
-                {profile?.name}
-              </span>
+      {/* Description Section */}
+      <div className="flex items-center justify-center">
+        <BoxReveal boxColor={COLOR_SCHEMA.accentRed} duration={0.9}>
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-left sm:text-base">
+            <p style={{ color: COLOR_SCHEMA.textSecondary }}>
+              I’m a Computer Science student with a minor in Finance. I’m
+              passionate about leveraging AI, machine learning, algorithmic
+              trading, and cloud computing to develop quant strategies and
+              trading solutions that bridge technology and finance.
             </p>
-          </BoxReveal>
-        </div>
-
-        {/* Description Section */}
-        <div className="flex items-center justify-center">
-          <BoxReveal boxColor={COLOR_SCHEMA.accentRed} duration={0.9}>
-            <div
-              className="mt-6 leading-relaxed"
-              style={{ color: COLOR_SCHEMA.textSecondary }}
-            >
-              <p className="mb-2">
-                → 4th year Computer Science Student at Rochester Institute of
-                Technology, studying
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  Computer Science
-                </span>{' '}
-                &
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  Finance
-                </span>
-              </p>
-              <p>
-                → Strong interests in
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  Software Engineering
-                </span>
-                ,
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  Data Science
-                </span>
-                ,
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  Cloud Computing
-                </span>
-                , &
-                <span
-                  className="font-semibold"
-                  style={{ color: COLOR_SCHEMA.accentRed }}
-                >
-                  {' '}
-                  High-Frequency/Algorithmic Trading
-                </span>
-                .
-              </p>
-            </div>
-          </BoxReveal>
-        </div>
+            <p style={{ color: COLOR_SCHEMA.textSecondary }}>
+              Outside of academics, I enjoy classic rock—bands like AC/DC,
+              Journey, Def Leppard, Poison, Mötley Crüe, Scorpions, and Guns N’
+              Roses keep me motivated and relaxed.
+            </p>
+            <p style={{ color: COLOR_SCHEMA.textSecondary }}>
+              When facing challenges, I rely on persistence, curiosity, and
+              creativity. I like to approach problems with an open mind,
+              experiment, and find solutions that work.
+            </p>
+            <p style={{ color: COLOR_SCHEMA.textSecondary }}>
+              This year, I had the opportunity to study abroad across Europe and
+              the Mediterranean. I explored Hungary, Italy, Slovenia, Greece,
+              Croatia, and Malta—including Budapest, Florence, Venice,
+              Ljubljana, Athens, Paros, Zagreb, Split, and Mdina. Traveling has
+              broadened my perspective and taught me adaptability in new
+              environments.
+            </p>
+          </div>
+        </BoxReveal>
       </div>
-    </div>
+    </section>
   );
 };
 

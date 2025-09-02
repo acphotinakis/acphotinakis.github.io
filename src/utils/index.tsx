@@ -8,6 +8,7 @@ import {
   SanitizedHotjar,
   SanitizedThemeConfig,
 } from '../interfaces/sanitized-config';
+import React from 'react';
 
 export const isDarkishTheme = (appliedTheme: string): boolean => {
   return ['dark', 'halloween', 'forest', 'black', 'luxury', 'dracula'].includes(
@@ -23,9 +24,7 @@ type Colors = {
   [key: string]: { color: string | null; url: string };
 };
 
-export const getSanitizedConfig = (
-  config: Config,
-): SanitizedConfig | Record<string, never> => {
+export function getSanitizedConfig(config: Config): SanitizedConfig {
   try {
     return {
       github: {
@@ -94,14 +93,6 @@ export const getSanitizedConfig = (
       toolsAndTechnologiesLevel: config?.toolsAndTechnologiesLevel || [],
       conceptsAndSkillsLevel: config?.conceptsAndSkillsLevel || [],
       skills: config?.skills || [],
-      experiences:
-        config?.experiences?.filter(
-          (experience) =>
-            experience.company ||
-            experience.position ||
-            experience.from ||
-            experience.to,
-        ) || [],
       certifications:
         config?.certifications?.filter(
           (certification) =>
@@ -162,11 +153,94 @@ export const getSanitizedConfig = (
       },
       footer: config?.footer,
       enablePWA: config?.enablePWA ?? true,
+      updated_languages: config?.updated_languages || [],
+      experiences: config?.experiences || [],
     };
   } catch (error) {
-    return {};
+    return {
+      github: { username: '' },
+      projects: {
+        github: {
+          display: true,
+          header: '',
+          mode: '',
+          automatic: {
+            sortBy: '',
+            limit: 0,
+            exclude: { forks: false, projects: [] },
+          },
+          manual: { projects: [] },
+        },
+        external: { header: '', projects: [] },
+      },
+      seo: { title: '', description: '', imageURL: '' },
+      social: {
+        linkedin: '',
+        twitter: '',
+        mastodon: '',
+        facebook: '',
+        instagram: '',
+        reddit: '',
+        threads: '',
+        youtube: '',
+        udemy: '',
+        dribbble: '',
+        behance: '',
+        medium: '',
+        dev: '',
+        stackoverflow: '',
+        website: '',
+        phone: '',
+        email: '',
+        skype: '',
+        telegram: '',
+        researchGate: '',
+      },
+      resume: { fileUrl: '' },
+      languages: [],
+      frameworksAndLibraries: [],
+      toolsAndTechnologies: [],
+      conceptsAndSkills: [],
+      languagesLevel: [],
+      frameworksAndLibrariesLevel: [],
+      toolsAndTechnologiesLevel: [],
+      conceptsAndSkillsLevel: [],
+      skills: [],
+      certifications: [],
+      educations: [],
+      honors: [],
+      publications: [],
+      googleAnalytics: { id: '' },
+      hotjar: { id: '', snippetVersion: 6 },
+      blog: {
+        username: '',
+        source: '',
+        limit: 0,
+        display: false,
+      },
+      themeConfig: {
+        defaultTheme: '',
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
+        displayAvatarRing: true,
+        themes: [],
+        customTheme: {
+          primary: '',
+          secondary: '',
+          accent: '',
+          neutral: '',
+          'base-100': '',
+          '--rounded-box': '',
+          '--rounded-btn': '',
+        },
+      },
+      footer: '',
+      enablePWA: false,
+      updated_languages: [],
+      experiences: [],
+    };
   }
-};
+}
 
 export const getInitialTheme = (themeConfig: SanitizedThemeConfig): string => {
   if (themeConfig.disableSwitch) {
@@ -206,7 +280,7 @@ export const skeleton = ({
   style?: React.CSSProperties;
   shape?: string;
   className?: string | null;
-}): JSX.Element => {
+}): React.ReactElement => {
   const classNames = ['bg-base-300', 'animate-pulse', shape];
   if (className) {
     classNames.push(className);

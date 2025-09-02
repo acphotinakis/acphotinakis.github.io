@@ -8,6 +8,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { getLanguageColor, skeleton } from '../../../utils';
 import { GithubProject } from '../../../interfaces/github-project';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
+import Masonry from 'react-responsive-masonry';
 
 type ProjectStatus = 'completed' | 'in-progress' | 'new';
 
@@ -101,171 +102,173 @@ const GithubProjectCard = ({
       window.open(downloadUrl, '_blank');
     };
 
-    return (
-      <>
-        {githubProjects.map((item) => {
-          const projectStatus = projectStatusMap[item.name] || 'new';
-          const statusColor =
-            statusColorMap[projectStatus] || COLOR_SCHEMA.accentBlue;
+    // Wrap the mapped cards in a React fragment
+    return githubProjects.map((item) => {
+      const projectStatus = projectStatusMap[item.name] || 'new';
+      const statusColor =
+        statusColorMap[projectStatus] || COLOR_SCHEMA.accentBlue;
 
-          return (
-            <Card
-              key={item.name}
-              sx={{
-                fontFamily: 'Roboto Mono, monospace',
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: COLOR_SCHEMA.cardBg,
+      return (
+        <Card
+          key={item.name}
+          sx={{
+            fontFamily: 'Roboto Mono, monospace',
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: COLOR_SCHEMA.cardBg,
+            color: COLOR_SCHEMA.textPrimary,
+            borderRadius: '16px',
+            boxShadow: COLOR_SCHEMA.shadowDark,
+            overflow: 'hidden',
+            padding: 2,
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            '&:hover': {
+              transform: 'translateY(-5px)',
+              boxShadow: '0 4px 15px rgba(255,255,255,0.3)', // softer white shadow
+            },
+          }}
+        >
+          {/* Name */}
+          <Typography
+            variant="h6"
+            fontFamily="Roboto Mono, monospace"
+            color={COLOR_SCHEMA.textPrimary}
+            sx={{ mb: 1 }}
+          >
+            {item.name}{' '}
+            <span
+              style={{
+                backgroundColor: statusColor,
                 color: COLOR_SCHEMA.textPrimary,
-                borderRadius: '16px',
-                boxShadow: COLOR_SCHEMA.shadowDark,
-                overflow: 'hidden',
-                padding: 2,
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': {
-                  transform: 'translateY(-5px)',
-                  boxShadow: COLOR_SCHEMA.shadowLight,
-                },
+                fontSize: '0.7rem',
+                padding: '2px 6px',
+                borderRadius: '8px',
+                marginLeft: '8px',
               }}
             >
-              {/* Name */}
-              <Typography
-                variant="h6"
-                fontFamily="Roboto Mono, monospace"
-                color={COLOR_SCHEMA.textPrimary}
-                sx={{ mb: 1 }}
-              >
-                {item.name}{' '}
-                <span
-                  style={{
-                    backgroundColor: statusColor,
-                    color: COLOR_SCHEMA.textPrimary,
-                    fontSize: '0.7rem',
-                    padding: '2px 6px',
-                    borderRadius: '8px',
-                    marginLeft: '8px',
-                  }}
-                >
-                  {projectStatus}
-                </span>
-              </Typography>
+              {projectStatus}
+            </span>
+          </Typography>
 
-              {/* Description */}
-              <Typography
-                variant="body2"
-                color={COLOR_SCHEMA.textSecondary}
-                sx={{ mb: 2, fontFamily: 'Roboto Mono, monospace' }}
-              >
-                {item.description || 'No description'}
-              </Typography>
+          {/* Spacer */}
+          <Box sx={{ mb: 1 }} />
+          {/* Description */}
+          <Typography
+            variant="body2"
+            color={COLOR_SCHEMA.textSecondary}
+            sx={{ mb: 2, fontFamily: 'Roboto Mono, monospace' }}
+          >
+            {item.description || 'No description'}
+          </Typography>
 
-              {/* Break lines */}
-              <Box sx={{ mb: 1 }} />
+          {/* Spacer */}
+          <Box sx={{ mb: 1 }} />
 
-              {/* Links, Language, Created & Pushed */}
+          {/* Left side: Language & badges */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 1,
+              mt: 2,
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 1,
+                alignItems: 'center',
+              }}
+            >
               <Box
                 sx={{
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  gap: 1,
-                  mt: 2,
+                  gap: 0.5,
                 }}
               >
-                {/* Left side: Language & badges */}
-                <Box
+                <div
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    backgroundColor: getLanguageColor(item.language),
+                  }}
+                />
+                <Typography
                   sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 1,
-                    alignItems: 'center',
+                    fontSize: '0.75rem',
+                    color: COLOR_SCHEMA.textSecondary,
                   }}
                 >
-                  {/* Language */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <div
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: '50%',
-                        backgroundColor: getLanguageColor(item.language),
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        fontSize: '0.75rem',
-                        color: COLOR_SCHEMA.textSecondary,
-                      }}
-                    >
-                      {item.language}
-                    </Typography>
-                  </Box>
-
-                  {/* Created & Pushed */}
-                  <Typography
-                    sx={{
-                      fontSize: '0.75rem',
-                      color: COLOR_SCHEMA.textPrimary,
-                      backgroundColor: COLOR_SCHEMA.accentRed,
-                      px: 1.5,
-                      py: 0.5,
-                      borderRadius: '8px',
-                      display: 'inline-block',
-                      fontFamily: 'Roboto Mono, monospace',
-                    }}
-                  >
-                    Created * {new Date(item.created_at).toLocaleDateString()}
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      fontSize: '0.75rem',
-                      color: COLOR_SCHEMA.textPrimary,
-                      backgroundColor: COLOR_SCHEMA.accentRed,
-                      px: 1.5,
-                      py: 0.5,
-                      borderRadius: '8px',
-                      display: 'inline-block',
-                      fontFamily: 'Roboto Mono, monospace',
-                    }}
-                  >
-                    Last Push * {new Date(item.pushed_at).toLocaleDateString()}
-                  </Typography>
-                </Box>
-
-                {/* Right side: Action icons */}
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                  <IconButton
-                    aria-label="GitHub"
-                    sx={{ color: COLOR_SCHEMA.accentRed }}
-                    onClick={() => window.open(item.html_url, '_blank')}
-                  >
-                    <GitHubIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Download"
-                    sx={{ color: COLOR_SCHEMA.accentRed }}
-                    onClick={() => handleDownload(item.name)}
-                  >
-                    <DownloadIcon />
-                  </IconButton>
-                  {item.homepage && (
-                    <IconButton
-                      aria-label="Homepage"
-                      sx={{ color: COLOR_SCHEMA.accentBlue }}
-                      onClick={() => window.open(item.homepage, '_blank')}
-                    >
-                      <SkipNextIcon />
-                    </IconButton>
-                  )}
-                </Box>
+                  {item.language}
+                </Typography>
               </Box>
-            </Card>
-          );
-        })}
-      </>
-    );
+
+              <Typography
+                sx={{
+                  fontSize: '0.75rem',
+                  color: COLOR_SCHEMA.textPrimary,
+                  backgroundColor: COLOR_SCHEMA.accentRed,
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: '8px',
+                  display: 'inline-block',
+                  fontFamily: 'Roboto Mono, monospace',
+                }}
+              >
+                Created * {new Date(item.created_at).toLocaleDateString()}
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontSize: '0.75rem',
+                  color: COLOR_SCHEMA.textPrimary,
+                  backgroundColor: COLOR_SCHEMA.accentRed,
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: '8px',
+                  display: 'inline-block',
+                  fontFamily: 'Roboto Mono, monospace',
+                }}
+              >
+                Last Push * {new Date(item.pushed_at).toLocaleDateString()}
+              </Typography>
+            </Box>
+
+            {/* Right side: Action icons */}
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <IconButton
+                aria-label="GitHub"
+                sx={{ color: COLOR_SCHEMA.accentRed }}
+                onClick={() => window.open(item.html_url, '_blank')}
+              >
+                <GitHubIcon />
+              </IconButton>
+              <IconButton
+                aria-label="Download"
+                sx={{ color: COLOR_SCHEMA.accentRed }}
+                onClick={() => handleDownload(item.name)}
+              >
+                <DownloadIcon />
+              </IconButton>
+              {item.homepage && (
+                <IconButton
+                  aria-label="Homepage"
+                  sx={{ color: COLOR_SCHEMA.accentBlue }}
+                  onClick={() => window.open(item.homepage, '_blank')}
+                >
+                  <SkipNextIcon />
+                </IconButton>
+              )}
+            </Box>
+          </Box>
+        </Card>
+      );
+    });
   };
 
   return (
@@ -299,8 +302,14 @@ const GithubProjectCard = ({
               </a>
             )}
           </div>
-          <div className="grid w-full grid-cols-1 sm:grid-cols-1 gap-7">
-            {loading ? renderSkeleton() : renderProjects()}
+          <div className="w-full">
+            {loading ? (
+              renderSkeleton()
+            ) : (
+              <Masonry columnsCount={2} gutter="16px">
+                {renderProjects()}
+              </Masonry>
+            )}
           </div>
         </div>
       </div>

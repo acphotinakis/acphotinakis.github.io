@@ -9,125 +9,115 @@ import ScienceIcon from '@mui/icons-material/Science';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import BusinessIcon from '@mui/icons-material/Business';
 import ComputerIcon from '@mui/icons-material/Computer';
+import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
-// Updated background colors to match modern red/black/gray palette
 const courses = [
   {
     courseName: 'Analysis of Algorithms',
     courseCode: 'CSCI261',
     semester: '2022-2023 Spring',
-    image: <CodeIcon />,
-    backgroundColor: 'bg-red-600',
+    image: <CodeIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Concepts of Computer Systems',
     courseCode: 'CSCI250',
     semester: '2023-2024 Fall',
-    image: <ComputerIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <ComputerIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Concepts of Parallel & Distributed Systems',
     courseCode: 'CSCI251',
     semester: '2023-2024 Fall',
-    image: <StorageIcon />,
-    backgroundColor: 'bg-neutral-600',
+    image: <StorageIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Discrete Math for Computing',
     courseCode: 'MATH190',
     semester: '2021-2022 Spring',
-    image: <FunctionsIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <FunctionsIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Financial Management I',
     courseCode: 'FINC220',
     semester: '2023-2024 Fall',
-    image: <AccountBalanceIcon />,
-    backgroundColor: 'bg-red-500',
+    image: <AccountBalanceIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Financial Management II',
     courseCode: 'FINC352',
     semester: '2024-2025 Fall',
-    image: <AccountBalanceIcon />,
-    backgroundColor: 'bg-red-500',
+    image: <AccountBalanceIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Intro to Artificial Intelligence',
     courseCode: 'CSCI331',
     semester: '2024-2025 Fall',
-    image: <PsychologyIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <PsychologyIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Intro to Computer Science Theory',
     courseCode: 'CSCI263',
     semester: '2022-2023 Fall',
-    image: <SchoolIcon />,
-    backgroundColor: 'bg-neutral-600',
+    image: <SchoolIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Intro to Options & Futures',
     courseCode: 'FINC470',
     semester: '2024-2025 Fall',
-    image: <BusinessIcon />,
-    backgroundColor: 'bg-red-600',
+    image: <BusinessIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Intro to Software Engineering',
     courseCode: 'SWEN261',
     semester: '2022-2023 Spring',
-    image: <CodeIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <CodeIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Linear Algebra',
     courseCode: 'MATH241',
     semester: '2023-2024 Fall',
-    image: <FunctionsIcon />,
-    backgroundColor: 'bg-neutral-600',
+    image: <FunctionsIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Machine Learning',
     courseCode: 'CSCI335',
     semester: '2024-2025 Fall',
-    image: <ScienceIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <ScienceIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Principles of Data Mining',
     courseCode: 'CSCI420',
     semester: '2024-2025 Fall',
-    image: <AutoGraphIcon />,
-    backgroundColor: 'bg-neutral-600',
+    image: <AutoGraphIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Principles of Database Management',
     courseCode: 'CSCI320',
     semester: '2023-2024 Fall',
-    image: <StorageIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <StorageIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
   {
     courseName: 'Stock Market Algorithmic Trading',
     courseCode: 'FINC425',
     semester: '2024-2025 Fall',
-    image: <BusinessIcon />,
-    backgroundColor: 'bg-red-500',
-  },
-  {
-    courseName: 'The Mechanics of Programming',
-    courseCode: 'CSCI243',
-    semester: '2022-2023 Fall',
-    image: <CodeIcon />,
-    backgroundColor: 'bg-neutral-700',
+    image: <BusinessIcon style={{ color: '#FFFFFF' }} />,
+    backgroundColor: COLOR_SCHEMA.cardBg,
   },
 ];
-
-const firstRow = courses.slice(0, courses.length / 2);
-const secondRow = courses.slice(courses.length / 2);
 
 const ReviewCard = ({
   courseCode,
@@ -139,23 +129,46 @@ const ReviewCard = ({
   courseCode: string;
   courseName: string;
   semester: string;
-  image: JSX.Element;
+  image: React.ReactNode;
   backgroundColor: string;
 }) => {
   return (
-    <figure className="relative w-64 p-4 overflow-hidden text-white transition-all duration-300 border bg-neutral-900 border-neutral-700 rounded-xl hover:bg-neutral-800 hover:scale-105 hover:border-red-500">
+    <figure
+      className="relative w-64 p-4 overflow-hidden transition-all duration-300 border rounded-xl hover:scale-105"
+      style={{
+        backgroundColor: backgroundColor,
+        borderColor: COLOR_SCHEMA.borderLight,
+        color: COLOR_SCHEMA.textPrimary,
+      }}
+    >
       <div className="flex flex-row items-center gap-3">
-        <div className={`p-2 ${backgroundColor} rounded-full text-white`}>
+        <div
+          className="p-2 rounded-full"
+          style={{
+            backgroundColor: COLOR_SCHEMA.accentRed,
+          }}
+        >
           {image}
         </div>
         <div className="flex flex-col">
-          <figcaption className="text-sm font-semibold text-white">
+          <figcaption
+            className="text-sm font-semibold"
+            style={{ color: COLOR_SCHEMA.textPrimary }}
+          >
             {semester}
           </figcaption>
-          <p className="text-xs font-medium text-neutral-400">{courseCode}</p>
+          <p
+            className="text-xs font-medium"
+            style={{ color: COLOR_SCHEMA.textSecondary }}
+          >
+            {courseCode}
+          </p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm font-medium text-neutral-300">
+      <blockquote
+        className="mt-2 text-sm font-medium"
+        style={{ color: COLOR_SCHEMA.textMuted }}
+      >
         {courseName}
       </blockquote>
     </figure>
@@ -163,12 +176,27 @@ const ReviewCard = ({
 };
 
 const MarqueeDemo = () => {
+  const firstRow = courses.slice(0, courses.length / 2);
+  const secondRow = courses.slice(courses.length / 2);
+
   return (
-    <div className="flex items-center justify-between h-full max-w-full px-4 mx-auto overflow-hidden italic bg-black card compact rounded-2xl scroll-mt-16">
-      <div className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden bg-black rounded-lg">
-        <div className="flex items-center justify-between mx-3 mt-5 mb-2 text-white">
-          <h5 className="text-lg text-center text-white card-title md:text-xl">
-            <span className="block text-white border-t-2 border-b-2 border-[#FF4B4B] opacity-100">
+    <div
+      className="flex items-center justify-between h-full max-w-full px-4 mx-auto overflow-hidden rounded-2xl"
+      style={{ backgroundColor: COLOR_SCHEMA.cardBg }}
+    >
+      <div className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden rounded-lg">
+        <div className="flex items-center justify-between mx-3 mt-5 mb-2">
+          <h5
+            className="text-lg text-center card-title md:text-xl"
+            style={{ color: COLOR_SCHEMA.textPrimary }}
+          >
+            <span
+              className="block border-t-2 border-b-2"
+              style={{
+                borderColor: COLOR_SCHEMA.accentRed,
+                color: COLOR_SCHEMA.textPrimary,
+              }}
+            >
               Courses
             </span>
           </h5>
@@ -186,12 +214,21 @@ const MarqueeDemo = () => {
           ))}
         </Marquee>
 
-        <div className="absolute inset-y-0 left-0 w-1/4 pointer-events-none bg-gradient-to-r from-black to-transparent"></div>
-        <div className="absolute inset-y-0 right-0 w-1/4 pointer-events-none bg-gradient-to-l from-black to-transparent"></div>
+        <div
+          className="absolute inset-y-0 left-0 w-1/4 pointer-events-none"
+          style={{
+            background: `linear-gradient(to right, ${COLOR_SCHEMA.cardBg}, transparent)`,
+          }}
+        ></div>
+        <div
+          className="absolute inset-y-0 right-0 w-1/4 pointer-events-none"
+          style={{
+            background: `linear-gradient(to left, ${COLOR_SCHEMA.cardBg}, transparent)`,
+          }}
+        ></div>
       </div>
     </div>
   );
 };
 
 export default MarqueeDemo;
-

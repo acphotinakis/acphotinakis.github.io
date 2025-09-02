@@ -1,6 +1,6 @@
 import { skeleton } from '../../../utils';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
-import { SKILL_ICONS, SKILL_NAMES, SKILL } from '@/interfaces/skills';
+import { SKILL_ICONS, SKILL } from '@/interfaces/skills';
 
 const SkillListItem = ({ skillObj }: { skillObj: SKILL }) => {
   const { name, level, bullets, experience, proficiency, projects } = skillObj;

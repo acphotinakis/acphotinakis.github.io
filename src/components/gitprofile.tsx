@@ -17,17 +17,17 @@ import { DEFAULT_THEMES } from '../constants/default-themes';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './section-components/avatar-section';
 import { Profile } from '../interfaces/profile';
-import { GithubProject } from '../interfaces/github-project';
+import { GithubApiProject, GithubProject } from '../interfaces/github-project';
 import GithubProjectCard from './section-components/github-project-card';
 import EducationHonorSection from './section-components/education-honors-section';
-import CertExpCard from './section-components/certifications-experience-section';
+import CertificationsSection from './section-components/certifications-experience-section';
 import SkillsGrid from './section-components/skills-section';
 import OptionsPLTable from './section-components/options-pl-table-section';
 import React from 'react';
 import MarqueeDemo from './section-components/academic-courses-section';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-type CardSection = {
+export type CardSection = {
   name: string;
   id: string;
   path: string;
@@ -37,8 +37,9 @@ type CardSection = {
 import { ProfileSidebar } from './section-components/website-sidebar-section';
 import WorkExperienceSection from './section-components/experience-section';
 import DetailsCard from './section-components/personal-contacts-section';
+// import CourseTimelineSection from './section-components/course-timeline-section';
 
-const cardSections: CardSection[] = [
+export const cardSections: CardSection[] = [
   { name: 'Home', id: 'home', path: '/', dropdown: [] },
   { name: 'Contacts', id: 'contacts', path: '/contacts', dropdown: [] },
   {
@@ -115,7 +116,7 @@ const GitProfile = ({ config }: { config: Config }) => {
 
   const getGithubProjects = useCallback(
     async (publicRepoCount: number): Promise<GithubProject[]> => {
-      let repoDataItems: any[] = [];
+      let repoDataItems: GithubApiProject[] = [];
 
       if (sanitizedConfig.projects.github.mode === 'automatic') {
         if (publicRepoCount === 0) return [];
@@ -157,7 +158,7 @@ const GitProfile = ({ config }: { config: Config }) => {
         language: repo.language || 'Unknown',
         stargazers_count: repo.stargazers_count,
         forks_count: repo.forks_count,
-        license: repo.license?.name || undefined,
+        license: repo.license || undefined,
         created_at: repo.created_at,
         pushed_at: repo.pushed_at,
         archived: repo.archived,
@@ -177,57 +178,6 @@ const GitProfile = ({ config }: { config: Config }) => {
       sanitizedConfig.projects.github.automatic.exclude.projects,
     ],
   );
-
-  // const getGithubProjects = useCallback(
-  //   async (publicRepoCount: number): Promise<GithubProject[]> => {
-  //     if (sanitizedConfig.projects.github.mode === 'automatic') {
-  //       if (publicRepoCount === 0) {
-  //         return [];
-  //       }
-
-  //       const excludeRepo =
-  //         sanitizedConfig.projects.github.automatic.exclude.projects
-  //           .map((project) => `+-repo:${project}`)
-  //           .join('');
-
-  //       const query = `user:${sanitizedConfig.github.username}+fork:${!sanitizedConfig.projects.github.automatic.exclude.forks}${excludeRepo}`;
-  //       const url = `https://api.github.com/search/repositories?q=${query}&sort=${sanitizedConfig.projects.github.automatic.sortBy}&per_page=${sanitizedConfig.projects.github.automatic.limit}&type=Repositories`;
-
-  //       const repoResponse = await axios.get(url, {
-  //         headers: { 'Content-Type': 'application/vnd.github.v3+json' },
-  //       });
-  //       const repoData = repoResponse.data;
-
-  //       return repoData.items;
-  //     } else {
-  //       if (sanitizedConfig.projects.github.manual.projects.length === 0) {
-  //         return [];
-  //       }
-  //       const repos = sanitizedConfig.projects.github.manual.projects
-  //         .map((project) => `+repo:${project}`)
-  //         .join('');
-
-  //       const url = `https://api.github.com/search/repositories?q=${repos}&type=Repositories`;
-
-  //       const repoResponse = await axios.get(url, {
-  //         headers: { 'Content-Type': 'application/vnd.github.v3+json' },
-  //       });
-  //       const repoData = repoResponse.data;
-  //       console.log('REPO DATA:', JSON.stringify(repoData, null, 2));
-
-  //       return repoData.items;
-  //     }
-  //   },
-  //   [
-  //     sanitizedConfig.github.username,
-  //     sanitizedConfig.projects.github.mode,
-  //     sanitizedConfig.projects.github.manual.projects,
-  //     sanitizedConfig.projects.github.automatic.sortBy,
-  //     sanitizedConfig.projects.github.automatic.limit,
-  //     sanitizedConfig.projects.github.automatic.exclude.forks,
-  //     sanitizedConfig.projects.github.automatic.exclude.projects,
-  //   ],
-  // );
 
   const loadData = useCallback(async () => {
     try {
@@ -326,124 +276,115 @@ const GitProfile = ({ config }: { config: Config }) => {
   // Modern card background for all pages
   const cardBgClass = 'bg-[#000000]';
 
+  // Helper to get section ID dynamically
+  const getSectionId = (name: string) =>
+    cardSections.find((section) => section.name === name)?.id ??
+    name.toLowerCase().replace(/\s+/g, '-');
+
+  // -------------------------
+  // Pages
+  // -------------------------
   const HomePage = () => (
     <div className={`min-h-full ${BG_COLOR}`} style={topStyle}>
       <main className="flex-1 p-6 overflow-auto">
         <div className="grid grid-cols-1 gap-8 rounded-box">
-          {/* GitHub Projects */}
-          {sanitizedConfig.projects.github.display && (
-            <div
-              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-              id={
-                cardSections.find(
-                  (section) => section.name === 'GitHub Projects',
-                )?.id ?? 'github-projects'
-              }
-            >
-              <GithubProjectCard
-                limit={sanitizedConfig.projects.github.automatic.limit}
-                githubProjects={githubProjects}
-                loading={loading}
-                username={sanitizedConfig.github.username}
-                id={''}
-              />
-            </div>
-          )}
-
           {/* Avatar Card */}
           <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
-            id={
-              cardSections.find((section) => section.name === 'Home')?.id ??
-              'home'
-            }
+            id={getSectionId('Home')}
           >
-            <AvatarCard profile={profile} loading={loading} id={''} />
-          </div>
-          {/* Work Experience Card */}
-          <div
-            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-10`}
-            id={
-              cardSections.find((section) => section.name === 'Home')?.id ??
-              'home'
-            }
-          >
-            <WorkExperienceSection loading={loading} id={''} />
+            <AvatarCard
+              profile={profile}
+              loading={loading}
+              id={getSectionId('Home')}
+            />
           </div>
 
-          {/* Details Card */}
+          {/* Contacts Card */}
           <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-            id={
-              cardSections.find((section) => section.name === 'Contacts')?.id ??
-              'contacts'
-            }
+            id={getSectionId('Contacts')}
           >
             <DetailsCard
               profile={profile}
               loading={loading}
               github={sanitizedConfig.github}
               social={sanitizedConfig.social}
-              id={''}
+              id={getSectionId('Contacts')}
             />
           </div>
 
-          {/* Education & Honors Card */}
-          {sanitizedConfig.educations.length !== 0 &&
-            sanitizedConfig.honors.length !== 0 && (
-              <div
-                className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-                id={
-                  cardSections.find(
-                    (section) => section.name === 'Education & Honors',
-                  )?.id ?? 'education-honors'
-                }
-              >
-                <EducationHonorSection
-                  loading={loading}
-                  educations={sanitizedConfig.educations}
-                  honors={sanitizedConfig.honors}
-                  id={''}
-                />
-              </div>
-            )}
+          {/* Education & Honors */}
+          {sanitizedConfig.educations.length &&
+          sanitizedConfig.honors.length ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Education & Honors')}
+            >
+              <EducationHonorSection
+                loading={loading}
+                educations={sanitizedConfig.educations}
+                honors={sanitizedConfig.honors}
+                id={getSectionId('Education & Honors')}
+              />
+            </div>
+          ) : null}
+
+          {/* Work Experience */}
+          <div
+            className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+            id={getSectionId('Certifications & Experience')}
+          >
+            <WorkExperienceSection
+              loading={loading}
+              id={getSectionId('Certifications & Experience')}
+            />
+          </div>
+
+          {/* Certifications & Experience */}
+          {sanitizedConfig.certifications.length &&
+          sanitizedConfig.experiences.length ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('Certifications & Experience')}
+            >
+              <CertificationsSection
+                loading={loading}
+                certifications={sanitizedConfig.certifications}
+                id={getSectionId('Certifications & Experience')}
+              />
+            </div>
+          ) : null}
+
+          {/* GitHub Projects */}
+          {sanitizedConfig.projects.github.display ? (
+            <div
+              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
+              id={getSectionId('GitHub Projects')}
+            >
+              <GithubProjectCard
+                limit={sanitizedConfig.projects.github.automatic.limit}
+                githubProjects={githubProjects}
+                loading={loading}
+                username={sanitizedConfig.github.username}
+                id={getSectionId('GitHub Projects')}
+              />
+            </div>
+          ) : null}
 
           {/* Marquee Section */}
           <div className={`col-span-1 p-6 ${cardBgClass}`}>
             <MarqueeDemo />
           </div>
 
-          {/* Certifications & Experience */}
-          {sanitizedConfig.certifications.length !== 0 &&
-            sanitizedConfig.experiences.length !== 0 && (
-              <div
-                className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-                id={
-                  cardSections.find(
-                    (section) => section.name === 'Certifications & Experience',
-                  )?.id ?? 'certifications-experience'
-                }
-              >
-                <CertExpCard
-                  loading={loading}
-                  certifications={sanitizedConfig.certifications}
-                  experiences={sanitizedConfig.experiences}
-                  id={''}
-                />
-              </div>
-            )}
-
           {/* Skills Grid */}
           <div
             className={`col-span-1 p-6 mt-10 ${cardBgClass} scroll-mt-20`}
-            id={
-              cardSections.find((section) => section.name === 'Skills')?.id ??
-              'skills'
-            }
+            id={getSectionId('Skills')}
           >
             <SkillsGrid
               loading={loading}
-              id={''}
+              id={getSectionId('Skills')}
               dropdown={
                 cardSections.find((section) => section.name === 'Skills')
                   ?.dropdown ?? []
@@ -451,87 +392,38 @@ const GitProfile = ({ config }: { config: Config }) => {
             />
           </div>
 
-          {/* GitHub Projects
-          {sanitizedConfig.projects.github.display && (
-            <div
-              className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-              id={
-                cardSections.find(
-                  (section) => section.name === 'GitHub Projects',
-                )?.id ?? 'github-projects'
-              }
-            >
-              <GithubProjectCard
-                header={sanitizedConfig.projects.github.header}
-                limit={sanitizedConfig.projects.github.automatic.limit}
-                githubProjects={githubProjects}
-                loading={loading}
-                username={sanitizedConfig.github.username}
-                id={''}
-              />
-            </div>
-          )} */}
+          {/* Stock Options Ledger (Optional) */}
 
-          {/* Publications
-          {sanitizedConfig.publications.length !== 0 && (
-            <div className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}>
-              <PublicationCard
-                loading={loading}
-                publications={sanitizedConfig.publications}
-                id={
-                  cardSections.find(
-                    (section) => section.name === 'Publications',
-                  )?.id ?? 'publications'
-                }
-              />
-            </div>
-          )} */}
-
-          {/* Blog Section */}
-          {/* {sanitizedConfig.blog.display && (
-            <div className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}>
-              <BlogCard
-                loading={loading}
-                googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                blog={sanitizedConfig.blog}
-                id={
-                  cardSections.find((section) => section.name === 'Blog')?.id ??
-                  'blog'
-                }
-              />
-            </div>
-          )} */}
-
-          {/* Options Ledger */}
-          {/* <div
+          <div
             className={`col-span-1 p-6 ${cardBgClass} scroll-mt-20`}
-            id={
-              cardSections.find(
-                (section) => section.name === 'Stock Options Ledger',
-              )?.id ?? 'stock-options-ledger'
-            }
+            id={getSectionId('Stock Options Ledger')}
           >
-            <OptionsPLTable loading={loading} id={''} />
-          </div> */}
+            <OptionsPLTable
+              loading={loading}
+              id={getSectionId('Stock Options Ledger')}
+            />
+          </div>
         </div>
       </main>
     </div>
   );
 
   // -------------------------
-  // Other Pages (Contacts, Education & Honors, Skills, etc.) follow the same pattern
+  // Individual Pages for routing
   // -------------------------
-
   const ContactsPage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('Contacts')}
+        >
           <DetailsCard
             profile={profile}
             loading={loading}
             github={sanitizedConfig.github}
             social={sanitizedConfig.social}
-            id={''}
+            id={getSectionId('Contacts')}
           />
         </div>
       </div>
@@ -541,12 +433,15 @@ const GitProfile = ({ config }: { config: Config }) => {
   const EducationHonorsPage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('Education & Honors')}
+        >
           <EducationHonorSection
             loading={loading}
             educations={sanitizedConfig.educations}
             honors={sanitizedConfig.honors}
-            id={''}
+            id={getSectionId('Education & Honors')}
           />
         </div>
       </div>
@@ -556,8 +451,14 @@ const GitProfile = ({ config }: { config: Config }) => {
   const StockOptionsLedgerPage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
-          <OptionsPLTable loading={loading} id={''} />
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('Stock Options Ledger')}
+        >
+          <OptionsPLTable
+            loading={loading}
+            id={getSectionId('Stock Options Ledger')}
+          />
         </div>
       </div>
     </div>
@@ -566,12 +467,14 @@ const GitProfile = ({ config }: { config: Config }) => {
   const CertificationsExperiencePage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
-          <CertExpCard
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('Certifications & Experience')}
+        >
+          <CertificationsSection
             loading={loading}
             certifications={sanitizedConfig.certifications}
-            experiences={sanitizedConfig.experiences}
-            id={''}
+            id={getSectionId('Certifications & Experience')}
           />
         </div>
       </div>
@@ -581,10 +484,13 @@ const GitProfile = ({ config }: { config: Config }) => {
   const SkillsPage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('Skills')}
+        >
           <SkillsGrid
             loading={loading}
-            id={''}
+            id={getSectionId('Skills')}
             dropdown={
               cardSections.find((section) => section.name === 'Skills')
                 ?.dropdown ?? []
@@ -598,20 +504,25 @@ const GitProfile = ({ config }: { config: Config }) => {
   const GitHubProjectsPage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
       <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div className={`col-span-1 p-6 mt-20 ${cardBgClass}`}>
+        <div
+          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+          id={getSectionId('GitHub Projects')}
+        >
           <GithubProjectCard
-            header={sanitizedConfig.projects.github.header}
             limit={sanitizedConfig.projects.github.automatic.limit}
             githubProjects={githubProjects}
             loading={loading}
             username={sanitizedConfig.github.username}
-            id={''}
+            id={getSectionId('GitHub Projects')}
           />
         </div>
       </div>
     </div>
   );
 
+  // -------------------------
+  // Render Routes
+  // -------------------------
   return (
     <HelmetProvider>
       <div
@@ -626,22 +537,7 @@ const GitProfile = ({ config }: { config: Config }) => {
           />
         ) : (
           <>
-            {/* Sidebar */}
-            {/* <SidebarNav cardSections={cardSections} /> */}
-            <ProfileSidebar
-              name="Andrew Photinakis"
-              title="Computer Science & Finance"
-              intro="4th year CS student @ RIT. Interested in SWE, Data Science, Cloud, and Algo Trading."
-              footerLinks={[
-                { label: 'GitHub', href: 'https://github.com/acphotinakis' },
-                {
-                  label: 'LinkedIn',
-                  href: 'https://www.linkedin.com/in/andrew-photinakis/',
-                },
-              ]}
-            />
-
-            {/* Main content area */}
+            <ProfileSidebar />
             <div className="flex-1 overflow-auto">
               <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -663,7 +559,6 @@ const GitProfile = ({ config }: { config: Config }) => {
                   path="/github-projects"
                   element={<GitHubProjectsPage />}
                 />
-                {/* Redirect any unmatched routes to the home page */}
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
