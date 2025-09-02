@@ -1,10 +1,10 @@
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { cardSections, CardSection } from '@/components/gitprofile';
 import { useState } from 'react';
 
 export function ProfileSidebar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen] = useState(false);
 
   const flattenedSections: CardSection[] = cardSections.flatMap((section) => {
     if (section.dropdown && section.dropdown.length > 0) {
