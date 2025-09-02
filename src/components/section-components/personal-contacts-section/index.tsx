@@ -9,7 +9,7 @@ import {
 } from '../../../interfaces/sanitized-config';
 import { skeleton } from '../../../utils';
 import BarcelonaImage from '../../../assets/barcelona.jpg';
-import ResumePdfFile from '../../../assets/Photinakis_Andrew_Resume_SWE.pdf';
+import ResumePdfFile from '../../../assets/Photinakis_Andrew_Resume_2026.pdf';
 import { COLOR_SCHEMA } from '@/interfaces/colorSchema';
 
 type Props = {

@@ -50,26 +50,26 @@ const SkillListItem = ({ skillObj }: { skillObj: SKILL }) => {
       {/* Bullets */}
       {bullets.length > 0 && (
         <div className="w-full mb-3">
-          <span className="text-xs font-semibold text-gray-300">Details</span>
-          <ul className="mt-1 space-y-1 text-xs text-gray-400 list-disc list-inside">
+          {/* <span className="text-xs font-semibold text-gray-300">Details</span> */}
+          {/* <ul className="mt-1 space-y-1 text-xs text-gray-400 list-disc list-inside">
             {bullets.map((bullet, i) => (
               <li key={i}>{bullet}</li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       )}
 
       {/* Projects */}
       {projects.length > 0 && (
         <div className="w-full">
-          <span className="text-xs font-semibold text-gray-300">Projects</span>
-          <ul className="mt-1 space-y-1 text-xs text-gray-400 list-disc list-inside">
+          {/* <span className="text-xs font-semibold text-gray-300">Projects</span> */}
+          {/* <ul className="mt-1 space-y-1 text-xs text-gray-400 list-disc list-inside">
             {projects.map((project, i) => (
               <li key={i} className="italic">
                 {project}
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       )}
     </div>

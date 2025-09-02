@@ -22,7 +22,7 @@ import GithubProjectCard from './section-components/github-project-card';
 import EducationHonorSection from './section-components/education-honors-section';
 import CertificationsSection from './section-components/certifications-experience-section';
 import SkillsGrid from './section-components/skills-section';
-import OptionsPLTable from './section-components/options-pl-table-section';
+// import OptionsPLTable from './section-components/options-pl-table-section';
 import React from 'react';
 import MarqueeDemo from './section-components/academic-courses-section';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -444,21 +444,21 @@ const GitProfile = ({ config }: { config: Config }) => {
     </div>
   );
 
-  const StockOptionsLedgerPage = () => (
-    <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
-      <div className="grid grid-cols-1 gap-8 rounded-box">
-        <div
-          className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
-          id={getSectionId('Stock Options Ledger')}
-        >
-          <OptionsPLTable
-            loading={loading}
-            id={getSectionId('Stock Options Ledger')}
-          />
-        </div>
-      </div>
-    </div>
-  );
+  // const StockOptionsLedgerPage = () => (
+  //   <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
+  //     <div className="grid grid-cols-1 gap-8 rounded-box">
+  //       <div
+  //         className={`col-span-1 p-6 mt-20 ${cardBgClass}`}
+  //         id={getSectionId('Stock Options Ledger')}
+  //       >
+  //         <OptionsPLTable
+  //           loading={loading}
+  //           id={getSectionId('Stock Options Ledger')}
+  //         />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   const CertificationsExperiencePage = () => (
     <div className={`min-h-full ${BG_COLOR} mt-19`} style={topStyle}>
@@ -542,10 +542,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                   path="/education-honors"
                   element={<EducationHonorsPage />}
                 />
-                <Route
+                {/* <Route
                   path="/stock-options-ledger"
                   element={<StockOptionsLedgerPage />}
-                />
+                /> */}
                 <Route
                   path="/certifications-experience"
                   element={<CertificationsExperiencePage />}
