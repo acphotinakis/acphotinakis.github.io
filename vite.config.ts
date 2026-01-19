@@ -3,14 +3,18 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import CONFIG from './gitprofile.config';
 import { createHtmlPlugin } from 'vite-plugin-html';
-import * as path from 'path';
+import path from 'path';
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: CONFIG.base || '/',
-  build: {
-    sourcemap: true,
+    resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@/data/': path.resolve(__dirname, 'src/data'),
+    },
   },
+  base: CONFIG.base || '/',
   plugins: [
     react(),
     createHtmlPlugin({
@@ -19,6 +23,16 @@ export default defineConfig({
           metaTitle: CONFIG.seo.title,
           metaDescription: CONFIG.seo.description,
           metaImageURL: CONFIG.seo.imageURL,
+          googleAnalyticsScript: CONFIG.googleAnalytics.id
+            ? `<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.googleAnalytics.id}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${CONFIG.googleAnalytics.id}');
+</script>`
+            : '',
         },
       },
     }),
@@ -46,12 +60,6 @@ export default defineConfig({
         ]
       : []),
   ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-
   define: {
     CONFIG: CONFIG,
   },
