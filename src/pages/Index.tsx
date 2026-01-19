@@ -6,6 +6,8 @@ import { ResearchSection } from '@/components/ResearchSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { CertificationsSection } from '@/components/CertificationsSection';
+import AboutMe from '@/components/AboutMe';
+// import TravelMap from '@/components/StudyAbroadMap';
 
 const Index = () => {
   return (
@@ -13,13 +15,16 @@ const Index = () => {
       <Sidebar />
       
       <main className="ml-16 lg:ml-56">
+        
         <HeroSection />
+        <AboutMe/>
         <EducationSection />
         <ExperienceSection />
         <ResearchSection />
         <ProjectsSection />
         <SkillsSection />
         <CertificationsSection />
+        {/* <TravelMap/> */}
         
         {/* Footer */}
         <footer className="py-12 border-t border-border">

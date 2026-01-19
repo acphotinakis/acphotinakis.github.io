@@ -3,7 +3,7 @@ import { Mail, Github, Linkedin } from 'lucide-react';
 
 const navItems = [
   { id: 'home', label: '~/home', icon: '▸' },
-  { id: 'education', label: '~/education', icon: '▸' },
+  { id: 'education', label: '~/education-honors', icon: '▸' },
   { id: 'experience', label: '~/experience', icon: '▸' },
   { id: 'research', label: '~/research', icon: '▸' },
   { id: 'projects', label: '~/projects', icon: '▸' },
@@ -47,7 +47,7 @@ export function Sidebar() {
           <span className="text-xl lg:text-2xl font-medium text-primary">AP</span>
         </div>
         <p className="hidden lg:block mt-2 text-xs text-muted-foreground">
-          cs + finance
+          cs + finance @ rochester institute of technology
         </p>
       </div>
 
@@ -87,7 +87,7 @@ export function Sidebar() {
             <Mail className="w-4 h-4" />
           </a>
           <a 
-            href="https://github.com" 
+            href="https://github.com/acphotinakis" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
@@ -96,7 +96,7 @@ export function Sidebar() {
             <Github className="w-4 h-4" />
           </a>
           <a 
-            href="https://linkedin.com" 
+            href="https://www.linkedin.com/in/andrew-photinakis/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
