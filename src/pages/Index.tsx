@@ -12,7 +12,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Sidebar />
       
-      <main className="ml-20 lg:ml-64">
+      <main className="ml-16 lg:ml-56">
         <HeroSection />
         <EducationSection />
         <ExperienceSection />
@@ -23,12 +23,12 @@ const Index = () => {
         
         {/* Footer */}
         <footer className="py-12 border-t border-border">
-          <div className="container mx-auto px-6 text-center">
-            <p className="font-mono text-sm text-muted-foreground mb-2">
-              Built with persistence and innovation
+          <div className="container mx-auto px-6 max-w-3xl text-center">
+            <p className="text-xs text-muted-foreground mb-2">
+              built with persistence and innovation
             </p>
-            <p className="font-mono text-xs text-muted-foreground/60">
-              © 2025 Andrew C. Photinakis
+            <p className="text-xs text-muted-foreground/60">
+              © 2025 andrew c. photinakis
             </p>
           </div>
         </footer>
