@@ -16,7 +16,7 @@ export function Sidebar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id));
+      const sections = navItems.map((item) => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -44,7 +44,9 @@ export function Sidebar() {
       {/* Logo */}
       <div className="p-4 lg:p-5 border-b border-sidebar-border">
         <div className="text-center lg:text-left">
-          <span className="text-xl lg:text-2xl font-medium text-primary">AP</span>
+          <span className="text-xl lg:text-2xl font-medium text-primary">
+            AP
+          </span>
         </div>
         <p className="hidden lg:block mt-2 text-xs text-muted-foreground">
           computer science + finance @ rochester institute of technology
@@ -56,18 +58,20 @@ export function Sidebar() {
         <ul className="space-y-0">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
-            
+
             return (
               <li key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
                   className={`w-full flex items-center gap-2 px-4 py-2 text-left transition-all duration-200 border-l-2 ${
-                    isActive 
-                      ? 'border-primary text-foreground bg-muted' 
+                    isActive
+                      ? 'border-primary text-foreground bg-muted'
                       : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50'
                   }`}
                 >
-                  <span className={`text-xs ${isActive ? 'text-primary' : ''}`}>{item.icon}</span>
+                  <span className={`text-xs ${isActive ? 'text-primary' : ''}`}>
+                    {item.icon}
+                  </span>
                   <span className="hidden lg:block text-sm">{item.label}</span>
                 </button>
               </li>
@@ -79,25 +83,25 @@ export function Sidebar() {
       {/* Social Links */}
       <div className="p-4 border-t border-sidebar-border">
         <div className="flex justify-center lg:justify-start gap-4">
-          <a 
-            href="mailto:andrewcphotinakis@gmail.com" 
+          <a
+            href="mailto:andrewcphotinakis@gmail.com"
             className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="Email"
           >
             <Mail className="w-4 h-4" />
           </a>
-          <a 
-            href="https://github.com/acphotinakis" 
-            target="_blank" 
+          <a
+            href="https://github.com/acphotinakis"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="GitHub"
           >
             <Github className="w-4 h-4" />
           </a>
-          <a 
-            href="https://www.linkedin.com/in/andrew-photinakis/" 
-            target="_blank" 
+          <a
+            href="https://www.linkedin.com/in/andrew-photinakis/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="LinkedIn"
