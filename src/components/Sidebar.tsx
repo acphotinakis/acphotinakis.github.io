@@ -47,7 +47,7 @@ export function Sidebar() {
           <span className="text-xl lg:text-2xl font-medium text-primary">AP</span>
         </div>
         <p className="hidden lg:block mt-2 text-xs text-muted-foreground">
-          cs + finance @ rochester institute of technology
+          computer science + finance @ rochester institute of technology
         </p>
       </div>
 
