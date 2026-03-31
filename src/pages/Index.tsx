@@ -8,24 +8,27 @@ import { SkillsSection } from '@/components/SkillsSection';
 import { CertificationsSection } from '@/components/CertificationsSection';
 import AboutMe from '@/components/AboutMe';
 // import TravelMap from '@/components/StudyAbroadMap';
+import { Blog } from '@/components/Blog';
+import { ArticleView } from '@/components/BlogPost';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Sidebar />
-      
+
       <main className="ml-16 lg:ml-56">
-        
         <HeroSection />
-        <AboutMe/>
+        <AboutMe />
         <EducationSection />
         <ExperienceSection />
         <ResearchSection />
         <ProjectsSection />
         <SkillsSection />
         <CertificationsSection />
+        <Blog />
+        <ArticleView />
         {/* <TravelMap/> */}
-        
+
         {/* Footer */}
         <footer className="py-12 border-t border-border">
           <div className="container mx-auto px-6 max-w-3xl text-center">
