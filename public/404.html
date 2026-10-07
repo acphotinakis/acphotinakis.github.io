@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Andrew Photinakis</title>
+    <script>
+      // GitHub Pages SPA routing fix.
+      // Preserves the path/query/hash as a query param, then redirects to /
+      // index.html will decode it and restore the URL via history.replaceState.
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          '/?p=' +
+          encodeURIComponent(
+            l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '') + l.hash,
+          ),
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

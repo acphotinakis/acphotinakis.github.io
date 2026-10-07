@@ -1,5 +1,5 @@
 import { ArrowDown, Linkedin, Github, Smartphone, Mail, MapPin, Globe } from 'lucide-react';
-import ResumePdfFile from '../../public/Photinakis_Andrew_SWE.pdf';
+import ResumePdfFile from '../Photinakis_Andrew_SWE.pdf';
 
 export function HeroSection() {
   const personalContacts = {

@@ -14,9 +14,12 @@ import { ArticleView } from '@/components/BlogPost';
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Sidebar />
 
-      <main className="ml-16 lg:ml-56">
+      <main id="main-content" className="ml-16 lg:ml-56">
         <HeroSection />
         <AboutMe />
         <EducationSection />

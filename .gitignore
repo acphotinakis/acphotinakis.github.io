@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+bun.lockb
+PROJECTS_SECTION_OPTIMIZATION_PLAN.md
+
+a.txt
