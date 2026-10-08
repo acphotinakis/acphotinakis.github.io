@@ -6,6 +6,55 @@
 
 @layer base {
   :root {
+    /* White / Light Theme */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    
+    /* Crimson Red - Primary accent */
+    --primary: 348 83% 47%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 348 83% 55%;
+    
+    /* Grey tones */
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+    
+    /* Secondary - Light grey */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
+    
+    /* Cards - Minimal */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    
+    /* Accent - Crimson */
+    --accent: 348 83% 47%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 348 83% 47%;
+    
+    --radius: 0;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 40%;
+    --sidebar-primary: 348 83% 47%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 348 83% 47%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 348 83% 47%;
+  }
+
+  .dark {
     /* High-Contrast Terminal Theme */
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;

@@ -312,7 +312,7 @@ export function ResearchSection() {
                 <h4 className="font-semibold text-foreground mb-2">Technical Themes:</h4>
                 <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                   {Object.entries(project.technicalThemes).map(([key, val]) => (
-                    <li key={key}><span className="font-semibold text-white">{key}:</span> {val}</li>
+                    <li key={key}><span className="font-semibold text-foreground">{key}:</span> {val}</li>
                   ))}
                 </ul>
               </div>
@@ -322,7 +322,7 @@ export function ResearchSection() {
                 <h4 className="font-semibold text-foreground mb-2">Technologies:</h4>
                 <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                   {Object.entries(project.technologies).map(([key, val]) => (
-                    <li key={key}><span className="font-semibold text-white">{key}:</span> {Array.isArray(val) ? val.join(', ') : val}</li>
+                    <li key={key}><span className="font-semibold text-foreground">{key}:</span> {Array.isArray(val) ? val.join(', ') : val}</li>
                   ))}
                 </ul>
               </div>
@@ -332,7 +332,7 @@ export function ResearchSection() {
                 <h4 className="font-semibold text-foreground mb-2">Audience:</h4>
                 <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                   {Object.entries(project.audience).map(([key, val]) => (
-                    <li key={key}><span className="font-semibold text-white">{key}:</span> {val}</li>
+                    <li key={key}><span className="font-semibold text-foreground">{key}:</span> {val}</li>
                   ))}
                 </ul>
               </div>

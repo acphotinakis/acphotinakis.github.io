@@ -70,7 +70,7 @@ export function ExperienceSection() {
       parts = parts.flatMap((part) => {
         if (typeof part !== 'string') return [part];
         return part.split(regex).map((chunk, i) =>
-          regex.test(chunk) ? <strong key={i} className="font-semibold text-white">{chunk}</strong> : chunk
+          regex.test(chunk) ? <strong key={i} className="font-semibold text-foreground">{chunk}</strong> : chunk
         );
       });
     });
