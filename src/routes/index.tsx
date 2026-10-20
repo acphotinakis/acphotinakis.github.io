@@ -29,7 +29,7 @@ const LINKS = {
   linkedin: "https://www.linkedin.com/in/andrew-photinakis/",
   github: "https://github.com/acphotinakis",
   site: "https://acphotinakis.github.io/",
-  resume: "/Andrew_Photinakis_Resume.pdf",
+  resume: `${import.meta.env.BASE_URL}Photinakis_Andrew_Resume.pdf`,
 };
 
 const EXPERIENCE = [
@@ -541,6 +541,7 @@ function Portfolio() {
                 </a>
                 <a
                   href={LINKS.resume}
+                  download
                   className="rounded-md border border-border bg-card/50 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:border-blue/40"
                 >
                   Résumé ↓
